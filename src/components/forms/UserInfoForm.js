@@ -75,7 +75,7 @@ const UserInfoForm = (props) => {
                     </TextSmall>
                 </View>
             </View>
-            <Button1 text="Next Step" />
+            <Button1 text="Next Step" onPress={props.onSubmit} />
         </View>
     );
 };

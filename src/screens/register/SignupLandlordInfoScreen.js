@@ -13,7 +13,11 @@ const SignupLandlordInfoScreen = (props) => {
             <TextRegular style={{ marginBottom: 60 }}>
                 Please fill out the information below.
             </TextRegular>
-            <UserInfoForm />
+            <UserInfoForm
+                onSubmit={() => {
+                    props.navigation.navigate("SignupLandlordPropertyScreen");
+                }}
+            />
             <TextSmall style={{ marginTop: 60 }}>Step 2 of 5</TextSmall>
         </ScreenContainer>
     );

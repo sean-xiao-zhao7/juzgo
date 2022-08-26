@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./src/screens/auth/LoginScreen";
 import SignUpChoiceScreen from "./src/screens/register/SignUpChoiceScreen";
 import SignupLandlordInfoScreen from "./src/screens/register/SignupLandlordInfoScreen";
+import SignupLandlordPropertyScreen from "./src/screens/register/SignupLandlordPropertyScreen";
 
 // navigation configs
 import { noHeaderConfig } from "./src/navigation-configs/configs";
@@ -31,6 +32,11 @@ export default function App() {
                     <Stack.Screen
                         name="SignupLandlordInfoScreen"
                         component={SignupLandlordInfoScreen}
+                        options={noHeaderConfig}
+                    />
+                    <Stack.Screen
+                        name="SignupLandlordPropertyScreen"
+                        component={SignupLandlordPropertyScreen}
                         options={noHeaderConfig}
                     />
                 </Stack.Navigator>
