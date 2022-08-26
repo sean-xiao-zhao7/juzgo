@@ -1,15 +1,14 @@
-import { View } from "react-native";
-
 // comps
+import ScreenContainer from "../../components/containers/ScreenContainer";
 import HeadingLarge from "../../components/headings/HeadingLarge";
 import TextRegular from "../../components/texts/TextRegular";
 
 const LoginScreen = (props) => {
     return (
-        <View>
+        <ScreenContainer>
             <HeadingLarge>JUZGO</HeadingLarge>
             <TextRegular>Unleash Your Freedom</TextRegular>
-        </View>
+        </ScreenContainer>
     );
 };
 

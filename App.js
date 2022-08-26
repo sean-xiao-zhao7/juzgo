@@ -5,6 +5,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // screens
 import LoginScreen from "./src/screens/auth/LoginScreen";
 
+// navigation configs
+import { noHeaderConfig } from "./src/navigation-configs/configs";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -13,7 +16,11 @@ export default function App() {
             <StatusBar style="auto" />
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                    <Stack.Screen
+                        name="LoginScreen"
+                        component={LoginScreen}
+                        options={noHeaderConfig}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </>
