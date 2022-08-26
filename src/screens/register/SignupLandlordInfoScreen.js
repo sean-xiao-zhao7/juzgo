@@ -1,14 +1,21 @@
-import { View } from "react-native";
-
 // comps
+import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import UserInfoForm from "../../components/forms/UserInfoForm";
+import TextSmall from "../../components/texts/TextSmall";
 
 const SignupLandlordInfoScreen = (props) => {
     return (
-        <View>
-            <TextRegular>Welcome, Landlord!</TextRegular>
-            <TextRegular>Please fill out the information below. </TextRegular>
-        </View>
+        <ScreenContainer>
+            <TextRegular style={{ marginBottom: 20 }}>
+                Welcome, Landlord!
+            </TextRegular>
+            <TextRegular style={{ marginBottom: 60 }}>
+                Please fill out the information below.
+            </TextRegular>
+            <UserInfoForm />
+            <TextSmall style={{ marginTop: 60 }}>Step 2 of 5</TextSmall>
+        </ScreenContainer>
     );
 };
 

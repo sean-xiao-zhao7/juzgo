@@ -5,15 +5,12 @@ import { StyleSheet, TextInput, View } from "react-native";
 
 const CustomTextInput = (props) => {
     return (
-        <View>
-            {/* <TextRegular>{props.label}</TextRegular> */}
-            <TextInput
-                {...props.config}
-                placeholder={props.label}
-                onChangeText={props.onChangeText}
-                style={style.input}
-            />
-        </View>
+        <TextInput
+            {...props.config}
+            placeholder={props.placeholder}
+            onChangeText={props.onChangeText}
+            style={[style.input, props.style]}
+        />
     );
 };
 

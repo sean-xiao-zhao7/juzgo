@@ -15,8 +15,8 @@ const LoginScreen = (props) => {
             <HeadingLarge>JUZGO</HeadingLarge>
             <TextRegular>Unleash Your Freedom</TextRegular>
             <View style={{ marginTop: 60 }}>
-                <CustomTextInput label={"Email"} />
-                <CustomTextInput label={"Password"} />
+                <CustomTextInput placeholder={"Email"} />
+                <CustomTextInput placeholder={"Password"} />
                 <Button1 text="Log in" />
                 <View style={{ alignItems: "center", marginTop: 15 }}>
                     <TextSmall>

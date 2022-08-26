@@ -5,4 +5,6 @@ export const colors = {
 
     // text colors
     primaryTextColor: "black",
+    secondaryTextColor: "gray",
+    linkColor: "blue",
 };

@@ -1,5 +1,3 @@
-import { View } from "react-native";
-
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
@@ -11,7 +9,13 @@ const SignupChoiceScreen = (props) => {
         <ScreenContainer>
             <TextRegular>What type of account are you</TextRegular>
             <TextRegular>looking to sign up?</TextRegular>
-            <Button1 text="Landlord" style={{ marginTop: 60 }} />
+            <Button1
+                text="Landlord"
+                style={{ marginTop: 60 }}
+                onPress={() => {
+                    props.navigation.navigate("SignupLandlordInfoScreen");
+                }}
+            />
             <Button1 text="Tenant" />
             <TextSmall style={{ marginTop: 60 }}>Step 1 of 5</TextSmall>
         </ScreenContainer>
