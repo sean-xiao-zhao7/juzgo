@@ -1,15 +1,20 @@
 import { View } from "react-native";
 
 // comps
+import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextSmall from "../../components/texts/TextSmall";
+import Button1 from "../../components/buttons/Button1";
 
 const SignupChoiceScreen = (props) => {
     return (
-        <View>
-            <TextRegular>
-                What type of account are you looking to sign up?
-            </TextRegular>
-        </View>
+        <ScreenContainer>
+            <TextRegular>What type of account are you</TextRegular>
+            <TextRegular>looking to sign up?</TextRegular>
+            <Button1 text="Landlord" style={{ marginTop: 60 }} />
+            <Button1 text="Tenant" />
+            <TextSmall style={{ marginTop: 60 }}>Step 1 of 5</TextSmall>
+        </ScreenContainer>
     );
 };
 

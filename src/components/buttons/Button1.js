@@ -4,7 +4,7 @@ import TextRegular from "../texts/TextRegular";
 
 const Button1 = (props) => {
     return (
-        <Pressable onPress={props.onPress} style={style.button1}>
+        <Pressable onPress={props.onPress} style={[style.button1, props.style]}>
             <TextRegular>{props.text}</TextRegular>
         </Pressable>
     );

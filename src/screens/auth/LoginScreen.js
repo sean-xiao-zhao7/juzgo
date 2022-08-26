@@ -21,7 +21,10 @@ const LoginScreen = (props) => {
                 <View style={{ alignItems: "center", marginTop: 15 }}>
                     <TextSmall>
                         Don't have an account?{" "}
-                        <Link to={{}} style={{ color: "blue" }}>
+                        <Link
+                            to={{ screen: "SignUpChoiceScreen" }}
+                            style={{ color: "blue" }}
+                        >
                             Sign up
                         </Link>
                     </TextSmall>

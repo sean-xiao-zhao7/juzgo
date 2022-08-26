@@ -3,7 +3,7 @@ import { View } from "react-native";
 // comps
 import TextRegular from "../../components/texts/TextRegular";
 
-const SinglePropertyScreen = (props) => {
+const ShowSinglePropertyScreen = (props) => {
     return (
         <View>
             <TextRegular>Property Info</TextRegular>
@@ -11,4 +11,4 @@ const SinglePropertyScreen = (props) => {
     );
 };
 
-export default SinglePropertyScreen;
+export default ShowSinglePropertyScreen;

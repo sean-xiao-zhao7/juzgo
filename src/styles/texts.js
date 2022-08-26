@@ -3,6 +3,6 @@ import { StyleSheet } from "react-native";
 export const texts = StyleSheet.create({
     headingLarge: {
         fontSize: 45,
-        fontWeight: 700,
+        fontWeight: "bold",
     },
 });

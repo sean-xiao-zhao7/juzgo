@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 
 const TextSmall = (props) => {
-    return <Text style={style.text}>{props.children}</Text>;
+    return <Text style={[style.text, props.style]}>{props.children}</Text>;
 };
 
 const style = StyleSheet.create({
