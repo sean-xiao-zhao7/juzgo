@@ -76,7 +76,19 @@ const UserInfoForm = (props) => {
                     </TextSmall>
                 </View>
             </View>
-            <Button1 text="Next Step" onPress={props.onSubmit} />
+            {props.buttons ? (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginBottom: 20,
+                    }}
+                >
+                    {props.buttons.map((button) => button)}
+                </View>
+            ) : (
+                <Button1 text="Next Step" onPress={props.onSubmit} />
+            )}
         </View>
     );
 };

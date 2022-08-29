@@ -15,7 +15,9 @@ const SignupTenantAccessCodeScreen = (props) => {
             </TextRegular>
             <TenantAccessCodeForm
                 onNext={() => {
-                    props.navigation.navigate("SignupTenantInfoScreen");
+                    props.navigation.navigate(
+                        "SignupTenantPropertyLandlordScreen"
+                    );
                 }}
             />
         </ScreenContainer>

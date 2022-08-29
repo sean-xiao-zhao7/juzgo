@@ -3,7 +3,7 @@ import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import PropertyAndLandlordForm from "../../components/forms/PropertyAndLandlordForm";
 
-const SignupTenantInfoScreen = (props) => {
+const SignupTenantPropertyLandlordScreen = (props) => {
     return (
         <ScreenContainer>
             <TextRegular style={{ marginBottom: 20 }}>
@@ -21,11 +21,11 @@ const SignupTenantInfoScreen = (props) => {
             </TextRegular>
             <PropertyAndLandlordForm
                 onNext={() => {
-                    props.navigation.navigate("SignupTenantInfoScreen");
+                    props.navigation.navigate("SignupTenantPersonalInfoScreen");
                 }}
             />
         </ScreenContainer>
     );
 };
 
-export default SignupTenantInfoScreen;
+export default SignupTenantPropertyLandlordScreen;
