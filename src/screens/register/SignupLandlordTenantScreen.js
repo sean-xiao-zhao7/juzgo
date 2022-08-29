@@ -23,13 +23,15 @@ const SignupLandlordTenantScreen = (props) => {
                     props.navigation.navigate("SignupLandlordPropertyScreen");
                 }}
                 onNext={() => {
-                    props.navigation.navigate("SignupLandlordPropertyScreen");
+                    props.navigation.navigate(
+                        "SignupLandlordTenantAccessCodeScreen"
+                    );
                 }}
                 onSkip={() => {
                     props.navigation.navigate("AllPropertiesScreen");
                 }}
             />
-            <TextSmall style={{ marginTop: 60 }}>Step 3 of 5</TextSmall>
+            <TextSmall style={{ marginTop: 60 }}>Step 4 of 5</TextSmall>
         </ScreenContainer>
     );
 };
