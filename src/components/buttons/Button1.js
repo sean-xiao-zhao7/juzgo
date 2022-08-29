@@ -27,6 +27,7 @@ const style = StyleSheet.create({
         // textTransform: "uppercase",
 
         alignItems: "center",
+        justifyContent: "center",
     },
 });
 

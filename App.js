@@ -3,43 +3,72 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // screens
+
+// auth
 import LoginScreen from "./src/screens/auth/LoginScreen";
-import SignUpChoiceScreen from "./src/screens/register/SignUpChoiceScreen";
+import SignUpChoiceScreen from "./src/screens/register/SignupChoiceScreen";
 import SignupLandlordInfoScreen from "./src/screens/register/SignupLandlordInfoScreen";
 import SignupLandlordPropertyScreen from "./src/screens/register/SignupLandlordPropertyScreen";
+import SignupLandlordTenantScreen from "./src/screens/register/SignupLandlordTenantScreen";
+
+// normal screens
+import AllPropertiesScreen from "./src/screens/AllPropertiesScreen";
 
 // navigation configs
 import { noHeaderConfig } from "./src/navigation-configs/configs";
 
-const Stack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
+
+const AuthStackComp = () => {
+    return (
+        <AuthStack.Navigator>
+            <AuthStack.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+                options={noHeaderConfig}
+            />
+            <AuthStack.Screen
+                name="SignUpChoiceScreen"
+                component={SignUpChoiceScreen}
+                options={noHeaderConfig}
+            />
+            <AuthStack.Screen
+                name="SignupLandlordInfoScreen"
+                component={SignupLandlordInfoScreen}
+                options={noHeaderConfig}
+            />
+            <AuthStack.Screen
+                name="SignupLandlordPropertyScreen"
+                component={SignupLandlordPropertyScreen}
+                options={noHeaderConfig}
+            />
+            <AuthStack.Screen
+                name="SignupLandlordTenantScreen"
+                component={SignupLandlordTenantScreen}
+                options={noHeaderConfig}
+            />
+        </AuthStack.Navigator>
+    );
+};
 
 export default function App() {
     return (
         <>
             <StatusBar style="auto" />
             <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="LoginScreen"
-                        component={LoginScreen}
+                <RootStack.Navigator>
+                    <RootStack.Screen
+                        name="AuthStack"
+                        component={AuthStackComp}
                         options={noHeaderConfig}
                     />
-                    <Stack.Screen
-                        name="SignUpChoiceScreen"
-                        component={SignUpChoiceScreen}
+                    <RootStack.Screen
+                        name="AllPropertiesScreen"
+                        component={AllPropertiesScreen}
                         options={noHeaderConfig}
                     />
-                    <Stack.Screen
-                        name="SignupLandlordInfoScreen"
-                        component={SignupLandlordInfoScreen}
-                        options={noHeaderConfig}
-                    />
-                    <Stack.Screen
-                        name="SignupLandlordPropertyScreen"
-                        component={SignupLandlordPropertyScreen}
-                        options={noHeaderConfig}
-                    />
-                </Stack.Navigator>
+                </RootStack.Navigator>
             </NavigationContainer>
         </>
     );

@@ -1,5 +1,6 @@
-import { View, CheckBox } from "react-native";
+import { View } from "react-native";
 import { Link } from "@react-navigation/native";
+import Checkbox from "expo-checkbox";
 
 // comps
 import CustomTextInput from "../inputs/CustomTextInput";
@@ -34,7 +35,7 @@ const UserInfoForm = (props) => {
                         marginBottom: 20,
                     }}
                 >
-                    <CheckBox />
+                    <Checkbox />
                     <TextSmall
                         style={{
                             color: colors.secondaryTextColor,
@@ -63,7 +64,7 @@ const UserInfoForm = (props) => {
                         marginBottom: 20,
                     }}
                 >
-                    <CheckBox />
+                    <Checkbox />
                     <TextSmall
                         style={{
                             color: colors.secondaryTextColor,

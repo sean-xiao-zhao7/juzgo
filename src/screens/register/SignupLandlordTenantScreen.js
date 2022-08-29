@@ -1,10 +1,10 @@
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
-import UserPropertyForm from "../../components/forms/UserPropertyForm";
+import TenantForm from "../../components/forms/TenantForm";
 import TextSmall from "../../components/texts/TextSmall";
 
-const SignupLandlordPropertyScreen = (props) => {
+const SignupLandlordTenantScreen = (props) => {
     return (
         <ScreenContainer>
             <TextRegular style={{ marginBottom: 20 }}>
@@ -13,17 +13,20 @@ const SignupLandlordPropertyScreen = (props) => {
             <TextRegular
                 style={{ width: 250, marginBottom: 30, textAlign: "center" }}
             >
-                Please fill out the information below for the property unit that
-                you like Juzgo to help you manage. Each form is designated for
-                one unit. You can register for more units later.
+                Please fill out the information below for the{" "}
+                <TextRegular style={{ fontWeight: "bold" }}>tenant</TextRegular>{" "}
+                in the unit of the property you just filled out.
             </TextRegular>
 
-            <UserPropertyForm
+            <TenantForm
                 onPrevious={() => {
-                    props.navigation.navigate("SignupLandlordInfoScreen");
+                    props.navigation.navigate("SignupLandlordPropertyScreen");
                 }}
                 onNext={() => {
-                    props.navigation.navigate("SignupLandlordTenantScreen");
+                    props.navigation.navigate("SignupLandlordPropertyScreen");
+                }}
+                onSkip={() => {
+                    props.navigation.navigate("AllPropertiesScreen");
                 }}
             />
             <TextSmall style={{ marginTop: 60 }}>Step 3 of 5</TextSmall>
@@ -31,4 +34,4 @@ const SignupLandlordPropertyScreen = (props) => {
     );
 };
 
-export default SignupLandlordPropertyScreen;
+export default SignupLandlordTenantScreen;

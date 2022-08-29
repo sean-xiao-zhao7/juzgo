@@ -7,15 +7,15 @@ import Button1 from "../buttons/Button1";
 import TextSmall from "../texts/TextSmall";
 import { colors } from "../../styles/colors";
 
-const UserPropertyForm = (props) => {
+const TenantForm = (props) => {
     return (
         <View style={{ alignItems: "center" }}>
             <CustomTextInput
-                placeholder={"Unit # (e.g. 123, main floor, basement, etc)"}
+                placeholder={"Tenant First Name"}
                 style={{ width: 300 }}
             />
             <CustomTextInput
-                placeholder={"Unit street number and name"}
+                placeholder={"Tenant Last Name"}
                 style={{ width: 300 }}
             />
             <View
@@ -24,12 +24,12 @@ const UserPropertyForm = (props) => {
                 }}
             >
                 <CustomTextInput
-                    placeholder={"Unit City/Town"}
-                    style={{ width: 140, marginRight: 20 }}
+                    placeholder={"Tenant Email"}
+                    style={{ width: 146, marginRight: 5 }}
                 />
                 <CustomTextInput
-                    placeholder={"Unit Province"}
-                    style={{ width: 140 }}
+                    placeholder={"Tenant Phone Number"}
+                    style={{ width: 152 }}
                 />
             </View>
             <View style={{ width: 300 }}>
@@ -47,8 +47,9 @@ const UserPropertyForm = (props) => {
                             marginLeft: 10,
                         }}
                     >
-                        I certify that I either own or have legal authorization
-                        to make decisions on this unit.
+                        I understand that to fully utilize Juzgo services, the
+                        tenant above also has to sign up. Tenant sign up process
+                        will be advised in the next page.
                     </TextSmall>
                 </View>
             </View>
@@ -61,16 +62,21 @@ const UserPropertyForm = (props) => {
                 <Button1
                     text="Previous Step"
                     onPress={props.onPrevious}
-                    style={{ width: 140, marginRight: 20 }}
+                    style={{ width: 90, height: 70, marginRight: 10 }}
                 />
                 <Button1
                     text="Next Step"
                     onPress={props.onNext}
-                    style={{ width: 140 }}
+                    style={{ width: 90, height: 70, marginRight: 10 }}
+                />
+                <Button1
+                    text="Skip"
+                    onPress={props.onSkip}
+                    style={{ width: 90, height: 70 }}
                 />
             </View>
         </View>
     );
 };
 
-export default UserPropertyForm;
+export default TenantForm;
