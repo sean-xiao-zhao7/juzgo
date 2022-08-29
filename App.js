@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Provider } from "react-redux";
 
 // screens
-
 // auth
 import LoginScreen from "./src/screens/auth/LoginScreen";
 import SignUpChoiceScreen from "./src/screens/register/SignupChoiceScreen";
@@ -20,6 +20,9 @@ import AllPropertiesScreen from "./src/screens/AllPropertiesScreen";
 
 // navigation configs
 import { noHeaderConfig } from "./src/navigation-configs/configs";
+
+// redux
+import store from "./src/store/store";
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -80,20 +83,22 @@ export default function App() {
     return (
         <>
             <StatusBar style="auto" />
-            <NavigationContainer>
-                <RootStack.Navigator>
-                    <RootStack.Screen
-                        name="AuthStack"
-                        component={AuthStackComp}
-                        options={noHeaderConfig}
-                    />
-                    <RootStack.Screen
-                        name="AllPropertiesScreen"
-                        component={AllPropertiesScreen}
-                        options={noHeaderConfig}
-                    />
-                </RootStack.Navigator>
-            </NavigationContainer>
+            <Provider store={store}>
+                <NavigationContainer>
+                    <RootStack.Navigator>
+                        <RootStack.Screen
+                            name="AuthStack"
+                            component={AuthStackComp}
+                            options={noHeaderConfig}
+                        />
+                        <RootStack.Screen
+                            name="AllPropertiesScreen"
+                            component={AllPropertiesScreen}
+                            options={noHeaderConfig}
+                        />
+                    </RootStack.Navigator>
+                </NavigationContainer>
+            </Provider>
         </>
     );
 }
