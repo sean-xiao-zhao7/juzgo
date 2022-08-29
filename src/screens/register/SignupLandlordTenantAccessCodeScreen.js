@@ -1,7 +1,7 @@
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
-import AccessCodeForm from "../../components/forms/AccessCodeForm";
+import LandlordAccessCodeForm from "../../components/forms/LandlordAccessCodeForm";
 import TextSmall from "../../components/texts/TextSmall";
 
 const SignupLandlordTenantAccessCodeScreen = (props) => {
@@ -23,7 +23,7 @@ const SignupLandlordTenantAccessCodeScreen = (props) => {
                 directly while you are away.
             </TextRegular>
 
-            <AccessCodeForm
+            <LandlordAccessCodeForm
                 onPrevious={() => {
                     props.navigation.navigate("SignupLandlordTenantScreen");
                 }}

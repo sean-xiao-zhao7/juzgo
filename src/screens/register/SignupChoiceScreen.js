@@ -16,7 +16,12 @@ const SignupChoiceScreen = (props) => {
                     props.navigation.navigate("SignupLandlordInfoScreen");
                 }}
             />
-            <Button1 text="Tenant" />
+            <Button1
+                text="Tenant"
+                onPress={() => {
+                    props.navigation.navigate("SignupTenantAccessCodeScreen");
+                }}
+            />
             <TextSmall style={{ marginTop: 60 }}>Step 1 of 5</TextSmall>
         </ScreenContainer>
     );

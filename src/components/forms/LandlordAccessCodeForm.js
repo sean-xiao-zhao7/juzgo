@@ -4,7 +4,7 @@ import { View } from "react-native";
 import Button1 from "../buttons/Button1";
 import TextLarge from "../texts/TextLarge";
 
-const AccessCodeForm = (props) => {
+const LandlordAccessCodeForm = (props) => {
     return (
         <View style={{ alignItems: "center", paddingTop: 30 }}>
             <TextLarge>XXX-XXX-XXXX</TextLarge>
@@ -34,4 +34,4 @@ const AccessCodeForm = (props) => {
     );
 };
 
-export default AccessCodeForm;
+export default LandlordAccessCodeForm;

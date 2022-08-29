@@ -11,6 +11,7 @@ import SignupLandlordInfoScreen from "./src/screens/register/SignupLandlordInfoS
 import SignupLandlordPropertyScreen from "./src/screens/register/SignupLandlordPropertyScreen";
 import SignupLandlordTenantScreen from "./src/screens/register/SignupLandlordTenantScreen";
 import SignupLandlordTenantAccessCodeScreen from "./src/screens/register/SignupLandlordTenantAccessCodeScreen";
+import SignupTenantAccessCodeScreen from "./src/screens/register/SignupTenantAccessCodeScreen";
 
 // normal screens
 import AllPropertiesScreen from "./src/screens/AllPropertiesScreen";
@@ -52,6 +53,11 @@ const AuthStackComp = () => {
             <AuthStack.Screen
                 name="SignupLandlordTenantAccessCodeScreen"
                 component={SignupLandlordTenantAccessCodeScreen}
+                options={noHeaderConfig}
+            />
+            <AuthStack.Screen
+                name="SignupTenantAccessCodeScreen"
+                component={SignupTenantAccessCodeScreen}
                 options={noHeaderConfig}
             />
         </AuthStack.Navigator>
