@@ -1,9 +1,33 @@
+import { useDispatch, useSelector } from "react-redux";
+
+// store
+import {
+    updatePropertyInfo,
+    updateLandlordInfo,
+} from "../../store/slices/tenantSignupSlice.js";
+
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import PropertyAndLandlordForm from "../../components/forms/PropertyAndLandlordForm";
 
 const SignupTenantPropertyLandlordScreen = (props) => {
+    const dispatch = useDispatch();
+
+    const landlordInfo = useSelector(
+        (state) => state.tenantSignupSlice.landlordInfo
+    );
+
+    const propertyInfo = useSelector(
+        (state) => state.tenantSignupSlice.propertyInfo
+    );
+
+    const onNext = (landlordInfo, propertyInfo) => {
+        dispatch(updatePropertyInfo({ landlordInfo }));
+        dispatch(updateLandlordInfo({ propertyInfo }));
+        props.navigation.navigate("SignupTenantPersonalInfoScreen");
+    };
+
     return (
         <ScreenContainer>
             <TextRegular style={{ marginBottom: 20 }}>
@@ -20,9 +44,9 @@ const SignupTenantPropertyLandlordScreen = (props) => {
                 proceeding.
             </TextRegular>
             <PropertyAndLandlordForm
-                onNext={() => {
-                    props.navigation.navigate("SignupTenantPersonalInfoScreen");
-                }}
+                propertyInfo={propertyInfo}
+                landlordInfo={landlordInfo}
+                onNext={onNext}
             />
         </ScreenContainer>
     );

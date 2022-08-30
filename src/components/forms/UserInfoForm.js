@@ -11,20 +11,20 @@ import { colors } from "../../styles/colors";
 
 const UserInfoForm = (props) => {
     const [firstname, setFirstname] = useState(
-        props.info.firstname ? props.info.firstname : ""
+        props.info?.firstname ? props.info.firstname : ""
     );
     const [lastname, setLastname] = useState(
-        props.info.firstname ? props.info.lastname : ""
+        props.info?.firstname ? props.info.lastname : ""
     );
     const [email, setEmail] = useState(
-        props.info.firstname ? props.info.email : ""
+        props.info?.firstname ? props.info.email : ""
     );
     const [phone, setPhone] = useState(
-        props.info.firstname ? props.info.phone : ""
+        props.info?.firstname ? props.info.phone : ""
     );
-    const [terms, checkTerms] = useState(props.info.firstname ? true : false);
+    const [terms, checkTerms] = useState(props.info?.firstname ? true : false);
     const [authorize, checkAuthorize] = useState(
-        props.info.firstname ? true : false
+        props.info?.firstname ? true : false
     );
 
     return (
@@ -109,32 +109,20 @@ const UserInfoForm = (props) => {
                     </TextSmall>
                 </View>
             </View>
-            {props.buttons ? (
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginBottom: 20,
-                    }}
-                >
-                    {props.buttons.map((button) => button)}
-                </View>
-            ) : (
-                <Button1
-                    text="Next Step"
-                    onPress={() => {
-                        if (authorize && terms) {
-                            props.onSubmit({
-                                firstname,
-                                lastname,
-                                email,
-                                phone,
-                            });
-                        }
-                    }}
-                    disabled={!(authorize && terms)}
-                />
-            )}
+            <Button1
+                text="Next Step"
+                onPress={() => {
+                    if (authorize && terms) {
+                        props.onSubmit({
+                            firstname,
+                            lastname,
+                            email,
+                            phone,
+                        });
+                    }
+                }}
+                disabled={!(authorize && terms)}
+            />
         </View>
     );
 };

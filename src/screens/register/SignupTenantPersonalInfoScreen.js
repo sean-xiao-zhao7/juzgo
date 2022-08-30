@@ -1,10 +1,25 @@
+import { useDispatch, useSelector } from "react-redux";
+
+// store
+import { updatePersonalInfo } from "../../store/slices/tenantSignupSlice.js";
+
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import UserInfoForm from "../../components/forms/UserInfoForm";
-import Button1 from "../../components/buttons/Button1";
 
 const SignupTenantPersonalInfoScreen = (props) => {
+    const dispatch = useDispatch();
+
+    const personalInfo = useSelector(
+        (state) => state.tenantSignupSlice.personalInfo
+    );
+
+    const onSubmit = (personalInfo) => {
+        dispatch(updatePersonalInfo(personalInfo));
+        props.navigation.navigate("AllPropertiesScreen");
+    };
+
     return (
         <ScreenContainer>
             <TextRegular style={{ marginBottom: 20 }}>
@@ -15,22 +30,7 @@ const SignupTenantPersonalInfoScreen = (props) => {
                 anything incorrect, please advise the Landlord to change before
                 proceeding.
             </TextRegular>
-            <UserInfoForm
-                buttons={[
-                    <Button1
-                        text="Edit"
-                        onPress={() => {}}
-                        style={{ width: 120, marginRight: 10 }}
-                    />,
-                    <Button1
-                        text="Submit"
-                        onPress={() =>
-                            props.navigation.navigate("AllPropertiesScreen")
-                        }
-                        style={{ width: 120, marginRight: 10 }}
-                    />,
-                ]}
-            />
+            <UserInfoForm info={personalInfo} onSubmit={onSubmit} />
         </ScreenContainer>
     );
 };

@@ -1,9 +1,21 @@
+import { useDispatch } from "react-redux";
+
+// store
+import { updateAccessCode } from "../../store/slices/tenantSignupSlice.js";
+
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import TenantAccessCodeForm from "../../components/forms/TenantAccessCodeForm";
 
 const SignupTenantAccessCodeScreen = (props) => {
+    const dispatch = useDispatch();
+
+    const onNext = (accessCode) => {
+        dispatch(updateAccessCode({ accessCode }));
+        props.navigation.navigate("SignupTenantPropertyLandlordScreen");
+    };
+
     return (
         <ScreenContainer>
             <TextRegular style={{ marginBottom: 20 }}>
@@ -13,13 +25,7 @@ const SignupTenantAccessCodeScreen = (props) => {
                 Please enter the unique TENANT ACCESS CODE provided by your
                 Landlord to proceed.
             </TextRegular>
-            <TenantAccessCodeForm
-                onNext={() => {
-                    props.navigation.navigate(
-                        "SignupTenantPropertyLandlordScreen"
-                    );
-                }}
-            />
+            <TenantAccessCodeForm onNext={onNext} />
         </ScreenContainer>
     );
 };
