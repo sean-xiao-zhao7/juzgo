@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 // store
-import { updateInfo } from "../../store/slices/userSignupSlice.js";
+import { updateInfo } from "../../store/slices/landlordSignupSlice.js";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
@@ -12,12 +12,12 @@ import TextSmall from "../../components/texts/TextSmall";
 const SignupLandlordInfoScreen = (props) => {
     const dispatch = useDispatch();
 
-    const userInfo = useSelector(
-        (state) => state.userSignupSliceReducer.userInfo
+    const landlordInfo = useSelector(
+        (state) => state.landlordSignupSlice.landlordInfo
     );
 
-    const onSubmit = (userInfo) => {
-        dispatch(updateInfo({ userInfo }));
+    const onSubmit = (landlordInfo) => {
+        dispatch(updateInfo({ landlordInfo }));
         props.navigation.navigate("SignupLandlordPropertyScreen");
     };
 
@@ -29,7 +29,7 @@ const SignupLandlordInfoScreen = (props) => {
             <TextRegular style={{ marginBottom: 60 }}>
                 Please fill out the information below.
             </TextRegular>
-            <UserInfoForm onSubmit={onSubmit} info={userInfo} />
+            <UserInfoForm onSubmit={onSubmit} info={landlordInfo} />
             <TextSmall style={{ marginTop: 60 }}>Step 2 of 5</TextSmall>
         </ScreenContainer>
     );

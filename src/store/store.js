@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSignupSliceReducer from "./slices/userSignupSlice";
+import landlordSignupSlice from "./slices/landlordSignupSlice";
 
 const store = configureStore({
-    reducer: { userSignupSliceReducer },
+    reducer: { landlordSignupSlice },
 });
 
 export default store;
