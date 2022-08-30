@@ -9,7 +9,7 @@ import TextSmall from "../texts/TextSmall";
 import { colors } from "../../styles/colors";
 
 const UserPropertyForm = (props) => {
-    const [unitNum, setUnitNum] = useState(
+    const [unitnum, setUnitNum] = useState(
         props.info.unitnum ? props.info.unitnum : ""
     );
     const [street, setStreet] = useState(
@@ -26,7 +26,7 @@ const UserPropertyForm = (props) => {
     return (
         <View style={{ alignItems: "center" }}>
             <CustomTextInput
-                value={unitNum}
+                value={unitnum}
                 onChangeText={setUnitNum}
                 placeholder={"Unit # (e.g. 123, main floor, basement, etc)"}
                 style={{ width: 300 }}
@@ -93,7 +93,7 @@ const UserPropertyForm = (props) => {
                     text="Next Step"
                     onPress={() =>
                         props.onNext({
-                            unitNum,
+                            unitnum,
                             street,
                             city,
                             province,

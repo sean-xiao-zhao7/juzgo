@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View } from "react-native";
 import Checkbox from "expo-checkbox";
 
@@ -8,15 +9,33 @@ import TextSmall from "../texts/TextSmall";
 import { colors } from "../../styles/colors";
 
 const TenantForm = (props) => {
+    const [firstname, setFirstname] = useState(
+        props.info.firstname ? props.info.firstname : ""
+    );
+    const [lastname, setLastname] = useState(
+        props.info.lastname ? props.info.lastname : ""
+    );
+    const [email, setEmail] = useState(
+        props.info.email ? props.info.email : ""
+    );
+    const [phone, setPhone] = useState(
+        props.info.phone ? props.info.phone : ""
+    );
+    const [agree, checkAgree] = useState(props.info.firstname ? true : false);
+
     return (
         <View style={{ alignItems: "center" }}>
             <CustomTextInput
                 placeholder={"Tenant First Name"}
                 style={{ width: 300 }}
+                onChangeText={setFirstname}
+                value={firstname}
             />
             <CustomTextInput
                 placeholder={"Tenant Last Name"}
                 style={{ width: 300 }}
+                onChangeText={setLastname}
+                value={lastname}
             />
             <View
                 style={{
@@ -26,10 +45,14 @@ const TenantForm = (props) => {
                 <CustomTextInput
                     placeholder={"Tenant Email"}
                     style={{ width: 146, marginRight: 5 }}
+                    onChangeText={setEmail}
+                    value={email}
                 />
                 <CustomTextInput
                     placeholder={"Tenant Phone Number"}
                     style={{ width: 152 }}
+                    onChangeText={setPhone}
+                    value={phone}
                 />
             </View>
             <View style={{ width: 300 }}>
@@ -40,7 +63,7 @@ const TenantForm = (props) => {
                         marginBottom: 20,
                     }}
                 >
-                    <Checkbox />
+                    <Checkbox value={agree} onValueChange={checkAgree} />
                     <TextSmall
                         style={{
                             color: colors.secondaryTextColor,
@@ -66,7 +89,14 @@ const TenantForm = (props) => {
                 />
                 <Button1
                     text="Next Step"
-                    onPress={props.onNext}
+                    onPress={() =>
+                        props.onNext({
+                            firstname,
+                            lastname,
+                            email,
+                            phone,
+                        })
+                    }
                     style={{ width: 90, height: 70, marginRight: 10 }}
                 />
                 <Button1
