@@ -13,7 +13,7 @@ const SignupLandlordTenantAccessCodeScreen = (props) => {
             <TextRegular
                 style={{ width: 250, marginBottom: 30, textAlign: "center" }}
             >
-                Please
+                Please{" "}
                 <TextRegular style={{ fontWeight: "bold" }}>
                     give the unique TENANT ACCESS CODE below to your current or
                     future tenant to sign up with Juzgo.
