@@ -18,7 +18,9 @@ const SignupLandlordTenantAccessCodeScreen = (props) => {
 
     const onNext = (accessCode) => {
         dispatch(updateAccessCode({ accessCode }));
-        props.navigation.navigate("SignupEmailPasswordScreen");
+        props.navigation.navigate("SignupEmailPasswordScreen", {
+            type: "landlord",
+        });
     };
 
     return (

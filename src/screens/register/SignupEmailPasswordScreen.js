@@ -6,25 +6,30 @@ import { signUp } from "../../store/slices/sessionSlice";
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
-import UsernamePasswordForm from "../../components/forms/UsernamePasswordForm";
+import EmailPasswordForm from "../../components/forms/EmailPasswordForm";
 
 const SignupEmailPasswordScreen = (props) => {
     const dispatch = useDispatch();
 
-    const landlordInfo = useSelector((state) => {
-        const info = {};
-        info.personalInfo = state.landlordSignupSlice.landlordInfo;
-        info.landlordPropertyInfo =
-            state.landlordSignupSlice.landlordPropertyInfo;
-        info.landlordTenantInfo = state.landlordSignupSlice.landlordTenantInfo;
+    const info = useSelector((state) => {
+        const info = { type: props.route.params.type };
+        if (info.type === "landlord") {
+            info.personalInfo = state.landlordSignupSlice.landlordInfo;
+            info.landlordPropertyInfo =
+                state.landlordSignupSlice.landlordPropertyInfo;
+            info.landlordTenantInfo =
+                state.landlordSignupSlice.landlordTenantInfo;
+        } else if (info.type === "tenant") {
+            // build tenant info
+        }
         return info;
     });
 
-    const username = useSelector((state) => state.sessionSlice.username);
+    const email = useSelector((state) => state.sessionSlice.email);
 
-    const onSubmit = (usernamePassword) => {
-        landlordInfo.type = "landlord";
-        dispatch(signUp({ landlordInfo, usernamePassword }));
+    const onSubmit = (emailPassword) => {
+        dispatch(signUp({ info, emailPassword }));
+        dispatch(signUpAPI(emailPassword));
         props.navigation.navigate("AllPropertiesScreen");
     };
 
@@ -36,7 +41,7 @@ const SignupEmailPasswordScreen = (props) => {
             <TextRegular style={{ marginBottom: 60 }}>
                 Please enter your new username and password for login.
             </TextRegular>
-            <UsernamePasswordForm onSubmit={onSubmit} username={username} />
+            <EmailPasswordForm onSubmit={onSubmit} email={email} />
         </ScreenContainer>
     );
 };

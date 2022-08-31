@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     firebase_signup_url,
     firebase_siginpassword_url,
@@ -8,43 +8,21 @@ const sessionSlice = createSlice({
     name: "sessionSlice",
     initialState: {
         type: "",
-        username: "",
+        email: "",
         password: "",
         userInfo: {},
         properties: [],
         inquiries: [],
+        idToken: "",
     },
     reducers: {
         signUp: (state, action) => {
-            state.username = action.payload.usernamePassword.username;
-            state.password = action.payload.usernamePassword.password;
+            state.email = action.payload.emailPassword.email;
+            state.password = action.payload.emailPassword.password;
 
-            state.type = action.payload.landlordInfo.type;
-            state.userInfo = action.payload.landlordInfo;
+            state.type = action.payload.info.type;
+            state.userInfo = action.payload.personalInfo;
             state.properties.push(action.payload.landlordPropertyInfo);
-
-            // add new account
-            fetch(firebase_signup_url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: state.username,
-                    password: state.password,
-                    returnSecureToken: true,
-                }),
-            })
-                .then((result) => {
-                    console.log(result);
-                })
-                .catch((error) => console.log(error));
-
-            // upload additional info (user info, properties, etc)
-        },
-        signIn: (state, action) => {
-            state.type = action.payload.type;
-            // TODO get all properties/inquires
         },
         signOut: (state, action) => {
             state.type = action.payload.type;
@@ -60,12 +38,61 @@ const sessionSlice = createSlice({
             // update some personal info
         },
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(signIn.fulfilled, (state, action) => {
+                state.idToken = action.payload.idToken;
+            })
+            .addCase(signUpAPI.fulfilled, (state, action) => {
+                state.idToken = action.payload.idToken;
+            });
+    },
 });
+export const signUpAPI = createAsyncThunk(
+    "sessionSlice/signUpAPIAction",
+    async (emailPassword, thunkAPI) => {
+        // add new account
+        const response = await fetch(firebase_signup_url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: emailPassword.email,
+                password: emailPassword.password,
+                returnSecureToken: true,
+            }),
+        });
+        const result = await response.json();
+        return result;
+
+        // upload additional info (user info, properties, etc)
+    }
+);
+
+export const signIn = createAsyncThunk(
+    "sessionSlice/signInAction",
+    async ({ email, password }, thunkAPI) => {
+        const response = await fetch(firebase_siginpassword_url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                returnSecureToken: true,
+            }),
+        });
+
+        const result = await response.json();
+        return result;
+    }
+);
 
 export default sessionSlice.reducer;
 export const signUp = sessionSlice.actions.signUp;
-export const signIn = sessionSlice.actions.signIn;
 export const signOut = sessionSlice.actions.signOut;
-export const updateProperty = sessionSlice.actions.startSession;
-export const updateInquiry = sessionSlice.actions.startSession;
-export const updateInfo = sessionSlice.actions.startSession;
+export const updateProperty = sessionSlice.actions.updateProperty;
+export const updateInquiry = sessionSlice.actions.updateInquiry;
+export const updateInfo = sessionSlice.actions.updateInfo;

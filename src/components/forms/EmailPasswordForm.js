@@ -5,17 +5,15 @@ import { View } from "react-native";
 import CustomTextInput from "../inputs/CustomTextInput";
 import Button1 from "../buttons/Button1";
 
-const UsernamePasswordForm = (props) => {
-    const [username, setUsername] = useState(
-        props.username ? props.username : ""
-    );
+const EmailPasswordForm = (props) => {
+    const [email, setEmail] = useState(props.email ? props.email : "");
     const [password, setPassword] = useState("");
 
     return (
         <View style={{ alignItems: "center" }}>
             <CustomTextInput
-                placeholder={"Username"}
-                onChangeText={setUsername}
+                placeholder={"Email (username)"}
+                onChangeText={setEmail}
                 value={username}
             />
             <CustomTextInput
@@ -28,7 +26,7 @@ const UsernamePasswordForm = (props) => {
                 text="Complete signup"
                 onPress={() => {
                     props.onSubmit({
-                        username,
+                        email,
                         password,
                     });
                 }}
@@ -37,4 +35,4 @@ const UsernamePasswordForm = (props) => {
     );
 };
 
-export default UsernamePasswordForm;
+export default EmailPasswordForm;

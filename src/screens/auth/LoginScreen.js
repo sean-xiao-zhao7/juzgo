@@ -1,5 +1,10 @@
 import { View } from "react-native";
 import { Link } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
+// redux
+import { signIn } from "../../store/slices/sessionSlice";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
@@ -10,14 +15,37 @@ import CustomTextInput from "../../components/inputs/CustomTextInput";
 import Button1 from "../../components/buttons/Button1";
 
 const LoginScreen = (props) => {
+    const dispatch = useDispatch();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const idToken = useSelector((state) => state.sessionSlice.idToken);
+    useEffect(() => {
+        if (idToken !== "") {
+            props.navigation.navigate("AllPropertiesScreen");
+        }
+    }, [idToken]);
+
+    const signInHandler = () => {
+        dispatch(signIn({ email, password }));
+    };
+
     return (
         <ScreenContainer>
             <HeadingLarge>JUZGO</HeadingLarge>
             <TextRegular>Unleash Your Freedom</TextRegular>
             <View style={{ marginTop: 60 }}>
-                <CustomTextInput placeholder={"Email"} />
-                <CustomTextInput placeholder={"Password"} />
-                <Button1 text="Log in" />
+                <CustomTextInput
+                    placeholder={"Email"}
+                    value={email}
+                    onChangeText={setEmail}
+                />
+                <CustomTextInput
+                    placeholder={"Password"}
+                    value={password}
+                    onChangeText={setPassword}
+                />
+                <Button1 text="Log in" onPress={signInHandler} />
                 <View style={{ alignItems: "center", marginTop: 15 }}>
                     <TextSmall>
                         Don't have an account?{" "}
