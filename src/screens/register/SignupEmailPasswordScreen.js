@@ -7,7 +7,6 @@ import { signUp } from "../../store/slices/sessionSlice";
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import UsernamePasswordForm from "../../components/forms/UsernamePasswordForm";
-import TextSmall from "../../components/texts/TextSmall";
 
 const SignupEmailPasswordScreen = (props) => {
     const dispatch = useDispatch();
