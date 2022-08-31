@@ -11,8 +11,6 @@ const sessionSlice = createSlice({
         email: "",
         password: "",
         userInfo: {},
-        properties: [],
-        inquiries: [],
         idToken: "",
     },
     reducers: {
@@ -22,17 +20,9 @@ const sessionSlice = createSlice({
 
             state.type = action.payload.info.type;
             state.userInfo = action.payload.personalInfo;
-            state.properties.push(action.payload.landlordPropertyInfo);
         },
         signOut: (state, action) => {
             state.type = action.payload.type;
-            // TODO get all properties/inquires
-        },
-        updateProperty: (state, action) => {
-            // update a single property
-        },
-        updateInquiry: (state, action) => {
-            // update a single inquiry
         },
         updateInfo: (state, action) => {
             // update some personal info
@@ -51,7 +41,6 @@ const sessionSlice = createSlice({
 export const signUpAPI = createAsyncThunk(
     "sessionSlice/signUpAPIAction",
     async (emailPassword, thunkAPI) => {
-        // add new account
         const response = await fetch(firebase_signup_url, {
             method: "POST",
             headers: {
@@ -93,6 +82,4 @@ export const signIn = createAsyncThunk(
 export default sessionSlice.reducer;
 export const signUp = sessionSlice.actions.signUp;
 export const signOut = sessionSlice.actions.signOut;
-export const updateProperty = sessionSlice.actions.updateProperty;
-export const updateInquiry = sessionSlice.actions.updateInquiry;
 export const updateInfo = sessionSlice.actions.updateInfo;
