@@ -17,6 +17,9 @@ const landlordSignupSlice = createSlice({
         updateLandlordTenantInfo: (state, action) => {
             state.landlordTenantInfo = action.payload.landlordTenantInfo;
         },
+        updateAccessCode: (state, action) => {
+            state.landlordTenantInfo.accessCode = action.payload.accessCode;
+        },
     },
 });
 
@@ -26,3 +29,4 @@ export const updateLandlordPropertyInfo =
     landlordSignupSlice.actions.updateLandlordPropertyInfo;
 export const updateLandlordTenantInfo =
     landlordSignupSlice.actions.updateLandlordTenantInfo;
+export const updateAccessCode = landlordSignupSlice.actions.updateAccessCode;

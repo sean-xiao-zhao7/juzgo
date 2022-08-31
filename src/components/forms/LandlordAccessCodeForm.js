@@ -26,7 +26,7 @@ const LandlordAccessCodeForm = (props) => {
                 />
                 <Button1
                     text="Submit"
-                    onPress={props.onNext}
+                    onPress={() => props.onNext("XXX-XXX-XXXX")}
                     style={{ width: 150 }}
                 />
             </View>
