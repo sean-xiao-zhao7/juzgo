@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 // store
-import { signUp, signUpAPI } from "../../store/slices/sessionSlice";
+import { signUp } from "../../store/slices/sessionSlice";
 import { updateLandlordDB } from "../../store/slices/landlordSignupSlice";
 
 // comps
@@ -35,14 +35,18 @@ const SignupEmailPasswordScreen = (props) => {
     });
 
     const email = useSelector((state) => state.sessionSlice.email);
-    const completeVal = useSelector(
-        (state) => state.landlordSignupSlice.complete
-    );
+    let completeVal;
+    if (info.type === "landlord") {
+        completeVal = useSelector(
+            (state) => state.landlordSignupSlice.complete
+        );
+    }
 
     const onSubmit = (emailPassword) => {
         dispatch(signUp({ info, emailPassword }));
-        dispatch(signUpAPI(emailPassword));
-        dispatch(updateLandlordDB(info));
+        if (info.type === "landlord") {
+            dispatch(updateLandlordDB({ info, emailPassword }));
+        }
         setComplete(completeVal);
     };
 
