@@ -14,7 +14,7 @@ const EmailPasswordForm = (props) => {
             <CustomTextInput
                 placeholder={"Email (username)"}
                 onChangeText={setEmail}
-                value={username}
+                value={email}
             />
             <CustomTextInput
                 placeholder={"Password"}

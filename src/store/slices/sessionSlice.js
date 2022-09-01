@@ -38,6 +38,7 @@ const sessionSlice = createSlice({
             });
     },
 });
+
 export const signUpAPI = createAsyncThunk(
     "sessionSlice/signUpAPIAction",
     async (emailPassword, thunkAPI) => {

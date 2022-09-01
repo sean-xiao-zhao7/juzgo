@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 // store
-import { signUp } from "../../store/slices/sessionSlice";
+import { signUp, signUpAPI } from "../../store/slices/sessionSlice";
+import { updateLandlordDB } from "../../store/slices/landlordSignupSlice";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
@@ -10,6 +12,13 @@ import EmailPasswordForm from "../../components/forms/EmailPasswordForm";
 
 const SignupEmailPasswordScreen = (props) => {
     const dispatch = useDispatch();
+    const [complete, setComplete] = useState(false);
+
+    useEffect(() => {
+        if (complete) {
+            props.navigation.navigate("AllPropertiesScreen");
+        }
+    }, [complete]);
 
     const info = useSelector((state) => {
         const info = { type: props.route.params.type };
@@ -26,11 +35,15 @@ const SignupEmailPasswordScreen = (props) => {
     });
 
     const email = useSelector((state) => state.sessionSlice.email);
+    const completeVal = useSelector(
+        (state) => state.landlordSignupSlice.complete
+    );
 
     const onSubmit = (emailPassword) => {
         dispatch(signUp({ info, emailPassword }));
         dispatch(signUpAPI(emailPassword));
-        props.navigation.navigate("AllPropertiesScreen");
+        dispatch(updateLandlordDB(info));
+        setComplete(completeVal);
     };
 
     return (
