@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 
 // store
 import { signUp } from "../../store/slices/sessionSlice";
@@ -9,16 +8,10 @@ import { updateLandlordDB } from "../../store/slices/landlordSignupSlice";
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import EmailPasswordForm from "../../components/forms/EmailPasswordForm";
+import { useEffect } from "react";
 
 const SignupEmailPasswordScreen = (props) => {
     const dispatch = useDispatch();
-    const [complete, setComplete] = useState(false);
-
-    useEffect(() => {
-        if (complete) {
-            props.navigation.navigate("AllPropertiesScreen");
-        }
-    }, [complete]);
 
     const info = useSelector((state) => {
         const info = { type: props.route.params.type };
@@ -34,20 +27,25 @@ const SignupEmailPasswordScreen = (props) => {
         return info;
     });
 
-    const email = useSelector((state) => state.sessionSlice.email);
     let completeVal;
+    const email = useSelector((state) => state.sessionSlice.email);
     if (info.type === "landlord") {
         completeVal = useSelector(
             (state) => state.landlordSignupSlice.complete
         );
     }
 
+    useEffect(() => {
+        if (completeVal === true) {
+            props.navigation.navigate("AllPropertiesScreen");
+        }
+    }, [completeVal]);
+
     const onSubmit = (emailPassword) => {
         dispatch(signUp({ info, emailPassword }));
         if (info.type === "landlord") {
             dispatch(updateLandlordDB({ info, emailPassword }));
         }
-        setComplete(completeVal);
     };
 
     return (
