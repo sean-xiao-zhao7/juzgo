@@ -44,6 +44,7 @@ const LoginScreen = (props) => {
                     placeholder={"Password"}
                     value={password}
                     onChangeText={setPassword}
+                    secureTextEntry={true}
                 />
                 <Button1 text="Log in" onPress={signInHandler} />
                 <View style={{ alignItems: "center", marginTop: 15 }}>

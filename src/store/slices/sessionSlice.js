@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     firebase_signup_url,
     firebase_siginpassword_url,
+    firebase_database_url,
 } from "../../dummy-data";
 import { saveSession, retrieveSession } from "../helper/session";
 
@@ -11,7 +12,6 @@ const sessionSlice = createSlice({
         type: "",
         email: "",
         password: "",
-        userInfo: {},
         idToken: "",
     },
     reducers: {
@@ -23,17 +23,18 @@ const sessionSlice = createSlice({
         signOut: (state, action) => {
             state.type = action.payload.type;
         },
-        updateInfo: (state, action) => {
-            // update some personal info
-        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(signInAction.fulfilled, (state, action) => {
                 state.idToken = action.payload.idToken;
+                state.type = action.payload.type;
+                state.email = action.payload.email;
             })
             .addCase(signUpAction.fulfilled, (state, action) => {
                 state.idToken = action.payload.idToken;
+                state.type = action.payload.type;
+                state.email = action.payload.email;
             })
             .addCase(autoSignInAction.fulfilled, (state, action) => {
                 state.idToken = action.payload.idToken;
@@ -60,29 +61,49 @@ export const signUpAction = createAsyncThunk(
         const result = await response.json();
         saveSession(result);
         return result;
-
-        // upload additional info (user info, properties, etc)
     }
 );
 
 export const signInAction = createAsyncThunk(
     "sessionSlice/signInAction",
     async ({ email, password }, thunkAPI) => {
-        const response = await fetch(firebase_siginpassword_url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-                returnSecureToken: true,
-            }),
-        });
+        try {
+            let response = await fetch(firebase_siginpassword_url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    returnSecureToken: true,
+                }),
+            });
 
-        const result = await response.json();
-        saveSession(result);
-        return result;
+            let result = await response.json();
+            saveSession(result);
+
+            // retrieve userinfo from db to check if user is landlord or tenant
+            response = await fetch(firebase_database_url + "/landlord.json", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const landlords = await response.json();
+
+            result = { ...result, type: "tenant" };
+            let currentUserUID = result.localId;
+            for (const key in landlords) {
+                if (landlords[key].userUID === currentUserUID) {
+                    result = { ...result, type: "landlord" };
+                }
+            }
+
+            return result;
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 );
 
@@ -96,4 +117,3 @@ export const autoSignInAction = createAsyncThunk(
 export default sessionSlice.reducer;
 export const authenticate = sessionSlice.actions.authenticate;
 export const signOut = sessionSlice.actions.signOut;
-export const updateInfo = sessionSlice.actions.updateInfo;
