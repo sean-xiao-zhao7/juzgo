@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
 
 // screens
 // auth
@@ -85,25 +86,40 @@ const AuthStackComp = () => {
     );
 };
 
+const Navigator = (props) => {
+    const idToken = useSelector((state) => state.sessionSlice.idToken);
+
+    let stack;
+    if (idToken === "") {
+        stack = (
+            <RootStack.Screen
+                name="AuthStack"
+                component={AuthStackComp}
+                options={noHeaderConfig}
+            />
+        );
+    } else {
+        stack = (
+            <RootStack.Screen
+                name="AllPropertiesScreen"
+                component={AllPropertiesScreen}
+                options={noHeaderConfig}
+            />
+        );
+    }
+    return (
+        <NavigationContainer>
+            <RootStack.Navigator>{stack}</RootStack.Navigator>
+        </NavigationContainer>
+    );
+};
+
 export default function App() {
     return (
         <>
             <StatusBar style="auto" />
             <Provider store={store}>
-                <NavigationContainer>
-                    <RootStack.Navigator>
-                        <RootStack.Screen
-                            name="AuthStack"
-                            component={AuthStackComp}
-                            options={noHeaderConfig}
-                        />
-                        <RootStack.Screen
-                            name="AllPropertiesScreen"
-                            component={AllPropertiesScreen}
-                            options={noHeaderConfig}
-                        />
-                    </RootStack.Navigator>
-                </NavigationContainer>
+                <Navigator />
             </Provider>
         </>
     );

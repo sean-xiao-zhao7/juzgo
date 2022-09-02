@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 import { firebase_database_url, firebase_signup_url } from "../../dummy-data";
+import { authenticate } from "./sessionSlice";
 
 const landlordSignupSlice = createSlice({
     name: "landlordSignupSlice",
@@ -37,7 +37,7 @@ const landlordSignupSlice = createSlice({
 
 export const updateLandlordDB = createAsyncThunk(
     "landlordSignupSlice/updateLandlordDB",
-    async (payload) => {
+    async (payload, thunkAPI) => {
         let newInfo;
         const info = payload.info;
         const emailPassword = payload.emailPassword;
@@ -104,6 +104,14 @@ export const updateLandlordDB = createAsyncThunk(
                 }
             );
             const result4 = await response4.json();
+
+            // 5. update sessionSlice
+            thunkAPI.dispatch(
+                authenticate({
+                    ...result,
+                    type: info.type,
+                })
+            );
 
             return result;
         } catch (error) {

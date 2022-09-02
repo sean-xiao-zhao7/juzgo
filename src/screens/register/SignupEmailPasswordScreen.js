@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
 // store
-import { signUp } from "../../store/slices/sessionSlice";
 import { updateLandlordDB } from "../../store/slices/landlordSignupSlice";
 
 // comps
@@ -42,7 +41,6 @@ const SignupEmailPasswordScreen = (props) => {
     }, [completeVal]);
 
     const onSubmit = (emailPassword) => {
-        dispatch(signUp({ info, emailPassword }));
         if (info.type === "landlord") {
             dispatch(updateLandlordDB({ info, emailPassword }));
         }

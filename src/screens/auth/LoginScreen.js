@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 // redux
-import { signIn } from "../../store/slices/sessionSlice";
+import { signInAction } from "../../store/slices/sessionSlice";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
@@ -27,7 +27,7 @@ const LoginScreen = (props) => {
     }, [idToken]);
 
     const signInHandler = () => {
-        dispatch(signIn({ email, password }));
+        dispatch(signInAction({ email, password }));
     };
 
     return (

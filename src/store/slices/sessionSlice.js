@@ -3,6 +3,7 @@ import {
     firebase_signup_url,
     firebase_siginpassword_url,
 } from "../../dummy-data";
+import { saveSession, retrieveSession } from "../helper/session";
 
 const sessionSlice = createSlice({
     name: "sessionSlice",
@@ -14,12 +15,10 @@ const sessionSlice = createSlice({
         idToken: "",
     },
     reducers: {
-        signUp: (state, action) => {
-            state.email = action.payload.emailPassword.email;
-            state.password = action.payload.emailPassword.password;
-
-            state.type = action.payload.info.type;
-            state.userInfo = action.payload.personalInfo;
+        authenticate: (state, action) => {
+            state.idToken = action.payload.idToken;
+            state.type = action.payload.type;
+            state.email = action.payload.email;
         },
         signOut: (state, action) => {
             state.type = action.payload.type;
@@ -30,16 +29,21 @@ const sessionSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(signIn.fulfilled, (state, action) => {
+            .addCase(signInAction.fulfilled, (state, action) => {
                 state.idToken = action.payload.idToken;
             })
-            .addCase(signUpAPI.fulfilled, (state, action) => {
+            .addCase(signUpAction.fulfilled, (state, action) => {
                 state.idToken = action.payload.idToken;
+            })
+            .addCase(autoSignInAction.fulfilled, (state, action) => {
+                state.idToken = action.payload.idToken;
+                state.type = action.payload.type;
+                state.email = action.payload.email;
             });
     },
 });
 
-export const signUpAPI = createAsyncThunk(
+export const signUpAction = createAsyncThunk(
     "sessionSlice/signUpAPIAction",
     async (emailPassword, thunkAPI) => {
         const response = await fetch(firebase_signup_url, {
@@ -54,13 +58,14 @@ export const signUpAPI = createAsyncThunk(
             }),
         });
         const result = await response.json();
+        saveSession(result);
         return result;
 
         // upload additional info (user info, properties, etc)
     }
 );
 
-export const signIn = createAsyncThunk(
+export const signInAction = createAsyncThunk(
     "sessionSlice/signInAction",
     async ({ email, password }, thunkAPI) => {
         const response = await fetch(firebase_siginpassword_url, {
@@ -76,11 +81,19 @@ export const signIn = createAsyncThunk(
         });
 
         const result = await response.json();
+        saveSession(result);
         return result;
     }
 );
 
+export const autoSignInAction = createAsyncThunk(
+    "sessionSlice/autoSignInAction",
+    async () => {
+        return retrieveSession();
+    }
+);
+
 export default sessionSlice.reducer;
-export const signUp = sessionSlice.actions.signUp;
+export const authenticate = sessionSlice.actions.authenticate;
 export const signOut = sessionSlice.actions.signOut;
 export const updateInfo = sessionSlice.actions.updateInfo;
