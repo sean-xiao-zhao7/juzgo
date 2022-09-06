@@ -22,12 +22,12 @@ const LandlordAccessCodeForm = (props) => {
                 <Button1
                     text="Previous Step"
                     onPress={props.onPrevious}
-                    style={{ width: 150, marginRight: 20 }}
+                    style={{ width: 120, marginRight: 10 }}
                 />
                 <Button1
                     text="Submit"
                     onPress={() => props.onNext("XXX-XXX-XXXX")}
-                    style={{ width: 150 }}
+                    style={{ width: 120 }}
                 />
             </View>
         </View>

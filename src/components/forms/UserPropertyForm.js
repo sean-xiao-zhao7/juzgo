@@ -7,6 +7,8 @@ import CustomTextInput from "../inputs/CustomTextInput";
 import Button1 from "../buttons/Button1";
 import TextSmall from "../texts/TextSmall";
 import { colors } from "../../styles/colors";
+import { emptyVerify } from "./helpers/verifyForm";
+import { incompleteErrorAlert } from "./helpers/alert";
 
 const UserPropertyForm = (props) => {
     const [unitnum, setUnitNum] = useState(
@@ -29,13 +31,11 @@ const UserPropertyForm = (props) => {
                 value={unitnum}
                 onChangeText={setUnitNum}
                 placeholder={"Unit # (e.g. 123, main floor, basement, etc)"}
-                style={{ width: 300 }}
             />
             <CustomTextInput
                 value={street}
                 onChangeText={setStreet}
                 placeholder={"Unit street number and name"}
-                style={{ width: 300 }}
             />
             <View
                 style={{
@@ -46,16 +46,16 @@ const UserPropertyForm = (props) => {
                     value={city}
                     onChangeText={setCity}
                     placeholder={"Unit City/Town"}
-                    style={{ width: 140, marginRight: 20 }}
+                    style={{ width: 120, marginRight: 10 }}
                 />
                 <CustomTextInput
                     value={province}
                     onChangeText={setProvince}
                     placeholder={"Unit Province"}
-                    style={{ width: 140 }}
+                    style={{ width: 120 }}
                 />
             </View>
-            <View style={{ width: 300 }}>
+            <View style={{ width: 250 }}>
                 <View
                     style={{
                         flexDirection: "row",
@@ -87,19 +87,26 @@ const UserPropertyForm = (props) => {
                 <Button1
                     text="Previous Step"
                     onPress={props.onPrevious}
-                    style={{ width: 140, marginRight: 20 }}
+                    style={{ width: 120, marginRight: 10 }}
                 />
                 <Button1
                     text="Next Step"
-                    onPress={() =>
-                        props.onNext({
-                            unitnum,
-                            street,
-                            city,
-                            province,
-                        })
-                    }
-                    style={{ width: 140 }}
+                    onPress={() => {
+                        if (
+                            emptyVerify([unitnum, street, city, province]) &&
+                            authorize
+                        ) {
+                            props.onNext({
+                                unitnum,
+                                street,
+                                city,
+                                province,
+                            });
+                        } else {
+                            incompleteErrorAlert();
+                        }
+                    }}
+                    style={{ width: 120 }}
                 />
             </View>
         </View>

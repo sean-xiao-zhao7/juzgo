@@ -7,6 +7,8 @@ import CustomTextInput from "../inputs/CustomTextInput";
 import Button1 from "../buttons/Button1";
 import TextSmall from "../texts/TextSmall";
 import { colors } from "../../styles/colors";
+import { emptyVerify } from "./helpers/verifyForm";
+import { incompleteErrorAlert } from "./helpers/alert";
 
 const TenantForm = (props) => {
     const [firstname, setFirstname] = useState(
@@ -27,13 +29,11 @@ const TenantForm = (props) => {
         <View style={{ alignItems: "center" }}>
             <CustomTextInput
                 placeholder={"Tenant First Name"}
-                style={{ width: 300 }}
                 onChangeText={setFirstname}
                 value={firstname}
             />
             <CustomTextInput
                 placeholder={"Tenant Last Name"}
-                style={{ width: 300 }}
                 onChangeText={setLastname}
                 value={lastname}
             />
@@ -44,18 +44,18 @@ const TenantForm = (props) => {
             >
                 <CustomTextInput
                     placeholder={"Tenant Email"}
-                    style={{ width: 146, marginRight: 5 }}
+                    style={{ width: 120, marginRight: 5 }}
                     onChangeText={setEmail}
                     value={email}
                 />
                 <CustomTextInput
                     placeholder={"Tenant Phone Number"}
-                    style={{ width: 152 }}
+                    style={{ width: 120 }}
                     onChangeText={setPhone}
                     value={phone}
                 />
             </View>
-            <View style={{ width: 300 }}>
+            <View style={{ width: 250 }}>
                 <View
                     style={{
                         flexDirection: "row",
@@ -85,24 +85,31 @@ const TenantForm = (props) => {
                 <Button1
                     text="Previous Step"
                     onPress={props.onPrevious}
-                    style={{ width: 90, height: 70, marginRight: 10 }}
+                    style={{ width: 80, height: 70, marginRight: 5 }}
                 />
                 <Button1
                     text="Next Step"
-                    onPress={() =>
-                        props.onNext({
-                            firstname,
-                            lastname,
-                            email,
-                            phone,
-                        })
-                    }
-                    style={{ width: 90, height: 70, marginRight: 10 }}
+                    onPress={() => {
+                        if (
+                            emptyVerify([firstname, lastname, email, phone]) &&
+                            agree
+                        ) {
+                            props.onNext({
+                                firstname,
+                                lastname,
+                                email,
+                                phone,
+                            });
+                        } else {
+                            incompleteErrorAlert();
+                        }
+                    }}
+                    style={{ width: 80, height: 70, marginRight: 5 }}
                 />
                 <Button1
                     text="Skip"
                     onPress={props.onSkip}
-                    style={{ width: 90, height: 70 }}
+                    style={{ width: 80, height: 70 }}
                 />
             </View>
         </View>

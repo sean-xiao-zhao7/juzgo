@@ -8,6 +8,8 @@ import CustomTextInput from "../inputs/CustomTextInput";
 import Button1 from "../../components/buttons/Button1";
 import TextSmall from "../../components/texts/TextSmall";
 import { colors } from "../../styles/colors";
+import { incompleteErrorAlert } from "./helpers/alert";
+import { emptyVerify } from "./helpers/verifyForm";
 
 const UserInfoForm = (props) => {
     const [firstname, setFirstname] = useState(
@@ -112,16 +114,27 @@ const UserInfoForm = (props) => {
             <Button1
                 text="Next Step"
                 onPress={() => {
-                    if (authorize && terms) {
+                    if (
+                        emptyVerify([
+                            email,
+                            firstname,
+                            lastname,
+                            email,
+                            phone,
+                        ]) &&
+                        terms &&
+                        authorize
+                    ) {
                         props.onSubmit({
                             firstname,
                             lastname,
                             email,
                             phone,
                         });
+                    } else {
+                        incompleteErrorAlert();
                     }
                 }}
-                disabled={!(authorize && terms)}
             />
         </View>
     );

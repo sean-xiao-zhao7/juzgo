@@ -4,6 +4,8 @@ import { View } from "react-native";
 // comps
 import CustomTextInput from "../inputs/CustomTextInput";
 import Button1 from "../buttons/Button1";
+import { emptyVerify, emailPasswordVerify } from "./helpers/verifyForm";
+import { incompleteErrorAlert } from "./helpers/alert";
 
 const EmailPasswordForm = (props) => {
     const [email, setEmail] = useState(props.email ? props.email : "");
@@ -25,10 +27,17 @@ const EmailPasswordForm = (props) => {
             <Button1
                 text="Complete signup"
                 onPress={() => {
-                    props.onSubmit({
-                        email,
-                        password,
-                    });
+                    if (
+                        emptyVerify([email, password]) &&
+                        emailPasswordVerify(email, password)
+                    ) {
+                        props.onSubmit({
+                            email,
+                            password,
+                        });
+                    } else {
+                        incompleteErrorAlert();
+                    }
                 }}
             />
         </View>

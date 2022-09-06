@@ -13,11 +13,10 @@ const TenantAccessCodeForm = (props) => {
         <View style={{ alignItems: "center" }}>
             <CustomTextInput
                 placeholder={"XXX-XXX-XXXX"}
-                style={{ width: 300 }}
                 value={accessCode}
                 onChangeText={setAccessCode}
             />
-            <View style={{ width: 300 }}>
+            <View style={{ width: 250 }}>
                 <View
                     style={{
                         flexDirection: "row",
