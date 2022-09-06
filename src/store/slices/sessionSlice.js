@@ -6,6 +6,9 @@ import {
 } from "../../dummy-data";
 import { saveSession, retrieveSession } from "../helper/session";
 
+// constants
+import { INVALID_LOGIN } from "../../constants/errors";
+
 const sessionSlice = createSlice({
     name: "sessionSlice",
     initialState: {
@@ -13,6 +16,7 @@ const sessionSlice = createSlice({
         email: "",
         password: "",
         idToken: "",
+        error: "",
     },
     reducers: {
         authenticate: (state, action) => {
@@ -27,19 +31,31 @@ const sessionSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(signInAction.fulfilled, (state, action) => {
-                state.idToken = action.payload.idToken;
-                state.type = action.payload.type;
-                state.email = action.payload.email;
+                if (action.payload.error) {
+                    state.error = action.payload.error;
+                } else {
+                    state.idToken = action.payload.idToken;
+                    state.type = action.payload.type;
+                    state.email = action.payload.email;
+                }
             })
             .addCase(signUpAction.fulfilled, (state, action) => {
-                state.idToken = action.payload.idToken;
-                state.type = action.payload.type;
-                state.email = action.payload.email;
+                if (action.payload.error) {
+                    state.error = action.payload.error;
+                } else {
+                    state.idToken = action.payload.idToken;
+                    state.type = action.payload.type;
+                    state.email = action.payload.email;
+                }
             })
             .addCase(autoSignInAction.fulfilled, (state, action) => {
-                state.idToken = action.payload.idToken;
-                state.type = action.payload.type;
-                state.email = action.payload.email;
+                if (action.payload.error) {
+                    state.error = action.payload.error;
+                } else {
+                    state.idToken = action.payload.idToken;
+                    state.type = action.payload.type;
+                    state.email = action.payload.email;
+                }
             });
     },
 });
@@ -81,6 +97,9 @@ export const signInAction = createAsyncThunk(
             });
 
             let result = await response.json();
+            if (result.error) {
+                throw new Error(INVALID_LOGIN);
+            }
             saveSession(result);
 
             // retrieve userinfo from db to check if user is landlord or tenant
@@ -102,7 +121,9 @@ export const signInAction = createAsyncThunk(
 
             return result;
         } catch (error) {
-            console.log(error.message);
+            return {
+                error: error.message,
+            };
         }
     }
 );

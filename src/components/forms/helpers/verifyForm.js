@@ -14,7 +14,7 @@ export const emailPasswordVerify = (email, password) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         emailValid = true;
     }
-    if (password.length > 6) {
+    if (password.length >= 6) {
         passwordValid = true;
     }
 

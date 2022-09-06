@@ -14,20 +14,37 @@ import TextSmall from "../../components/texts/TextSmall";
 import CustomTextInput from "../../components/inputs/CustomTextInput";
 import Button1 from "../../components/buttons/Button1";
 
+// helpers
+import {
+    emptyVerify,
+    emailPasswordVerify,
+} from "../../components/forms/helpers/verifyForm";
+import { incompleteErrorAlert } from "../../components/forms/helpers/alert";
+
 const LoginScreen = (props) => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const idToken = useSelector((state) => state.sessionSlice.idToken);
+    const error = useSelector((state) => state.sessionSlice.error);
     useEffect(() => {
         if (idToken !== "") {
             props.navigation.navigate("AllPropertiesScreen");
+        } else if (error) {
+            console.log(error);
         }
     }, [idToken]);
 
     const signInHandler = () => {
-        dispatch(signInAction({ email, password }));
+        if (
+            emptyVerify([email, password]) &&
+            emailPasswordVerify(email, password)
+        ) {
+            dispatch(signInAction({ email, password }));
+        } else {
+            incompleteErrorAlert();
+        }
     };
 
     return (

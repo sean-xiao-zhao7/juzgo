@@ -4,6 +4,8 @@ import { View } from "react-native";
 // comps
 import CustomTextInput from "../inputs/CustomTextInput";
 import Button1 from "../buttons/Button1";
+
+// helpers
 import { emptyVerify, emailPasswordVerify } from "./helpers/verifyForm";
 import { incompleteErrorAlert } from "./helpers/alert";
 
