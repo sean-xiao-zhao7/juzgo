@@ -17,6 +17,8 @@ const sessionSlice = createSlice({
         password: "",
         idToken: "",
         error: "",
+        landlordId: "",
+        userUID: "",
     },
     reducers: {
         authenticate: (state, action) => {
@@ -37,6 +39,8 @@ const sessionSlice = createSlice({
                     state.idToken = action.payload.idToken;
                     state.type = action.payload.type;
                     state.email = action.payload.email;
+                    state.landlordId = action.payload.landlordId;
+                    state.userUID = action.payload.userUID;
                 }
             })
             .addCase(signUpAction.fulfilled, (state, action) => {
@@ -115,7 +119,13 @@ export const signInAction = createAsyncThunk(
             let currentUserUID = result.localId;
             for (const key in landlords) {
                 if (landlords[key].userUID === currentUserUID) {
-                    result = { ...result, type: "landlord" };
+                    result = {
+                        ...result,
+                        type: "landlord",
+                        landlordId: key,
+                        userUID: currentUserUID,
+                    };
+                    type = "landlord";
                 }
             }
 

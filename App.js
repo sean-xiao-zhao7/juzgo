@@ -18,7 +18,7 @@ import SignupTenantPersonalInfoScreen from "./src/screens/register/SignupTenantP
 import SignupEmailPasswordScreen from "./src/screens/register/SignupEmailPasswordScreen";
 
 // normal screens
-import AllPropertiesScreen from "./src/screens/AllPropertiesScreen";
+import AllPropertiesScreen from "./src/screens/properties/AllPropertiesScreen";
 
 // navigation configs
 import { noHeaderConfig } from "./src/navigation-configs/configs";
