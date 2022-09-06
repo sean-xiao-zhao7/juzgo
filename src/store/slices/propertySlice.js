@@ -9,7 +9,11 @@ const propertySlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchProperties.fulfilled, (state, action) => {
-                state.properties = action.payload;
+                const properties = [];
+                for (const property in action.payload) {
+                    properties.push(property);
+                }
+                state.properties = properties;
             })
             .addCase(addProperty.fulfilled, (state, action) => {
                 state.properties.push(action.payload);

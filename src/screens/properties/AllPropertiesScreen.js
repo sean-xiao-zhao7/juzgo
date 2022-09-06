@@ -1,17 +1,31 @@
+// redux
+import { fetchProperties } from "../../store/slices/propertySlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 // comps
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import PropertiesGrid from "../../components/properties/propertiesGrid";
 
 const AllPropertiesScreen = (props) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchProperties());
+    }, []);
+
+    const properties = useSelector((state) => state.propertySlice.properties);
+
     return (
-        <ScreenContainer>
+        <ScreenScrollContainer>
             <TextRegular style={{ marginBottom: 20 }}>
                 Welcome, Landlord!
             </TextRegular>
             <TextRegular style={{ marginBottom: 30, width: 300 }}>
                 This the home page that shows all your properties.
             </TextRegular>
-        </ScreenContainer>
+            <PropertiesGrid properties={properties} />
+        </ScreenScrollContainer>
     );
 };
 

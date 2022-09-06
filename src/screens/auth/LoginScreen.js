@@ -29,12 +29,13 @@ const LoginScreen = (props) => {
     const idToken = useSelector((state) => state.sessionSlice.idToken);
     const error = useSelector((state) => state.sessionSlice.error);
     useEffect(() => {
+        console.log(idToken, error);
         if (idToken !== "") {
             props.navigation.navigate("AllPropertiesScreen");
         } else if (error) {
             console.log(error);
         }
-    }, [idToken]);
+    }, [idToken, error]);
 
     const signInHandler = () => {
         if (

@@ -125,7 +125,6 @@ export const signInAction = createAsyncThunk(
                         landlordId: key,
                         userUID: currentUserUID,
                     };
-                    type = "landlord";
                 }
             }
 
