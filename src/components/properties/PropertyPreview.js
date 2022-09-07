@@ -8,6 +8,9 @@ import TextRegular from "../texts/TextRegular";
 import TextSmall from "../texts/TextSmall";
 import { useState } from "react";
 
+// style
+import { colors } from "../../styles/colors";
+
 const PropertyPreview = (props) => {
     const [allowManage, setAllowManage] = useState(false);
 
@@ -27,17 +30,18 @@ const PropertyPreview = (props) => {
                 style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: 10,
+                    marginTop: 5,
+                    padding: 10,
                 }}
             >
                 <Checkbox
                     value={allowManage}
                     onValueChange={setAllowManage}
                     style={{
-                        marginRight: 10,
+                        marginRight: 5,
                     }}
                 />
-                <TextSmall>
+                <TextSmall style={{ color: colors.secondaryTextColor }}>
                     Turn on to allow Juzgo to manage this property. This will
                     allow Juzgo to communicate directly with tenant.
                 </TextSmall>

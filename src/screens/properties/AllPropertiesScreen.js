@@ -2,7 +2,7 @@
 import { fetchProperties } from "../../store/slices/propertySlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
@@ -11,6 +11,9 @@ import PropertiesGrid from "../../components/properties/PropertiesGrid";
 import HeadingLarge from "../../components/headings/HeadingLarge";
 import TextLarge from "../../components/texts/TextLarge";
 
+// style
+import { colors } from "../../styles/colors";
+
 const AllPropertiesScreen = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -18,6 +21,8 @@ const AllPropertiesScreen = (props) => {
     }, []);
 
     const properties = useSelector((state) => state.propertySlice.properties);
+
+    const inquiryHandler = () => {};
 
     return (
         <View style={{ flex: 1 }}>
@@ -33,12 +38,29 @@ const AllPropertiesScreen = (props) => {
             <View
                 style={{
                     padding: 10,
-                    alignItems: "flex-end",
+                    justifyContent: "space-between",
                     backgroundColor: "white",
+                    flexDirection: "row",
+                    alignItems: "center",
                 }}
             >
-                <HeadingLarge>JUZGO</HeadingLarge>
-                <TextRegular>Get Your Freedom Back</TextRegular>
+                <Pressable
+                    onPress={inquiryHandler}
+                    style={{
+                        backgroundColor: colors.grayBackground,
+                        borderWidth: 1,
+                        borderColor: colors.secondaryTextColor,
+                        borderRadius: 10,
+                        paddingVertical: 10,
+                        paddingHorizontal: 20,
+                    }}
+                >
+                    <TextRegular>Inquiry Log</TextRegular>
+                </Pressable>
+                <View>
+                    <HeadingLarge>JUZGO</HeadingLarge>
+                    <TextRegular>Get Your Freedom Back</TextRegular>
+                </View>
             </View>
         </View>
     );
