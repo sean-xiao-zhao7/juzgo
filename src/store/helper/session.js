@@ -19,3 +19,11 @@ export const retrieveSession = async (value) => {
         console.log(e.message);
     }
 };
+
+export const destroySession = async () => {
+    try {
+        await AsyncStorage.removeItem("juzgoSession");
+    } catch (e) {
+        console.log(e.message);
+    }
+};

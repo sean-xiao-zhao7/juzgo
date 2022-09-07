@@ -8,6 +8,7 @@ export const screenContainerStyles = StyleSheet.create({
         // spacing
         flex: 1,
         alignItems: "center",
+        justifyContent: "center",
 
         // color
         backgroundColor: colors.secondaryColor,

@@ -4,7 +4,11 @@ import {
     firebase_siginpassword_url,
     firebase_database_url,
 } from "../../dummy-data";
-import { saveSession, retrieveSession } from "../helper/session";
+import {
+    saveSession,
+    retrieveSession,
+    destroySession,
+} from "../helper/session";
 
 // constants
 import { INVALID_LOGIN } from "../../constants/errors";
@@ -27,7 +31,10 @@ const sessionSlice = createSlice({
             state.email = action.payload.email;
         },
         signOut: (state, action) => {
-            state.type = action.payload.type;
+            destroySession();
+            state.idToken = "";
+            state.type = "";
+            state.email = "";
         },
     },
     extraReducers: (builder) => {

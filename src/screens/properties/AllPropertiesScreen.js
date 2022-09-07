@@ -1,8 +1,9 @@
 // redux
 import { fetchProperties } from "../../store/slices/propertySlice";
+import { signOut } from "../../store/slices/sessionSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Pressable, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
@@ -24,9 +25,13 @@ const AllPropertiesScreen = (props) => {
 
     const inquiryHandler = () => {};
 
+    const logoutHandler = () => {
+        dispatch(signOut());
+    };
+
     return (
         <View style={{ flex: 1 }}>
-            <ScreenScrollContainer>
+            <ScreenScrollContainer style={{ justifyContent: "flex-start" }}>
                 <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
                     Welcome, Landlord!
                 </TextLarge>
@@ -44,19 +49,22 @@ const AllPropertiesScreen = (props) => {
                     alignItems: "center",
                 }}
             >
-                <Pressable
-                    onPress={inquiryHandler}
+                <View
                     style={{
-                        backgroundColor: colors.grayBackground,
-                        borderWidth: 1,
-                        borderColor: colors.secondaryTextColor,
-                        borderRadius: 10,
-                        paddingVertical: 10,
-                        paddingHorizontal: 20,
+                        flexDirection: "row",
                     }}
                 >
-                    <TextRegular>Inquiry Log</TextRegular>
-                </Pressable>
+                    <Pressable
+                        onPress={inquiryHandler}
+                        style={style.grayButton}
+                    >
+                        <TextRegular>Inquiry Log</TextRegular>
+                    </Pressable>
+                    <View style={{ width: 5 }}></View>
+                    <Pressable onPress={logoutHandler} style={style.grayButton}>
+                        <TextRegular>Log out</TextRegular>
+                    </Pressable>
+                </View>
                 <View>
                     <HeadingLarge>JUZGO</HeadingLarge>
                     <TextRegular>Get Your Freedom Back</TextRegular>
@@ -65,5 +73,16 @@ const AllPropertiesScreen = (props) => {
         </View>
     );
 };
+
+const style = StyleSheet.create({
+    grayButton: {
+        backgroundColor: colors.grayBackground,
+        borderWidth: 1,
+        borderColor: colors.secondaryTextColor,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+});
 
 export default AllPropertiesScreen;
