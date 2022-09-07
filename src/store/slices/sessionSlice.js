@@ -53,12 +53,14 @@ const sessionSlice = createSlice({
                 }
             })
             .addCase(autoSignInAction.fulfilled, (state, action) => {
-                if (action.payload.error) {
-                    state.error = action.payload.error;
-                } else {
-                    state.idToken = action.payload.idToken;
-                    state.type = action.payload.type;
-                    state.email = action.payload.email;
+                if (action.payload) {
+                    if (action.payload.error) {
+                        state.error = action.payload.error;
+                    } else {
+                        state.idToken = action.payload.idToken;
+                        state.type = action.payload.type;
+                        state.email = action.payload.email;
+                    }
                 }
             });
     },

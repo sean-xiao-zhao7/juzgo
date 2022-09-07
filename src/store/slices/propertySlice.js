@@ -11,7 +11,7 @@ const propertySlice = createSlice({
             .addCase(fetchProperties.fulfilled, (state, action) => {
                 const properties = [];
                 for (const property in action.payload) {
-                    properties.push(property);
+                    properties.push(action.payload[property]);
                 }
                 state.properties = properties;
             })

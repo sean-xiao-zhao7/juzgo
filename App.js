@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Provider } from "react-redux";
+
+// redux
+import store from "./src/store/store";
+import { Provider, useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { autoSignInAction } from "./src/store/slices/sessionSlice";
 
 // screens
 // auth
@@ -22,9 +27,6 @@ import AllPropertiesScreen from "./src/screens/properties/AllPropertiesScreen";
 
 // navigation configs
 import { noHeaderConfig } from "./src/navigation-configs/configs";
-
-// redux
-import store from "./src/store/store";
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
@@ -87,6 +89,12 @@ const AuthStackComp = () => {
 };
 
 const Navigator = (props) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(autoSignInAction());
+    }, []);
+
     const idToken = useSelector((state) => state.sessionSlice.idToken);
 
     let stack;

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
-import PropertiesGrid from "../../components/properties/propertiesGrid";
+import PropertiesGrid from "../../components/properties/PropertiesGrid";
 
 const AllPropertiesScreen = (props) => {
     const dispatch = useDispatch();

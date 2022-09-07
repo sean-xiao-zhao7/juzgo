@@ -1,7 +1,13 @@
 import { StyleSheet, TextInput } from "react-native";
 
 const CustomTextInput = (props) => {
-    return <TextInput {...props} style={[style.input, props.style]} />;
+    return (
+        <TextInput
+            {...props}
+            style={[style.input, props.style]}
+            autoCapitalize={"none"}
+        />
+    );
 };
 
 const style = StyleSheet.create({

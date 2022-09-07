@@ -1,16 +1,11 @@
 import { View } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
+import PropertyPreview from "./PropertyPreview";
 
 const PropertiesGrid = (props) => {
     return (
         <View>
-            {props.properties.map((property) => {
-                return (
-                    <View>
-                        <FontAwesomeIcon icon={faHouse} />
-                    </View>
-                );
+            {props.properties.map((property, index) => {
+                return <PropertyPreview property={property} key={index} />;
             })}
         </View>
     );
