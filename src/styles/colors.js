@@ -7,4 +7,7 @@ export const colors = {
     primaryTextColor: "black",
     secondaryTextColor: "gray",
     linkColor: "blue",
+
+    // background colors
+    grayBackground: "whitesmoke",
 };

@@ -12,27 +12,35 @@ const PropertyPreview = (props) => {
     const [allowManage, setAllowManage] = useState(false);
 
     return (
-        <View>
-            <FontAwesomeIcon icon={faHouse} style={{ height: 50, width: 50 }} />
+        <View
+            style={{
+                alignItems: "center",
+            }}
+        >
+            <FontAwesomeIcon icon={faHouse} size={60} />
             <TextRegular>{props.property.street}</TextRegular>
             <TextRegular>
                 {props.property.city}, {props.property.province}
             </TextRegular>
             <TextRegular>{props.property.unitnum}</TextRegular>
-            <View>
-                <View>
-                    <Checkbox
-                        value={allowManage}
-                        onValueChange={setAllowManage}
-                    />
-                    <TextSmall>
-                        Turn on to allow Juzgo to manage this property. This
-                        will allow Juzgo to communicate directly with tenant.
-                    </TextSmall>
-                </View>
-                <View>
-                    <TextRegular>Add A Property</TextRegular>
-                </View>
+            <View
+                style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 10,
+                }}
+            >
+                <Checkbox
+                    value={allowManage}
+                    onValueChange={setAllowManage}
+                    style={{
+                        marginRight: 10,
+                    }}
+                />
+                <TextSmall>
+                    Turn on to allow Juzgo to manage this property. This will
+                    allow Juzgo to communicate directly with tenant.
+                </TextSmall>
             </View>
         </View>
     );
