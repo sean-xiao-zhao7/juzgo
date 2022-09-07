@@ -22,14 +22,16 @@ import SignupTenantPropertyLandlordScreen from "./src/screens/register/SignupTen
 import SignupTenantPersonalInfoScreen from "./src/screens/register/SignupTenantPersonalInfoScreen";
 import SignupEmailPasswordScreen from "./src/screens/register/SignupEmailPasswordScreen";
 
-// normal screens
+// properties screens
 import AllPropertiesScreen from "./src/screens/properties/AllPropertiesScreen";
+import AddPropertyScreen1 from "./src/screens/properties/AddSinglePropertyScreen1";
 
 // navigation configs
 import { noHeaderConfig } from "./src/navigation-configs/configs";
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
+const PropertiesStack = createNativeStackNavigator();
 
 const AuthStackComp = () => {
     return (
@@ -88,6 +90,18 @@ const AuthStackComp = () => {
     );
 };
 
+const PropertiesStackComp = () => {
+    return (
+        <PropertiesStack.Navigator>
+            <PropertiesStack.Screen
+                name="AddPropertyScreen1"
+                component={AddPropertyScreen1}
+                options={noHeaderConfig}
+            />
+        </PropertiesStack.Navigator>
+    );
+};
+
 const Navigator = (props) => {
     const dispatch = useDispatch();
 
@@ -97,9 +111,9 @@ const Navigator = (props) => {
 
     const idToken = useSelector((state) => state.sessionSlice.idToken);
 
-    let stack;
+    let screens, propertiesStack;
     if (idToken === "") {
-        stack = (
+        screens = (
             <RootStack.Screen
                 name="AuthStack"
                 component={AuthStackComp}
@@ -107,17 +121,27 @@ const Navigator = (props) => {
             />
         );
     } else {
-        stack = (
+        screens = (
             <RootStack.Screen
                 name="AllPropertiesScreen"
                 component={AllPropertiesScreen}
                 options={noHeaderConfig}
             />
         );
+        propertiesStack = (
+            <RootStack.Screen
+                name="PropertiesStack"
+                component={PropertiesStackComp}
+                options={noHeaderConfig}
+            />
+        );
     }
     return (
         <NavigationContainer>
-            <RootStack.Navigator>{stack}</RootStack.Navigator>
+            <RootStack.Navigator>
+                {screens}
+                {propertiesStack}
+            </RootStack.Navigator>
         </NavigationContainer>
     );
 };

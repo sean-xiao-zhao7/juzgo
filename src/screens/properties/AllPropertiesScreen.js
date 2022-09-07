@@ -36,7 +36,7 @@ const AllPropertiesScreen = (props) => {
                     Welcome, Landlord!
                 </TextLarge>
                 <TextRegular style={{ marginBottom: 60 }}>
-                    This the home page that shows all your properties.
+                    This is the home page that shows all your properties.
                 </TextRegular>
                 <PropertiesGrid properties={properties} />
             </ScreenScrollContainer>

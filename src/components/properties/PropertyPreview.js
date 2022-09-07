@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
@@ -6,7 +7,6 @@ import Checkbox from "expo-checkbox";
 // comps
 import TextRegular from "../texts/TextRegular";
 import TextSmall from "../texts/TextSmall";
-import { useState } from "react";
 
 // style
 import { colors } from "../../styles/colors";
@@ -16,9 +16,12 @@ const PropertyPreview = (props) => {
 
     return (
         <View
-            style={{
-                alignItems: "center",
-            }}
+            style={[
+                {
+                    alignItems: "center",
+                },
+                props.style,
+            ]}
         >
             <FontAwesomeIcon icon={faHouse} size={60} />
             <TextRegular>{props.property.street}</TextRegular>

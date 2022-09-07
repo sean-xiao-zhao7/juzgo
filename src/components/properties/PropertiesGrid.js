@@ -1,4 +1,5 @@
 import { Pressable, View, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 // comps
 import PropertyPreview from "./PropertyPreview";
@@ -8,15 +9,23 @@ import TextRegular from "../texts/TextRegular";
 import { colors } from "../../styles/colors";
 
 const PropertiesGrid = (props) => {
-    const addProperty = () => {};
+    const navigation = useNavigation();
+
+    const addProperty = () => {
+        navigation.navigate("PropertiesStack");
+    };
 
     return (
         <View style={style.twoColumns}>
-            <View style={style.twoColumnsChild}>
-                {props.properties.map((property, index) => {
-                    return <PropertyPreview property={property} key={index} />;
-                })}
-            </View>
+            {props.properties.map((property, index) => {
+                return (
+                    <PropertyPreview
+                        property={property}
+                        key={index}
+                        style={style.twoColumnsChild}
+                    />
+                );
+            })}
             <Pressable
                 style={[style.twoColumnsChild, style.addBigButton]}
                 onPress={addProperty}

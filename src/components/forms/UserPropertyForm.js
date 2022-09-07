@@ -85,12 +85,16 @@ const UserPropertyForm = (props) => {
                 }}
             >
                 <Button1
-                    text="Previous Step"
+                    text={
+                        props.previousStepText
+                            ? props.previousStepText
+                            : "Previous Step"
+                    }
                     onPress={props.onPrevious}
                     style={{ width: 120, marginRight: 10 }}
                 />
                 <Button1
-                    text="Next Step"
+                    text={props.nextStepText ? props.nextStepText : "Next Step"}
                     onPress={() => {
                         if (
                             emptyVerify([unitnum, street, city, province]) &&

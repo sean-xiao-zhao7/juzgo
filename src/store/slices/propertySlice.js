@@ -5,6 +5,20 @@ const propertySlice = createSlice({
     name: "propertySlice",
     initialState: {
         properties: [],
+        loading: false,
+        newProperty: {},
+        newTenant: {},
+    },
+    reducers: {
+        toggleLoading: (state, action) => {
+            state.loading = !state.loading;
+        },
+        addNewProperty: (state, action) => {
+            state.newProperty = action.payload.newProperty;
+        },
+        addNewTenant: (state, action) => {
+            state.newTenant = action.payload.newTenant;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -15,7 +29,7 @@ const propertySlice = createSlice({
                 }
                 state.properties = properties;
             })
-            .addCase(addProperty.fulfilled, (state, action) => {
+            .addCase(addPropertyAPI.fulfilled, (state, action) => {
                 state.properties.push(action.payload);
             });
     },
@@ -35,19 +49,33 @@ export const fetchProperties = createAsyncThunk(
     }
 );
 
-export const addProperty = createAsyncThunk(
-    "propertySlice/addProperty",
+export const addPropertyAPI = createAsyncThunk(
+    "propertySlice/addPropertyAPI",
     async (propertyInfo) => {
-        const response = await fetch(firebase_database_url + "/property.json", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(propertyInfo),
-        });
-        const result = await response.json();
-        return propertyInfo;
+        try {
+            const response = await fetch(
+                firebase_database_url + "/property.json",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(propertyInfo),
+                }
+            );
+            const result = await response.json();
+            if (result.error) {
+                throw new Error(result.error);
+            }
+            return propertyInfo;
+        } catch (error) {
+            console.log(error.message);
+            return error;
+        }
     }
 );
 
+export const addNewProperty = propertySlice.actions.addNewProperty;
+export const addNewTenant = propertySlice.actions.addNewTenant;
+export const toggleLoading = propertySlice.actions.toggleLoading;
 export default propertySlice.reducer;
