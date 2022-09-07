@@ -19,7 +19,10 @@ import {
     emptyVerify,
     emailPasswordVerify,
 } from "../../components/forms/helpers/verifyForm";
-import { incompleteErrorAlert } from "../../components/forms/helpers/alert";
+import {
+    incompleteErrorAlert,
+    serverErrorAlert,
+} from "../../components/forms/helpers/alert";
 
 const LoginScreen = (props) => {
     const dispatch = useDispatch();
@@ -29,11 +32,11 @@ const LoginScreen = (props) => {
     const idToken = useSelector((state) => state.sessionSlice.idToken);
     const error = useSelector((state) => state.sessionSlice.error);
     useEffect(() => {
-        console.log(idToken, error);
         if (idToken !== "") {
             props.navigation.navigate("AllPropertiesScreen");
         } else if (error) {
             console.log(error);
+            serverErrorAlert();
         }
     }, [idToken, error]);
 
