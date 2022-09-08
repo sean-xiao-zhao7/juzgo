@@ -12,17 +12,17 @@ import { incompleteErrorAlert } from "./helpers/alert";
 
 const UserPropertyForm = (props) => {
     const [unitnum, setUnitNum] = useState(
-        props.info.unitnum ? props.info.unitnum : ""
+        props.info?.unitnum ? props.info?.unitnum : ""
     );
     const [street, setStreet] = useState(
-        props.info.street ? props.info.street : ""
+        props.info?.street ? props.info?.street : ""
     );
-    const [city, setCity] = useState(props.info.city ? props.info.city : "");
+    const [city, setCity] = useState(props.info?.city ? props.info?.city : "");
     const [province, setProvince] = useState(
-        props.info.province ? props.info.province : ""
+        props.info?.province ? props.info?.province : ""
     );
     const [authorize, checkAuthorize] = useState(
-        props.info.firstname ? true : false
+        props.info?.firstname ? true : false
     );
 
     return (

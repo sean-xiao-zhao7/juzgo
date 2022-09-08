@@ -24,7 +24,9 @@ import SignupEmailPasswordScreen from "./src/screens/register/SignupEmailPasswor
 
 // properties screens
 import AllPropertiesScreen from "./src/screens/properties/AllPropertiesScreen";
-import AddPropertyScreen1 from "./src/screens/properties/AddSinglePropertyScreen1";
+import AddSinglePropertyScreen1 from "./src/screens/properties/AddSinglePropertyScreen1";
+import AddSinglePropertyScreen2 from "./src/screens/properties/AddSinglePropertyScreen2";
+import AddSinglePropertyScreen3 from "./src/screens/properties/AddSinglePropertyScreen3";
 
 // navigation configs
 import { noHeaderConfig } from "./src/navigation-configs/configs";
@@ -94,8 +96,18 @@ const PropertiesStackComp = () => {
     return (
         <PropertiesStack.Navigator>
             <PropertiesStack.Screen
-                name="AddPropertyScreen1"
-                component={AddPropertyScreen1}
+                name="AddSinglePropertyScreen1"
+                component={AddSinglePropertyScreen1}
+                options={noHeaderConfig}
+            />
+            <PropertiesStack.Screen
+                name="AddSinglePropertyScreen2"
+                component={AddSinglePropertyScreen2}
+                options={noHeaderConfig}
+            />
+            <PropertiesStack.Screen
+                name="AddSinglePropertyScreen3"
+                component={AddSinglePropertyScreen3}
                 options={noHeaderConfig}
             />
         </PropertiesStack.Navigator>

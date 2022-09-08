@@ -10,6 +10,7 @@ import {
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import UserPropertyForm from "../../components/forms/UserPropertyForm";
+import NormalLoader from "../../components/loading/NormalLoader.js";
 
 const AddPropertyScreen1 = (props) => {
     const dispatch = useDispatch();
@@ -18,11 +19,20 @@ const AddPropertyScreen1 = (props) => {
         (state) => state.propertySlice.newProperty
     );
 
+    const loading = useSelector((state) => state.propertySlice.loading);
+
     const onNext = (landlordPropertyInfo) => {
         dispatch(toggleLoading());
         dispatch(addNewProperty({ landlordPropertyInfo }));
-        props.navigation.navigate("AddSinglePropertyScreen2");
+        props.navigation.navigate("PropertiesStack", {
+            screen: "AddSinglePropertyScreen2",
+        });
+        dispatch(toggleLoading());
     };
+
+    if (loading) {
+        return <NormalLoader />;
+    }
 
     return (
         <ScreenContainer>

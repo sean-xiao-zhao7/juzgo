@@ -29,7 +29,7 @@ const propertySlice = createSlice({
                 }
                 state.properties = properties;
             })
-            .addCase(addPropertyAPI.fulfilled, (state, action) => {
+            .addCase(updateAPI.fulfilled, (state, action) => {
                 state.properties.push(action.payload);
             });
     },
@@ -49,7 +49,7 @@ export const fetchProperties = createAsyncThunk(
     }
 );
 
-export const addPropertyAPI = createAsyncThunk(
+export const updateAPI = createAsyncThunk(
     "propertySlice/addPropertyAPI",
     async (propertyInfo) => {
         try {
