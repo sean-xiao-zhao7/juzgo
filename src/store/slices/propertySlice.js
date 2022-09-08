@@ -8,6 +8,7 @@ const propertySlice = createSlice({
         loading: false,
         newProperty: {},
         newTenant: {},
+        accessCode: "",
     },
     reducers: {
         toggleLoading: (state, action) => {
@@ -18,6 +19,10 @@ const propertySlice = createSlice({
         },
         addNewTenant: (state, action) => {
             state.newTenant = action.payload.newTenant;
+        },
+        addAccessCode: (state, action) => {
+            state.accessCode = action.payload.accessCode;
+            state.properties.push(state.newProperty);
         },
     },
     extraReducers: (builder) => {
@@ -77,5 +82,6 @@ export const updateAPI = createAsyncThunk(
 
 export const addNewProperty = propertySlice.actions.addNewProperty;
 export const addNewTenant = propertySlice.actions.addNewTenant;
+export const addAccessCode = propertySlice.actions.addAccessCode;
 export const toggleLoading = propertySlice.actions.toggleLoading;
 export default propertySlice.reducer;

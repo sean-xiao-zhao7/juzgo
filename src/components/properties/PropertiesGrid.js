@@ -17,6 +17,12 @@ const PropertiesGrid = (props) => {
 
     return (
         <View style={style.twoColumns}>
+            <Pressable
+                style={[style.twoColumnsChild, style.addBigButton]}
+                onPress={addProperty}
+            >
+                <TextRegular>Add A Property</TextRegular>
+            </Pressable>
             {props.properties.map((property, index) => {
                 return (
                     <PropertyPreview
@@ -26,12 +32,6 @@ const PropertiesGrid = (props) => {
                     />
                 );
             })}
-            <Pressable
-                style={[style.twoColumnsChild, style.addBigButton]}
-                onPress={addProperty}
-            >
-                <TextRegular>Add A Property</TextRegular>
-            </Pressable>
         </View>
     );
 };
@@ -39,12 +39,15 @@ const PropertiesGrid = (props) => {
 const style = StyleSheet.create({
     twoColumns: {
         flexDirection: "row",
-        justifyContent: "space-evenly",
+        justifyContent: "flex-start",
+        flexWrap: "wrap",
     },
     twoColumnsChild: {
-        width: "45%",
+        width: "46%",
         alignItems: "center",
         justifyContent: "center",
+        marginHorizontal: "2%",
+        marginBottom: 20,
     },
     addBigButton: {
         backgroundColor: colors.grayBackground,
