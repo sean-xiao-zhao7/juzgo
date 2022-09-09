@@ -29,12 +29,16 @@ const sessionSlice = createSlice({
             state.idToken = action.payload.idToken;
             state.type = action.payload.type;
             state.email = action.payload.email;
+            state.landlordId = action.payload.landlordId;
+            state.userUID = action.payload.userUID;
         },
         signOut: (state, action) => {
             destroySession();
             state.idToken = "";
             state.type = "";
             state.email = "";
+            state.landlordId = "";
+            state.userUID = "";
         },
     },
     extraReducers: (builder) => {
@@ -49,17 +53,6 @@ const sessionSlice = createSlice({
                     state.landlordId = action.payload.landlordId;
                     state.userUID = action.payload.userUID;
                     saveSession(state);
-                }
-            })
-            .addCase(signUpAction.fulfilled, (state, action) => {
-                if (action.payload.error) {
-                    state.error = action.payload.error;
-                } else {
-                    state.idToken = action.payload.idToken;
-                    state.type = action.payload.type;
-                    state.email = action.payload.email;
-                    state.landlordId = action.payload.landlordId;
-                    state.userUID = action.payload.userUID;
                 }
             })
             .addCase(autoSignInAction.fulfilled, (state, action) => {
@@ -77,26 +70,6 @@ const sessionSlice = createSlice({
             });
     },
 });
-
-export const signUpAction = createAsyncThunk(
-    "sessionSlice/signUpAPIAction",
-    async (emailPassword, thunkAPI) => {
-        const response = await fetch(firebase_signup_url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email: emailPassword.email,
-                password: emailPassword.password,
-                returnSecureToken: true,
-            }),
-        });
-        const result = await response.json();
-        saveSession(result);
-        return result;
-    }
-);
 
 export const signInAction = createAsyncThunk(
     "sessionSlice/signInAction",
