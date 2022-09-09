@@ -23,7 +23,11 @@ const PropertyPreview = (props) => {
                 props.style,
             ]}
         >
-            <FontAwesomeIcon icon={faHouse} size={60} />
+            <FontAwesomeIcon
+                icon={faHouse}
+                size={80}
+                style={{ color: colors.primaryColor }}
+            />
             <TextRegular>{props.property.street}</TextRegular>
             <TextRegular>
                 {props.property.city}, {props.property.province}

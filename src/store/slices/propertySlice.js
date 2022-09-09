@@ -15,6 +15,9 @@ const propertySlice = createSlice({
         toggleLoading: (state, action) => {
             state.loading = !state.loading;
         },
+        unsetActionCompleted: (state, action) => {
+            state.actionCompleted = false;
+        },
         addNewProperty: (state, action) => {
             state.newProperty = action.payload.newProperty;
         },
@@ -38,6 +41,9 @@ const propertySlice = createSlice({
                 state.loading = false;
                 state.actionCompleted = true;
                 state.properties.push(action.payload);
+                state.newProperty = {};
+                state.newTenant = {};
+                state.accessCode = "";
             });
     },
 });
@@ -117,4 +123,5 @@ export const addNewProperty = propertySlice.actions.addNewProperty;
 export const addNewTenant = propertySlice.actions.addNewTenant;
 export const addAccessCode = propertySlice.actions.addAccessCode;
 export const toggleLoading = propertySlice.actions.toggleLoading;
+export const unsetActionCompleted = propertySlice.actions.unsetActionCompleted;
 export default propertySlice.reducer;

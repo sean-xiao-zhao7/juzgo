@@ -5,6 +5,7 @@ import {
     addAccessCode,
     updateAPI,
     toggleLoading,
+    unsetActionCompleted,
 } from "../../store/slices/propertySlice";
 
 // comps
@@ -25,6 +26,7 @@ const AddSinglePropertyScreen3 = (props) => {
 
     useEffect(() => {
         if (actionCompleted) {
+            dispatch(unsetActionCompleted());
             props.navigation.navigate("AllPropertiesScreen");
         }
     }, [actionCompleted]);
