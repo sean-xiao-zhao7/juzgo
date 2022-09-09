@@ -3,7 +3,7 @@ import { fetchProperties } from "../../store/slices/propertySlice";
 import { signOut } from "../../store/slices/sessionSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
@@ -11,6 +11,7 @@ import TextRegular from "../../components/texts/TextRegular";
 import PropertiesGrid from "../../components/properties/PropertiesGrid";
 import HeadingLarge from "../../components/headings/HeadingLarge";
 import TextLarge from "../../components/texts/TextLarge";
+import GrayButton from "../../components/buttons/GrayButton";
 
 // style
 import { colors } from "../../styles/colors";
@@ -57,16 +58,17 @@ const AllPropertiesScreen = (props) => {
                         flexDirection: "row",
                     }}
                 >
-                    <Pressable
+                    <GrayButton
+                        text={"Inquiry Log"}
                         onPress={inquiryHandler}
                         style={style.grayButton}
-                    >
-                        <TextRegular>Inquiry Log</TextRegular>
-                    </Pressable>
+                    />
                     <View style={{ width: 5 }}></View>
-                    <Pressable onPress={logoutHandler} style={style.grayButton}>
-                        <TextRegular>Log out</TextRegular>
-                    </Pressable>
+                    <GrayButton
+                        text={"Log out"}
+                        onPress={logoutHandler}
+                        style={style.grayButton}
+                    />
                 </View>
                 <View>
                     <HeadingLarge>JUZGO</HeadingLarge>

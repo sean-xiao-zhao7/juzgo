@@ -2,7 +2,7 @@ import { Pressable, StyleSheet } from "react-native";
 import { colors } from "../../styles/colors";
 import TextRegular from "../texts/TextRegular";
 
-const Button1 = (props) => {
+const GrayButton = (props) => {
     return (
         <Pressable
             onPress={props.onPress}
@@ -20,23 +20,15 @@ const Button1 = (props) => {
 
 const style = StyleSheet.create({
     button1: {
-        paddingHorizontal: 10,
-        paddingVertical: 20,
-        marginBottom: 18,
-
-        width: 250,
-
-        backgroundColor: colors.primaryColor,
-
+        backgroundColor: colors.grayBackground,
+        borderWidth: 1,
+        borderColor: colors.secondaryTextColor,
         borderRadius: 10,
-
-        fontSize: 12,
-        fontWeight: "bold",
-        // textTransform: "uppercase",
-
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         alignItems: "center",
         justifyContent: "center",
     },
 });
 
-export default Button1;
+export default GrayButton;

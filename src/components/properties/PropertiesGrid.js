@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 // comps
 import PropertyPreview from "./PropertyPreview";
 import TextRegular from "../texts/TextRegular";
+import GrayButton from "../../components/buttons/GrayButton";
 
 // style
 import { colors } from "../../styles/colors";
@@ -17,12 +18,12 @@ const PropertiesGrid = (props) => {
 
     return (
         <View style={style.twoColumns}>
-            <Pressable
+            <GrayButton
+                text={"Add A Property"}
                 style={[style.twoColumnsChild, style.addBigButton]}
                 onPress={addProperty}
-            >
-                <TextRegular>Add A Property</TextRegular>
-            </Pressable>
+            />
+
             {props.properties.map((property, index) => {
                 return (
                     <PropertyPreview
