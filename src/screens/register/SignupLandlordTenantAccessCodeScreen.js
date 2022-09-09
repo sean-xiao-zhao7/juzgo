@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // redux
 import { updateAccessCode } from "../../store/slices/landlordSignupSlice";
@@ -11,10 +11,6 @@ import TextSmall from "../../components/texts/TextSmall";
 
 const SignupLandlordTenantAccessCodeScreen = (props) => {
     const dispatch = useDispatch();
-
-    const accessCode = useSelector(
-        (state) => state.landlordSignupSlice.landlordTenantInfo.accessCode
-    );
 
     const onNext = (accessCode) => {
         dispatch(updateAccessCode({ accessCode }));
@@ -42,7 +38,6 @@ const SignupLandlordTenantAccessCodeScreen = (props) => {
             </TextRegular>
 
             <LandlordAccessCodeForm
-                accessCode={accessCode}
                 onPrevious={() => {
                     props.navigation.navigate("SignupLandlordTenantScreen");
                 }}

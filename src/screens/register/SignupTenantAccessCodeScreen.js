@@ -7,13 +7,17 @@ import { updateAccessCode } from "../../store/slices/tenantSignupSlice.js";
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import TenantAccessCodeForm from "../../components/forms/TenantAccessCodeForm";
+import { useEffect } from "react";
 
 const SignupTenantAccessCodeScreen = (props) => {
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        props.navigation.navigate("SignupTenantPropertyLandlordScreen");
+    }, []);
+
     const onNext = (accessCode) => {
         dispatch(updateAccessCode({ accessCode }));
-        props.navigation.navigate("SignupTenantPropertyLandlordScreen");
     };
 
     return (

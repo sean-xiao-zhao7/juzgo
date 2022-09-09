@@ -7,6 +7,7 @@ const tenantSignupSlice = createSlice({
         propertyInfo: {},
         landlordInfo: {},
         personalInfo: {},
+        loading: false,
     },
     reducers: {
         updateAccessCode: (state, action) => {

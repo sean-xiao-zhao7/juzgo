@@ -95,6 +95,7 @@ export const updateAPI = createAsyncThunk(
                 ...state.propertySlice.newProperty,
                 landlord: landlordId,
                 tenant: resultTenant.name,
+                accessCode: state.propertySlice.accessCode,
             };
             const responseProperty = await fetch(
                 firebase_database_url + "/property.json",

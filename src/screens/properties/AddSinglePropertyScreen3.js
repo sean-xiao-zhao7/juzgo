@@ -18,7 +18,6 @@ import { useEffect } from "react";
 const AddSinglePropertyScreen3 = (props) => {
     const dispatch = useDispatch();
 
-    const accessCode = useSelector((state) => state.propertySlice.accessCode);
     const loading = useSelector((state) => state.propertySlice.loading);
     const actionCompleted = useSelector(
         (state) => state.propertySlice.actionCompleted
@@ -60,7 +59,6 @@ const AddSinglePropertyScreen3 = (props) => {
             </TextRegular>
 
             <LandlordAccessCodeForm
-                accessCode={accessCode}
                 onPrevious={() => {
                     props.navigation.navigate("AddSinglePropertyScreen2");
                 }}

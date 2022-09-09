@@ -4,10 +4,15 @@ import { View } from "react-native";
 import Button1 from "../buttons/Button1";
 import TextLarge from "../texts/TextLarge";
 
+// helpers
+import { generateAccessCode } from "./helpers/accessCode";
+
 const LandlordAccessCodeForm = (props) => {
+    const accessCode = generateAccessCode();
+
     return (
         <View style={{ alignItems: "center", paddingTop: 30 }}>
-            <TextLarge>XXX-XXX-XXXX</TextLarge>
+            <TextLarge>{accessCode}</TextLarge>
             <Button1
                 text="Tap to copy the code above"
                 onPress={props.onPrevious}
@@ -26,7 +31,7 @@ const LandlordAccessCodeForm = (props) => {
                 />
                 <Button1
                     text="Submit"
-                    onPress={() => props.onNext("XXX-XXX-XXXX")}
+                    onPress={() => props.onNext(accessCode)}
                     style={{ width: 120 }}
                 />
             </View>

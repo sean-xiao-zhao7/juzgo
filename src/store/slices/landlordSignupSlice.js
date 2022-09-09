@@ -22,6 +22,7 @@ const landlordSignupSlice = createSlice({
         },
         updateAccessCode: (state, action) => {
             state.landlordTenantInfo.accessCode = action.payload.accessCode;
+            state.landlordPropertyInfo.accessCode = action.payload.accessCode;
         },
     },
     extraReducers: (builder) => {
