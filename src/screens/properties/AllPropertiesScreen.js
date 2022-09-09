@@ -31,7 +31,9 @@ const AllPropertiesScreen = (props) => {
 
     return (
         <View style={{ flex: 1, backgroundColor: "white" }}>
-            <ScreenScrollContainer style={{ justifyContent: "flex-start" }}>
+            <ScreenScrollContainer
+                style={{ justifyContent: "flex-start", flex: "auto" }}
+            >
                 <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
                     Welcome, Landlord!
                 </TextLarge>
