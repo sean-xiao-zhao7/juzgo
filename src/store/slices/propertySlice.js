@@ -9,6 +9,7 @@ const propertySlice = createSlice({
         newProperty: {},
         newTenant: {},
         accessCode: "",
+        actionCompleted: false,
     },
     reducers: {
         toggleLoading: (state, action) => {
@@ -22,7 +23,6 @@ const propertySlice = createSlice({
         },
         addAccessCode: (state, action) => {
             state.accessCode = action.payload.accessCode;
-            state.properties.push(state.newProperty);
         },
     },
     extraReducers: (builder) => {
@@ -35,6 +35,8 @@ const propertySlice = createSlice({
                 state.properties = properties;
             })
             .addCase(updateAPI.fulfilled, (state, action) => {
+                state.loading = false;
+                state.actionCompleted = true;
                 state.properties.push(action.payload);
             });
     },
@@ -42,7 +44,7 @@ const propertySlice = createSlice({
 
 export const fetchProperties = createAsyncThunk(
     "propertySlice/fetchProperties",
-    async () => {
+    async (args, thunkAPI) => {
         const response = await fetch(firebase_database_url + "/property.json", {
             method: "GET",
             headers: {
@@ -55,24 +57,55 @@ export const fetchProperties = createAsyncThunk(
 );
 
 export const updateAPI = createAsyncThunk(
-    "propertySlice/addPropertyAPI",
-    async (propertyInfo) => {
+    "propertySlice/updateAPI",
+    async (arg, { getState }) => {
         try {
-            const response = await fetch(
+            // 1. add tenant
+            const state = getState();
+            const landlordId = state.sessionSlice.landlordId;
+            let newInfo = {
+                ...state.propertySlice.newTenant,
+                landlord: landlordId,
+            };
+            const responseTenant = await fetch(
+                firebase_database_url + "/tenant.json",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newInfo),
+                }
+            );
+            const resultTenant = await responseTenant.json();
+
+            if (resultTenant.error) {
+                throw new Error(resultTenant.error);
+            }
+
+            // 2. add property belonging to this landlord and tenant
+            newInfo = {
+                ...state.propertySlice.newProperty,
+                landlord: landlordId,
+                tenant: resultTenant.name,
+            };
+            const responseProperty = await fetch(
                 firebase_database_url + "/property.json",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(propertyInfo),
+                    body: JSON.stringify(newInfo),
                 }
             );
-            const result = await response.json();
-            if (result.error) {
-                throw new Error(result.error);
+            const resultProperty = await responseProperty.json();
+
+            if (resultProperty.error) {
+                throw new Error(resultProperty.error);
             }
-            return propertyInfo;
+
+            return newInfo;
         } catch (error) {
             console.log(error.message);
             return error;

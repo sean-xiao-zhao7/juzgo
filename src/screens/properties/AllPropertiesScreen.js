@@ -42,7 +42,8 @@ const AllPropertiesScreen = (props) => {
             </ScreenScrollContainer>
             <View
                 style={{
-                    padding: 10,
+                    paddingVertical: 20,
+                    paddingHorizontal: 10,
                     justifyContent: "space-between",
                     backgroundColor: "white",
                     flexDirection: "row",

@@ -48,6 +48,7 @@ const sessionSlice = createSlice({
                     state.email = action.payload.email;
                     state.landlordId = action.payload.landlordId;
                     state.userUID = action.payload.userUID;
+                    saveSession(state);
                 }
             })
             .addCase(signUpAction.fulfilled, (state, action) => {
@@ -57,6 +58,8 @@ const sessionSlice = createSlice({
                     state.idToken = action.payload.idToken;
                     state.type = action.payload.type;
                     state.email = action.payload.email;
+                    state.landlordId = action.payload.landlordId;
+                    state.userUID = action.payload.userUID;
                 }
             })
             .addCase(autoSignInAction.fulfilled, (state, action) => {
@@ -67,6 +70,8 @@ const sessionSlice = createSlice({
                         state.idToken = action.payload.idToken;
                         state.type = action.payload.type;
                         state.email = action.payload.email;
+                        state.landlordId = action.payload.landlordId;
+                        state.userUID = action.payload.userUID;
                     }
                 }
             });
@@ -113,7 +118,6 @@ export const signInAction = createAsyncThunk(
             if (result.error) {
                 throw new Error(INVALID_LOGIN);
             }
-            saveSession(result);
 
             // retrieve userinfo from db to check if user is landlord or tenant
             response = await fetch(firebase_database_url + "/landlord.json", {

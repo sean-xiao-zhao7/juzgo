@@ -1,22 +1,43 @@
 import { useDispatch, useSelector } from "react-redux";
 
 // redux
-import { addAccessCode } from "../../store/slices/propertySlice";
+import {
+    addAccessCode,
+    updateAPI,
+    toggleLoading,
+} from "../../store/slices/propertySlice";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import LandlordAccessCodeForm from "../../components/forms/LandlordAccessCodeForm";
+import { ActivityIndicator } from "react-native";
+import { useEffect } from "react";
 
 const AddSinglePropertyScreen3 = (props) => {
     const dispatch = useDispatch();
 
     const accessCode = useSelector((state) => state.propertySlice.accessCode);
+    const loading = useSelector((state) => state.propertySlice.loading);
+    const actionCompleted = useSelector(
+        (state) => state.propertySlice.actionCompleted
+    );
+
+    useEffect(() => {
+        if (actionCompleted) {
+            props.navigation.navigate("AllPropertiesScreen");
+        }
+    }, [actionCompleted]);
 
     const onNext = (accessCode) => {
+        dispatch(toggleLoading());
         dispatch(addAccessCode({ accessCode }));
-        props.navigation.navigate("AllPropertiesScreen");
+        dispatch(updateAPI());
     };
+
+    if (loading) {
+        return <ActivityIndicator />;
+    }
 
     return (
         <ScreenContainer>
