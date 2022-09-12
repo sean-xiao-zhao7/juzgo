@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // store
 import { updateLandlordDB } from "../../store/slices/landlordSignupSlice";
+import { updateTenantDB } from "../../store/slices/tenantSignupSlice";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
@@ -20,8 +21,6 @@ const SignupEmailPasswordScreen = (props) => {
                 state.landlordSignupSlice.landlordPropertyInfo;
             info.landlordTenantInfo =
                 state.landlordSignupSlice.landlordTenantInfo;
-        } else if (info.type === "tenant") {
-            // build tenant info
         }
         return info;
     });
@@ -32,6 +31,8 @@ const SignupEmailPasswordScreen = (props) => {
         completeVal = useSelector(
             (state) => state.landlordSignupSlice.complete
         );
+    } else {
+        completeVal = useSelector((state) => state.tenantSignupSlice.complete);
     }
 
     useEffect(() => {
@@ -43,6 +44,9 @@ const SignupEmailPasswordScreen = (props) => {
     const onSubmit = (emailPassword) => {
         if (info.type === "landlord") {
             dispatch(updateLandlordDB({ info, emailPassword }));
+        } else {
+            console.log("dispatch");
+            dispatch(updateTenantDB(emailPassword));
         }
     };
 

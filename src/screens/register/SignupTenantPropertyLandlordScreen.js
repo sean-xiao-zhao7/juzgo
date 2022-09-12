@@ -27,8 +27,8 @@ const SignupTenantPropertyLandlordScreen = (props) => {
     );
 
     const onNext = (landlordInfo, propertyInfo) => {
-        dispatch(updatePropertyInfo({ landlordInfo }));
-        dispatch(updateLandlordInfo({ propertyInfo }));
+        dispatch(updatePropertyInfo({ propertyInfo }));
+        dispatch(updateLandlordInfo({ landlordInfo }));
         props.navigation.navigate("SignupTenantPersonalInfoScreen");
     };
 

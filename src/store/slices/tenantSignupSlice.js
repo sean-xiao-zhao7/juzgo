@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { firebase_database_url } from "../../dummy-data";
+import { firebase_database_url, firebase_signup_url } from "../../dummy-data";
 
 const tenantSignupSlice = createSlice({
     name: "tenantSignupSlice",
@@ -7,9 +7,11 @@ const tenantSignupSlice = createSlice({
         accessCode: "",
         propertyInfo: {},
         landlordInfo: {},
-        personalInfo: {},
+        tenantInfo: {},
         loading: false,
         error: "",
+        complete: false,
+        tenantID: "",
     },
     reducers: {
         updatePropertyInfo: (state, action) => {
@@ -18,8 +20,8 @@ const tenantSignupSlice = createSlice({
         updateLandlordInfo: (state, action) => {
             state.landlordInfo = action.payload.landlordInfo;
         },
-        updatePersonalInfo: (state, action) => {
-            state.personalInfo = action.payload.personalInfo;
+        updateTenantInfo: (state, action) => {
+            state.tenantInfo = action.payload.tenantInfo;
         },
     },
     extraReducers: (builder) => {
@@ -35,6 +37,8 @@ const tenantSignupSlice = createSlice({
                 state.accessCode = action.payload.accessCode;
                 state.propertyInfo = action.payload.propertyInfo;
                 state.landlordInfo = action.payload.landlordInfo;
+                state.tenantInfo = action.payload.tenantInfo;
+                state.tenantID = action.payload.tenantInfo.tenantID;
             })
             .addCase(verifyAccessCode.rejected, (state, action) => {
                 state.error = action.error.message;
@@ -43,7 +47,7 @@ const tenantSignupSlice = createSlice({
 });
 
 export const verifyAccessCode = createAsyncThunk(
-    "tenantSignupSlice/updateAccessCode",
+    "tenantSignupSlice/verifyAccessCode",
     async (accessCode, thunkAPI) => {
         try {
             // 1. Pull property matching access code
@@ -97,9 +101,39 @@ export const verifyAccessCode = createAsyncThunk(
             }
             const landlordInfo = resultLandlord[propertyInfo.landlord];
 
+            // 3. Pull tenant personal info matching access code
+            const responseTenant = await fetch(
+                firebase_database_url + "/tenant.json",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const resultTenant = await responseTenant.json();
+            if (resultTenant.error) {
+                throw new Error(
+                    "Error getting access code. \n" + resultTenant.error.message
+                );
+            }
+
+            let tenantInfo;
+            for (let tenant in resultTenant) {
+                if (resultTenant[tenant].accessCode === accessCode) {
+                    tenantInfo = { ...resultTenant[tenant], tenantID: tenant };
+                    break;
+                }
+            }
+
+            if (!tenantInfo) {
+                throw new Error(`No tenant matching access code ${accessCode}`);
+            }
+
             return {
                 propertyInfo,
                 landlordInfo,
+                tenantInfo,
                 accessCode,
             };
         } catch (error) {
@@ -110,10 +144,63 @@ export const verifyAccessCode = createAsyncThunk(
 
 export const updateTenantDB = createAsyncThunk(
     "tenantSignupSlice/updateTenantDB",
-    async (data, thunkAPI) => {}
+    async (emailPassword, thunkAPI) => {
+        try {
+            const state = thunkAPI.getState();
+
+            const responseSignup = await fetch(firebase_signup_url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: emailPassword.email,
+                    password: emailPassword.password,
+                    returnSecureToken: true,
+                }),
+            });
+            const resultSignup = await responseSignup.json();
+            if (resultSignup.error) {
+                throw new Error(
+                    "Error signing up. \n" + resultSignup.error.message
+                );
+            }
+
+            // add userUID to existing tenant info added by landlord
+
+            const responseUpdateTenant = await fetch(
+                firebase_database_url +
+                    `/tenant/${state.tenantSignupSlice.tenantID}.json`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        ...state.tenantSignupSlice.tenantInfo,
+                        userUID: resultSignup.localId,
+                        accessCode: state.tenantSignupSlice.accessCode,
+                        landlord: state.tenantSignupSlice.propertyInfo.landlord,
+                    }),
+                }
+            );
+
+            const resultUpdateTenant = await responseUpdateTenant.json();
+            if (resultUpdateTenant.error) {
+                throw new Error(
+                    "Error updating tenant userUID. \n" +
+                        resultUpdateTenant.error.message
+                );
+            }
+
+            // initiate session
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 );
 
 export default tenantSignupSlice.reducer;
 export const updatePropertyInfo = tenantSignupSlice.actions.updatePropertyInfo;
 export const updateLandlordInfo = tenantSignupSlice.actions.updateLandlordInfo;
-export const updatePersonalInfo = tenantSignupSlice.actions.updatePersonalInfo;
+export const updateTenantInfo = tenantSignupSlice.actions.updateTenantInfo;

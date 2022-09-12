@@ -17,7 +17,7 @@ const SignupTenantAccessCodeScreen = (props) => {
         (state) => state.tenantSignupSlice.accessCode
     );
     const error = useSelector((state) => state.tenantSignupSlice.error);
-    console.log(error);
+
     useEffect(() => {
         if (accessCode !== "") {
             props.navigation.navigate("SignupTenantPropertyLandlordScreen");

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 // store
-import { updatePersonalInfo } from "../../store/slices/tenantSignupSlice.js";
+import { updateTenantInfo } from "../../store/slices/tenantSignupSlice.js";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
@@ -11,13 +11,15 @@ import UserInfoForm from "../../components/forms/UserInfoForm";
 const SignupTenantPersonalInfoScreen = (props) => {
     const dispatch = useDispatch();
 
-    const personalInfo = useSelector(
-        (state) => state.tenantSignupSlice.personalInfo
+    const tenantInfo = useSelector(
+        (state) => state.tenantSignupSlice.tenantInfo
     );
 
-    const onSubmit = (personalInfo) => {
-        dispatch(updatePersonalInfo(personalInfo));
-        props.navigation.navigate("AllPropertiesScreen");
+    const onSubmit = (tenantInfo) => {
+        dispatch(updateTenantInfo({ tenantInfo }));
+        props.navigation.navigate("SignupEmailPasswordScreen", {
+            type: "tenant",
+        });
     };
 
     return (
@@ -30,7 +32,7 @@ const SignupTenantPersonalInfoScreen = (props) => {
                 anything incorrect, please advise the Landlord to change before
                 proceeding.
             </TextRegular>
-            <UserInfoForm info={personalInfo} onSubmit={onSubmit} />
+            <UserInfoForm info={tenantInfo} onSubmit={onSubmit} />
         </ScreenContainer>
     );
 };
