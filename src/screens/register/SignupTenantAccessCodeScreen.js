@@ -1,23 +1,34 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 // store
-import { updateAccessCode } from "../../store/slices/tenantSignupSlice.js";
+import { verifyAccessCode } from "../../store/slices/tenantSignupSlice.js";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import TenantAccessCodeForm from "../../components/forms/TenantAccessCodeForm";
-import { useEffect } from "react";
+import { customAlert } from "../../components/forms/helpers/alert.js";
 
 const SignupTenantAccessCodeScreen = (props) => {
     const dispatch = useDispatch();
 
+    const accessCode = useSelector(
+        (state) => state.tenantSignupSlice.accessCode
+    );
+    const error = useSelector((state) => state.tenantSignupSlice.error);
+    console.log(error);
     useEffect(() => {
-        props.navigation.navigate("SignupTenantPropertyLandlordScreen");
-    }, []);
+        if (accessCode !== "") {
+            props.navigation.navigate("SignupTenantPropertyLandlordScreen");
+        }
+        if (error !== "") {
+            customAlert(error);
+        }
+    }, [accessCode, error]);
 
     const onNext = (accessCode) => {
-        dispatch(updateAccessCode({ accessCode }));
+        dispatch(verifyAccessCode(accessCode));
     };
 
     return (

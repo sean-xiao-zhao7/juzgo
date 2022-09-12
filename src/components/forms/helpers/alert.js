@@ -25,3 +25,14 @@ export const serverErrorAlert = () => {
         ]
     );
 };
+
+export const customAlert = (message) => {
+    Alert.alert("Error", message, [
+        {
+            text: "Cancel",
+            onPress: () => {},
+            style: "cancel",
+        },
+        { text: "OK", onPress: () => {} },
+    ]);
+};

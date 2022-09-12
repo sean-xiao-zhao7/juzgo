@@ -6,6 +6,10 @@ import CustomTextInput from "../inputs/CustomTextInput";
 import Button1 from "../buttons/Button1";
 import TextSmall from "../texts/TextSmall";
 
+// form
+import { incompleteErrorAlert } from "./helpers/alert";
+import { emptyVerify } from "./helpers/verifyForm";
+
 const TenantAccessCodeForm = (props) => {
     const [accessCode, setAccessCode] = useState("");
 
@@ -29,7 +33,13 @@ const TenantAccessCodeForm = (props) => {
             </View>
             <Button1
                 text="Next Step"
-                onPress={() => props.onNext(accessCode)}
+                onPress={() => {
+                    if (emptyVerify([accessCode])) {
+                        props.onNext(accessCode);
+                    } else {
+                        incompleteErrorAlert();
+                    }
+                }}
             />
         </View>
     );
