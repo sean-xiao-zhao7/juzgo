@@ -123,7 +123,7 @@ const PropertyAndLandlordForm = (props) => {
                         marginBottom: 30,
                     }}
                 >
-                    <TextLarge>XXX-XXX-XXXX</TextLarge>
+                    <TextLarge>{props.accessCode}</TextLarge>
                     <TextSmall>Tenant Access Code</TextSmall>
                 </View>
             </View>

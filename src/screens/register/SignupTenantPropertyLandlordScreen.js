@@ -22,6 +22,10 @@ const SignupTenantPropertyLandlordScreen = (props) => {
         (state) => state.tenantSignupSlice.propertyInfo
     );
 
+    const accessCode = useSelector(
+        (state) => state.tenantSignupSlice.accessCode
+    );
+
     const onNext = (landlordInfo, propertyInfo) => {
         dispatch(updatePropertyInfo({ landlordInfo }));
         dispatch(updateLandlordInfo({ propertyInfo }));
@@ -46,6 +50,7 @@ const SignupTenantPropertyLandlordScreen = (props) => {
             <PropertyAndLandlordForm
                 propertyInfo={propertyInfo}
                 landlordInfo={landlordInfo}
+                accessCode={accessCode}
                 onNext={onNext}
             />
         </ScreenContainer>
