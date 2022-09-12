@@ -63,7 +63,15 @@ export const verifyAccessCode = createAsyncThunk(
                         resultProperty.error.message
                 );
             }
-            const propertyInfo = resultProperty[accessCode];
+
+            let propertyInfo;
+            for (let property in resultProperty) {
+                if (resultProperty[property].accessCode === accessCode) {
+                    propertyInfo = resultProperty[property];
+                    break;
+                }
+            }
+
             if (!propertyInfo) {
                 throw new Error(
                     `No property matching access code ${accessCode}`
