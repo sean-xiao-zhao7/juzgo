@@ -13,6 +13,7 @@ import { colors } from "../../styles/colors";
 
 const PropertyPreview = (props) => {
     const [allowManage, setAllowManage] = useState(false);
+    const [landlordStatus, setLandlordStatus] = useState("Away");
 
     return (
         <View
@@ -33,26 +34,82 @@ const PropertyPreview = (props) => {
                 {props.property.city}, {props.property.province}
             </TextRegular>
             <TextRegular>{props.property.unitnum}</TextRegular>
-            <View
-                style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: 5,
-                    padding: 10,
-                }}
-            >
-                <Checkbox
-                    value={allowManage}
-                    onValueChange={setAllowManage}
+            {props.isTenant ? (
+                <View
                     style={{
-                        marginRight: 5,
+                        alignItems: "center",
+                        marginTop: 40,
+                        padding: 10,
+                        maxWidth: 500,
                     }}
-                />
-                <TextSmall style={{ color: colors.secondaryTextColor }}>
-                    Turn on to allow Juzgo to manage this property. This will
-                    allow Juzgo to communicate directly with tenant.
-                </TextSmall>
-            </View>
+                >
+                    <TextRegular
+                        style={{
+                            color: colors.secondaryTextColor,
+                            fontWeight: "bold",
+                            fontSize: 18,
+                            marginBottom: 40,
+                        }}
+                    >
+                        Landlord Status:{" "}
+                        <TextRegular style={{ color: "red" }}>
+                            {landlordStatus}
+                        </TextRegular>
+                    </TextRegular>
+                    <TextRegular style={{ color: colors.secondaryTextColor }}>
+                        If the Landlord status is{" "}
+                        <TextRegular
+                            style={{
+                                textDecoration: "underline",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Away
+                        </TextRegular>
+                        , then{" "}
+                        <TextRegular
+                            style={{
+                                fontWeight: "bold",
+                                color: colors.secondaryTextColor,
+                            }}
+                        >
+                            JUZGO will step in to help manage this unit.
+                        </TextRegular>{" "}
+                        For any inquiry, please{" "}
+                        <TextRegular
+                            style={{
+                                fontWeight: "bold",
+                                color: colors.secondaryTextColor,
+                            }}
+                        >
+                            use the chat box below to reach out to our team.
+                        </TextRegular>{" "}
+                        We will respond as soon as the next representative is
+                        available.
+                    </TextRegular>
+                </View>
+            ) : (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 5,
+                        padding: 10,
+                    }}
+                >
+                    <Checkbox
+                        value={allowManage}
+                        onValueChange={setAllowManage}
+                        style={{
+                            marginRight: 5,
+                        }}
+                    />
+                    <TextSmall style={{ color: colors.secondaryTextColor }}>
+                        Turn on to allow Juzgo to manage this property. This
+                        will allow Juzgo to communicate directly with tenant.
+                    </TextSmall>
+                </View>
+            )}
         </View>
     );
 };

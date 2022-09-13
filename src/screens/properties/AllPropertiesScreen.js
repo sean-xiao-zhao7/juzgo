@@ -45,9 +45,14 @@ const AllPropertiesScreen = (props) => {
                     Welcome, {userType === "landlord" ? "Landlord" : "Tenant"}!
                 </TextLarge>
                 <TextRegular style={{ marginBottom: 60 }}>
-                    This is the home page that shows all your properties.
+                    {userType === "landlord"
+                        ? "This is the home page that shows all your properties."
+                        : "This is the home page that shows your rental unit."}
                 </TextRegular>
-                <PropertiesGrid properties={properties} />
+                <PropertiesGrid
+                    properties={properties}
+                    isTenant={userType === "tenant"}
+                />
             </ScreenScrollContainer>
             <View
                 style={{
@@ -64,11 +69,13 @@ const AllPropertiesScreen = (props) => {
                         flexDirection: "row",
                     }}
                 >
-                    <GrayButton
-                        text={"Inquiry Log"}
-                        onPress={inquiryHandler}
-                        style={style.grayButton}
-                    />
+                    {userType === "landlord" ? (
+                        <GrayButton
+                            text={"Inquiry Log"}
+                            onPress={inquiryHandler}
+                            style={style.grayButton}
+                        />
+                    ) : null}
                     <View style={{ width: 5 }}></View>
                     <GrayButton
                         text={"Log out"}

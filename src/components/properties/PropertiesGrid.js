@@ -1,16 +1,18 @@
-import { Pressable, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 // comps
 import PropertyPreview from "./PropertyPreview";
-import TextRegular from "../texts/TextRegular";
 import GrayButton from "../../components/buttons/GrayButton";
 
 // style
 import { colors } from "../../styles/colors";
 
+let isTenant;
+
 const PropertiesGrid = (props) => {
     const navigation = useNavigation();
+    isTenant = props.isTenant;
 
     const addProperty = () => {
         navigation.navigate("PropertiesStack");
@@ -18,18 +20,24 @@ const PropertiesGrid = (props) => {
 
     return (
         <View style={style.twoColumns}>
-            <GrayButton
-                text={"Add A Property"}
-                style={[style.twoColumnsChild, style.addBigButton]}
-                onPress={addProperty}
-            />
-
+            {isTenant ? null : (
+                <GrayButton
+                    text={"Add A Property"}
+                    style={[style.twoColumnsChild, style.addBigButton]}
+                    onPress={addProperty}
+                />
+            )}
             {props.properties.map((property, index) => {
                 return (
                     <PropertyPreview
                         property={property}
                         key={index}
-                        style={style.twoColumnsChild}
+                        isTenant={isTenant}
+                        style={
+                            isTenant
+                                ? style.oneColumnChild
+                                : style.twoColumnsChild
+                        }
                     />
                 );
             })}
@@ -49,6 +57,11 @@ const style = StyleSheet.create({
         justifyContent: "center",
         marginHorizontal: "2%",
         marginBottom: 20,
+    },
+    oneColumnChild: {
+        width: "auto",
+        alignItems: "center",
+        justifyContent: "center",
     },
     addBigButton: {
         backgroundColor: colors.grayBackground,
