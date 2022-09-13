@@ -1,9 +1,10 @@
+import { StyleSheet, View } from "react-native";
+
 // redux
 import { fetchProperties } from "../../store/slices/propertySlice";
 import { signOut } from "../../store/slices/sessionSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, View } from "react-native";
 
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
@@ -22,7 +23,12 @@ const AllPropertiesScreen = (props) => {
         dispatch(fetchProperties());
     }, []);
 
-    const properties = useSelector((state) => state.propertySlice.properties);
+    const { properties, userType } = useSelector((state) => {
+        return {
+            properties: state.propertySlice.properties,
+            userType: state.sessionSlice.type,
+        };
+    });
 
     const inquiryHandler = () => {};
 
@@ -36,7 +42,7 @@ const AllPropertiesScreen = (props) => {
                 style={{ justifyContent: "flex-start", flex: "auto" }}
             >
                 <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
-                    Welcome, Landlord!
+                    Welcome, {userType === "landlord" ? "Landlord" : "Tenant"}!
                 </TextLarge>
                 <TextRegular style={{ marginBottom: 60 }}>
                     This is the home page that shows all your properties.

@@ -31,6 +31,7 @@ const LoginScreen = (props) => {
 
     const idToken = useSelector((state) => state.sessionSlice.idToken);
     const error = useSelector((state) => state.sessionSlice.error);
+    
     useEffect(() => {
         if (idToken !== "") {
             props.navigation.navigate("AllPropertiesScreen");

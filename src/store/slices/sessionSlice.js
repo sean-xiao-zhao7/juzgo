@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    firebase_signup_url,
     firebase_siginpassword_url,
     firebase_database_url,
 } from "../../dummy-data";
@@ -11,18 +10,19 @@ import {
 } from "../helper/session";
 
 // constants
-import { INVALID_LOGIN } from "../../constants/errors";
+import { INVALID_LOGIN, SERVER_ERROR } from "../../constants/errors";
 
 const sessionSlice = createSlice({
     name: "sessionSlice",
     initialState: {
         type: "",
         email: "",
-        password: "",
         idToken: "",
         error: "",
         landlordId: "",
+        tenantId: "",
         userUID: "",
+        userInfo: {},
     },
     reducers: {
         authenticate: (state, action) => {
@@ -31,6 +31,7 @@ const sessionSlice = createSlice({
             state.email = action.payload.email;
             state.landlordId = action.payload.landlordId;
             state.userUID = action.payload.userUID;
+            state.userInfo = action.payload.userInfo;
         },
         signOut: (state, action) => {
             destroySession();
@@ -39,6 +40,7 @@ const sessionSlice = createSlice({
             state.email = "";
             state.landlordId = "";
             state.userUID = "";
+            state.userInfo = {};
         },
     },
     extraReducers: (builder) => {
@@ -52,6 +54,7 @@ const sessionSlice = createSlice({
                     state.email = action.payload.email;
                     state.landlordId = action.payload.landlordId;
                     state.userUID = action.payload.userUID;
+                    state.userInfo = action.payload.userInfo;
                     saveSession(state);
                 }
             })
@@ -65,6 +68,7 @@ const sessionSlice = createSlice({
                         state.email = action.payload.email;
                         state.landlordId = action.payload.landlordId;
                         state.userUID = action.payload.userUID;
+                        state.userInfo = action.payload.userInfo;
                     }
                 }
             });
@@ -99,26 +103,55 @@ export const signInAction = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
             });
-            const landlords = await response.json();
+            const landlordsResult = await response.json();
+            if (landlordsResult.error) {
+                throw new Error(SERVER_ERROR);
+            }
 
-            result = { ...result, type: "tenant" };
             let currentUserUID = result.localId;
-            for (const key in landlords) {
-                if (landlords[key].userUID === currentUserUID) {
+            for (const key in landlordsResult) {
+                if (landlordsResult[key].userUID === currentUserUID) {
                     result = {
                         ...result,
                         type: "landlord",
                         landlordId: key,
                         userUID: currentUserUID,
+                        userInfo: landlordsResult[key],
                     };
+                    break;
+                }
+            }
+
+            // user is a tenant
+            if (!result.type) {
+                response = await fetch(firebase_database_url + "/tenant.json", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                const tenantResult = await response.json();
+                if (tenantResult.error) {
+                    throw new Error(SERVER_ERROR);
+                }
+
+                for (const key in tenantResult) {
+                    if (tenantResult[key].userUID === currentUserUID) {
+                        result = {
+                            ...result,
+                            type: "tenant",
+                            tenantId: key,
+                            userUID: currentUserUID,
+                            userInfo: tenantResult[key],
+                        };
+                        break;
+                    }
                 }
             }
 
             return result;
         } catch (error) {
-            return {
-                error: error.message,
-            };
+            throw new Error(error.message);
         }
     }
 );
