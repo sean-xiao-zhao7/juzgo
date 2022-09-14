@@ -19,11 +19,15 @@ import { modalStyle } from "../../styles/modal";
 
 const PropertyPreview = (props) => {
     const dispatch = useDispatch();
+
     const [allowManage, setAllowManage] = useState(
         props.property.juzgoManaged ? true : false
     );
     const [landlordStatus, setLandlordStatus] = useState("Available");
+
     const [juzgoManagedModalVisible, setJuzgoManagedModalVisible] =
+        useState(false);
+    const [juzgoManagedModalVisible2, setJuzgoManagedModalVisible2] =
         useState(false);
 
     const updateJuzgoManage = () => {
@@ -122,6 +126,10 @@ const PropertyPreview = (props) => {
                         onValueChange={(value) => {
                             setAllowManage(value);
                             setJuzgoManagedModalVisible(value);
+
+                            if (!value) {
+                                setJuzgoManagedModalVisible2(true);
+                            }
                         }}
                         style={{
                             marginRight: 5,
@@ -187,6 +195,49 @@ const PropertyPreview = (props) => {
                                             width: 150,
                                             paddingHorizontal: 10,
                                             paddingVertical: 10,
+                                        }}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={juzgoManagedModalVisible2}
+                        onRequestClose={() => {
+                            setJuzgoManagedModalVisible2(false);
+                        }}
+                    >
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <View style={modalStyle.modal}>
+                                <TextRegular>
+                                    This property will no longer be managed by
+                                    JUZGO.
+                                </TextRegular>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        marginTop: 20,
+                                    }}
+                                >
+                                    <Button1
+                                        text={"Yes, I confirm"}
+                                        onPress={() => {
+                                            setJuzgoManagedModalVisible2(false);
+                                            updateJuzgoManage();
+                                        }}
+                                        style={{
+                                            width: 150,
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            marginRight: 5,
                                         }}
                                     />
                                 </View>

@@ -148,6 +148,24 @@ export const updateJuzgoManaged = createAsyncThunk(
     "propertySlice/updateJuzgoManaged",
     async ({ firebaseId, juzgoManaged }, { getState }) => {
         try {
+            const responseProperty = await fetch(
+                firebase_database_url + `/property/${firebaseId}.json`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        juzgoManaged: juzgoManaged,
+                    }),
+                }
+            );
+            const resultProperty = await responseProperty.json();
+
+            if (resultProperty.error) {
+                throw new Error(resultProperty.error);
+            }
+
             return {
                 firebaseId,
                 juzgoManaged,
