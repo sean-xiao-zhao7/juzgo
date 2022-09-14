@@ -32,8 +32,12 @@ const propertySlice = createSlice({
         builder
             .addCase(fetchProperties.fulfilled, (state, action) => {
                 const properties = [];
-                for (const property in action.payload) {
-                    properties.push(action.payload[property]);
+                for (const propertyKey in action.payload) {
+                    const property = {
+                        ...action.payload[propertyKey],
+                        firebaseId: propertyKey,
+                    };
+                    properties.push(property);
                 }
                 state.properties = properties;
             })
@@ -44,6 +48,15 @@ const propertySlice = createSlice({
                 state.newProperty = {};
                 state.newTenant = {};
                 state.accessCode = "";
+            })
+            .addCase(updateJuzgoManaged.fulfilled, (state, action) => {
+                const updateIndex = state.properties.findIndex(
+                    (property) =>
+                        property.firebaseId === action.payload.firebaseId
+                );
+                console.log(action.payload.juzgoManaged);
+                state.properties[updateIndex].juzgoManaged =
+                    action.payload.juzgoManaged;
             });
     },
 });
@@ -51,14 +64,24 @@ const propertySlice = createSlice({
 export const fetchProperties = createAsyncThunk(
     "propertySlice/fetchProperties",
     async (args, thunkAPI) => {
-        const response = await fetch(firebase_database_url + "/property.json", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const result = await response.json();
-        return result;
+        try {
+            const response = await fetch(
+                firebase_database_url + "/property.json",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const result = await response.json();
+            if (result.error) {
+                throw new Error(result.error.message);
+            }
+            return result;
+        } catch (error) {
+            throw new Error(error.message);
+        }
     }
 );
 
@@ -117,6 +140,20 @@ export const updateAPI = createAsyncThunk(
         } catch (error) {
             console.log(error.message);
             return error;
+        }
+    }
+);
+
+export const updateJuzgoManaged = createAsyncThunk(
+    "propertySlice/updateJuzgoManaged",
+    async ({ firebaseId, juzgoManaged }, { getState }) => {
+        try {
+            return {
+                firebaseId,
+                juzgoManaged,
+            };
+        } catch (error) {
+            throw new Error(error.message);
         }
     }
 );

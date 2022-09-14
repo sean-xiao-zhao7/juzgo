@@ -4,6 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
 import Checkbox from "expo-checkbox";
 
+// redux
+import { useDispatch } from "react-redux";
+import { updateJuzgoManaged } from "../../store/slices/propertySlice";
+
 // comps
 import TextRegular from "../texts/TextRegular";
 import TextSmall from "../texts/TextSmall";
@@ -14,10 +18,22 @@ import { colors } from "../../styles/colors";
 import { modalStyle } from "../../styles/modal";
 
 const PropertyPreview = (props) => {
-    const [allowManage, setAllowManage] = useState(false);
+    const dispatch = useDispatch();
+    const [allowManage, setAllowManage] = useState(
+        props.property.juzgoManaged ? true : false
+    );
     const [landlordStatus, setLandlordStatus] = useState("Available");
     const [juzgoManagedModalVisible, setJuzgoManagedModalVisible] =
         useState(false);
+
+    const updateJuzgoManage = () => {
+        dispatch(
+            updateJuzgoManaged({
+                firebaseId: props.property.firebaseId,
+                juzgoManaged: allowManage,
+            })
+        );
+    };
 
     return (
         <View
@@ -152,6 +168,7 @@ const PropertyPreview = (props) => {
                                         text={"Yes, I confirm"}
                                         onPress={() => {
                                             setJuzgoManagedModalVisible(false);
+                                            updateJuzgoManage();
                                         }}
                                         style={{
                                             width: 150,
