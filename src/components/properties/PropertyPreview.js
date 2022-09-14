@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Modal } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
@@ -29,6 +29,14 @@ const PropertyPreview = (props) => {
         useState(false);
     const [juzgoManagedModalVisible2, setJuzgoManagedModalVisible2] =
         useState(false);
+
+    useEffect(() => {
+        if (allowManage) {
+            setLandlordStatus("Away");
+        } else {
+            setLandlordStatus("Available");
+        }
+    }, [allowManage]);
 
     const updateJuzgoManage = () => {
         dispatch(
@@ -76,7 +84,14 @@ const PropertyPreview = (props) => {
                         }}
                     >
                         Landlord Status:{" "}
-                        <TextRegular style={{ color: "red" }}>
+                        <TextRegular
+                            style={{
+                                color:
+                                    landlordStatus === "Away"
+                                        ? "red"
+                                        : "lightgreen",
+                            }}
+                        >
                             {landlordStatus}
                         </TextRegular>
                     </TextRegular>
