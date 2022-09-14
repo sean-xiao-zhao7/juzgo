@@ -19,6 +19,7 @@ import { colors } from "../../styles/colors";
 
 const AllPropertiesScreen = (props) => {
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(fetchProperties());
     }, []);

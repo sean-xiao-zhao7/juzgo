@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { View, Modal } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
 import Checkbox from "expo-checkbox";
@@ -7,13 +7,17 @@ import Checkbox from "expo-checkbox";
 // comps
 import TextRegular from "../texts/TextRegular";
 import TextSmall from "../texts/TextSmall";
+import Button1 from "../../components/buttons/Button1";
 
 // style
 import { colors } from "../../styles/colors";
+import { modalStyle } from "../../styles/modal";
 
 const PropertyPreview = (props) => {
     const [allowManage, setAllowManage] = useState(false);
-    const [landlordStatus, setLandlordStatus] = useState("Away");
+    const [landlordStatus, setLandlordStatus] = useState("Available");
+    const [juzgoManagedModalVisible, setJuzgoManagedModalVisible] =
+        useState(false);
 
     return (
         <View
@@ -40,7 +44,7 @@ const PropertyPreview = (props) => {
                         alignItems: "center",
                         marginTop: 40,
                         padding: 10,
-                        maxWidth: 500,
+                        maxWidth: 350,
                     }}
                 >
                     <TextRegular
@@ -99,7 +103,10 @@ const PropertyPreview = (props) => {
                 >
                     <Checkbox
                         value={allowManage}
-                        onValueChange={setAllowManage}
+                        onValueChange={(value) => {
+                            setAllowManage(value);
+                            setJuzgoManagedModalVisible(value);
+                        }}
                         style={{
                             marginRight: 5,
                         }}
@@ -108,6 +115,67 @@ const PropertyPreview = (props) => {
                         Turn on to allow Juzgo to manage this property. This
                         will allow Juzgo to communicate directly with tenant.
                     </TextSmall>
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={juzgoManagedModalVisible}
+                        onRequestClose={() => {
+                            setJuzgoManagedModalVisible(false);
+                        }}
+                    >
+                        <View
+                            style={{
+                                flex: 1,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <View style={modalStyle.modal}>
+                                <TextRegular>
+                                    Please confirm you would like Juzgo to
+                                    manage this property for you. This would
+                                    mean allowing a direct and mutual
+                                    communication between your tenant and Juzgo
+                                    for this property.
+                                </TextRegular>
+                                {/* <TextRegular>
+                        If you are not in a trial period, a non-refundable daily
+                        management fee will be charged.
+                    </TextRegular> */}
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        marginTop: 20,
+                                    }}
+                                >
+                                    <Button1
+                                        text={"Yes, I confirm"}
+                                        onPress={() => {
+                                            setJuzgoManagedModalVisible(false);
+                                        }}
+                                        style={{
+                                            width: 150,
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                            marginRight: 5,
+                                        }}
+                                    />
+                                    <Button1
+                                        text={"No"}
+                                        onPress={() => {
+                                            setJuzgoManagedModalVisible(false);
+                                            setAllowManage(false);
+                                        }}
+                                        style={{
+                                            width: 150,
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 10,
+                                        }}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
                 </View>
             )}
         </View>

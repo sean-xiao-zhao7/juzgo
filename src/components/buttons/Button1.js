@@ -8,7 +8,7 @@ const Button1 = (props) => {
             onPress={props.onPress}
             style={({ pressed }) =>
                 pressed
-                    ? [style.button1, props.style, { opacity: 0.7 }]
+                    ? [style.button1, props.style, { opacity: 0.5 }]
                     : [style.button1, props.style]
             }
             disabled={props.disabled}
