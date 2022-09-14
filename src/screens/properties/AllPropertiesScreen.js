@@ -1,4 +1,7 @@
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faComments } from "@fortawesome/free-regular-svg-icons";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 // redux
 import { fetchProperties } from "../../store/slices/propertySlice";
@@ -70,19 +73,51 @@ const AllPropertiesScreen = (props) => {
                         flexDirection: "row",
                     }}
                 >
-                    {userType === "landlord" ? (
-                        <GrayButton
-                            text={"Inquiry Log"}
-                            onPress={inquiryHandler}
-                            style={style.grayButton}
-                        />
-                    ) : null}
-                    <View style={{ width: 5 }}></View>
-                    <GrayButton
-                        text={"Log out"}
+                    <Pressable
+                        onPress={inquiryHandler}
+                        style={({ pressed }) => {
+                            if (pressed) {
+                                return {
+                                    transform: [{ scale: 0.9 }],
+                                    opacity: 0.5,
+                                    marginRight: 20,
+                                    alignItems: "center",
+                                };
+                            } else {
+                                return {
+                                    marginRight: 20,
+                                    alignItems: "center",
+                                };
+                            }
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faComments} size={40} />
+                        <TextRegular>Inquiries</TextRegular>
+                    </Pressable>
+                    <Pressable
                         onPress={logoutHandler}
-                        style={style.grayButton}
-                    />
+                        style={({ pressed }) => {
+                            if (pressed) {
+                                return {
+                                    transform: [{ scale: 0.9 }],
+                                    opacity: 0.5,
+                                    marginRight: 20,
+                                    alignItems: "center",
+                                };
+                            } else {
+                                return {
+                                    marginRight: 20,
+                                    alignItems: "center",
+                                };
+                            }
+                        }}
+                    >
+                        <FontAwesomeIcon
+                            icon={faArrowRightFromBracket}
+                            size={40}
+                        />
+                        <TextRegular>Logout</TextRegular>
+                    </Pressable>
                 </View>
                 <View>
                     <HeadingLarge>JUZGO</HeadingLarge>
