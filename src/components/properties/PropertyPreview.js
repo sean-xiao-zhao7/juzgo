@@ -128,14 +128,7 @@ const PropertyPreview = (props) => {
                     </TextRegular>
                 </View>
             ) : (
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginTop: 5,
-                        padding: 10,
-                    }}
-                >
+                <View style={modalStyle.background}>
                     <Checkbox
                         value={allowManage}
                         onValueChange={(value) => {
@@ -167,6 +160,7 @@ const PropertyPreview = (props) => {
                                 flex: 1,
                                 alignItems: "center",
                                 justifyContent: "center",
+                                backgroundColor: "rgba(0, 0, 0, 0.2)",
                             }}
                         >
                             <View style={modalStyle.modal}>
@@ -224,13 +218,7 @@ const PropertyPreview = (props) => {
                             setJuzgoManagedModalVisible2(false);
                         }}
                     >
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
+                        <View style={modalStyle.background}>
                             <View style={modalStyle.modal}>
                                 <TextRegular>
                                     This property will no longer be managed by

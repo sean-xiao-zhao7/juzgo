@@ -11,4 +11,10 @@ export const modalStyle = StyleSheet.create({
         padding: 20,
         width: "90%",
     },
+    background: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 5,
+        padding: 10,
+    },
 });
