@@ -124,7 +124,6 @@ const InquiriesStackComp = () => {
             <InquiriesStack.Screen
                 name="InquiriesScreen"
                 component={InquiriesScreen}
-                options={noHeaderConfig}
             />
         </InquiriesStack.Navigator>
     );
