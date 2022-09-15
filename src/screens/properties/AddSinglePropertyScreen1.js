@@ -24,7 +24,7 @@ const AddPropertyScreen1 = (props) => {
     const onNext = (newProperty) => {
         dispatch(toggleLoading());
         dispatch(addNewProperty({ newProperty }));
-        props.navigation.navigate("PropertiesStack", {
+        props.navigation.navigate("AddPropertiesStack", {
             screen: "AddSinglePropertyScreen2",
         });
         dispatch(toggleLoading());

@@ -28,12 +28,16 @@ import AddSinglePropertyScreen1 from "./src/screens/properties/AddSingleProperty
 import AddSinglePropertyScreen2 from "./src/screens/properties/AddSinglePropertyScreen2";
 import AddSinglePropertyScreen3 from "./src/screens/properties/AddSinglePropertyScreen3";
 
+// inquiries screens
+import InquiriesScreen from "./src/screens/inquiries/InquiriesScreen";
+
 // navigation configs
-import { noHeaderConfig } from "./src/navigation-configs/configs";
+import { noHeaderConfig, modalConfig } from "./src/navigation-configs/configs";
 
 const RootStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const PropertiesStack = createNativeStackNavigator();
+const InquiriesStack = createNativeStackNavigator();
 
 const AuthStackComp = () => {
     return (
@@ -92,7 +96,7 @@ const AuthStackComp = () => {
     );
 };
 
-const PropertiesStackComp = () => {
+const AddPropertiesStackComp = () => {
     return (
         <PropertiesStack.Navigator>
             <PropertiesStack.Screen
@@ -114,6 +118,18 @@ const PropertiesStackComp = () => {
     );
 };
 
+const InquiriesStackComp = () => {
+    return (
+        <InquiriesStack.Navigator>
+            <InquiriesStack.Screen
+                name="InquiriesScreen"
+                component={InquiriesScreen}
+                options={noHeaderConfig}
+            />
+        </InquiriesStack.Navigator>
+    );
+};
+
 const Navigator = (props) => {
     const dispatch = useDispatch();
 
@@ -123,7 +139,7 @@ const Navigator = (props) => {
 
     const idToken = useSelector((state) => state.sessionSlice.idToken);
 
-    let screens, propertiesStack;
+    let screens, AddPropertiesStack;
     if (idToken === "") {
         screens = (
             <RootStack.Screen
@@ -140,10 +156,10 @@ const Navigator = (props) => {
                 options={noHeaderConfig}
             />
         );
-        propertiesStack = (
+        AddPropertiesStack = (
             <RootStack.Screen
-                name="PropertiesStack"
-                component={PropertiesStackComp}
+                name="AddPropertiesStack"
+                component={AddPropertiesStackComp}
                 options={noHeaderConfig}
             />
         );
@@ -152,7 +168,12 @@ const Navigator = (props) => {
         <NavigationContainer>
             <RootStack.Navigator>
                 {screens}
-                {propertiesStack}
+                {AddPropertiesStack}
+                <RootStack.Screen
+                    name="InquiriesStackComp"
+                    component={InquiriesStackComp}
+                    options={{ ...modalConfig, ...noHeaderConfig }}
+                />
             </RootStack.Navigator>
         </NavigationContainer>
     );

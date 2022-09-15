@@ -34,7 +34,11 @@ const AllPropertiesScreen = (props) => {
         };
     });
 
-    const inquiryHandler = () => {};
+    const inquiryHandler = () => {
+        props.navigation.navigate("InquiriesStackComp", {
+            screen: "InquiriesScreen",
+        });
+    };
 
     const logoutHandler = () => {
         dispatch(signOut());

@@ -15,7 +15,7 @@ const PropertiesGrid = (props) => {
     isTenant = props.isTenant;
 
     const addProperty = () => {
-        navigation.navigate("PropertiesStack");
+        navigation.navigate("AddPropertiesStack");
     };
 
     return (
