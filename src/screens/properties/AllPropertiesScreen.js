@@ -15,10 +15,10 @@ import TextRegular from "../../components/texts/TextRegular";
 import PropertiesGrid from "../../components/properties/PropertiesGrid";
 import HeadingLarge from "../../components/headings/HeadingLarge";
 import TextLarge from "../../components/texts/TextLarge";
-import GrayButton from "../../components/buttons/GrayButton";
 
 // style
 import { colors } from "../../styles/colors";
+import { pressablePressed } from "../../styles/helpers";
 
 const AllPropertiesScreen = (props) => {
     const dispatch = useDispatch();
@@ -79,43 +79,12 @@ const AllPropertiesScreen = (props) => {
                 >
                     <Pressable
                         onPress={inquiryHandler}
-                        style={({ pressed }) => {
-                            if (pressed) {
-                                return {
-                                    transform: [{ scale: 0.9 }],
-                                    opacity: 0.5,
-                                    marginRight: 20,
-                                    alignItems: "center",
-                                };
-                            } else {
-                                return {
-                                    marginRight: 20,
-                                    alignItems: "center",
-                                };
-                            }
-                        }}
+                        style={pressablePressed}
                     >
                         <FontAwesomeIcon icon={faComments} size={40} />
                         <TextRegular>Inquiries</TextRegular>
                     </Pressable>
-                    <Pressable
-                        onPress={logoutHandler}
-                        style={({ pressed }) => {
-                            if (pressed) {
-                                return {
-                                    transform: [{ scale: 0.9 }],
-                                    opacity: 0.5,
-                                    marginRight: 20,
-                                    alignItems: "center",
-                                };
-                            } else {
-                                return {
-                                    marginRight: 20,
-                                    alignItems: "center",
-                                };
-                            }
-                        }}
-                    >
+                    <Pressable onPress={logoutHandler} style={pressablePressed}>
                         <FontAwesomeIcon
                             icon={faArrowRightFromBracket}
                             size={40}

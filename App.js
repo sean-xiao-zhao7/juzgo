@@ -30,6 +30,7 @@ import AddSinglePropertyScreen3 from "./src/screens/properties/AddSingleProperty
 
 // inquiries screens
 import InquiriesScreen from "./src/screens/inquiries/InquiriesScreen";
+import AddInquiryScreen from "./src/screens/inquiries/AddInquiryScreen";
 
 // navigation configs
 import { noHeaderConfig, modalConfig } from "./src/navigation-configs/configs";
@@ -124,6 +125,10 @@ const InquiriesStackComp = () => {
             <InquiriesStack.Screen
                 name="InquiriesScreen"
                 component={InquiriesScreen}
+            />
+            <InquiriesStack.Screen
+                name="AddInquiryScreen"
+                component={AddInquiryScreen}
             />
         </InquiriesStack.Navigator>
     );

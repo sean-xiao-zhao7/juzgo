@@ -1,13 +1,18 @@
+import { View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useLayoutEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Pressable } from "react-native";
 
 // redux
 
 // comps
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
+
+// style
+import { colors } from "../../styles/colors";
+import { pressablePressed } from "../../styles/helpers";
 
 const InquiriesScreen = (props) => {
     const dispatch = useDispatch();
@@ -29,7 +34,25 @@ const InquiriesScreen = (props) => {
         props.navigation.navigate("AllPropertiesScreen");
     };
 
-    return <ScreenContainer></ScreenContainer>;
+    const addInquiryHandler = () => {
+        props.navigation.navigate("InquiriesStackComp", {
+            screen: "AddInquiryScreen",
+        });
+    };
+
+    return (
+        <ScreenScrollContainer>
+            <View style={{ position: "absolute", bottom: 80, right: 30 }}>
+                <Pressable onPress={addInquiryHandler} style={pressablePressed}>
+                    <FontAwesomeIcon
+                        icon={faCirclePlus}
+                        size={60}
+                        color={colors.primaryColor}
+                    />
+                </Pressable>
+            </View>
+        </ScreenScrollContainer>
+    );
 };
 
 export default InquiriesScreen;
