@@ -1,14 +1,17 @@
 import { View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faXmark, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Pressable } from "react-native";
 
 // redux
+import { getInquiriesAPI } from "../../store/slices/inquirySlice";
 
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
+import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 
 // style
 import { colors } from "../../styles/colors";
@@ -16,6 +19,12 @@ import { pressablePressed } from "../../styles/helpers";
 
 const InquiriesScreen = (props) => {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getInquiriesAPI());
+    }, []);
+
+    const inquiries = useSelector((state) => state.inquirySlice.inquiries);
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -42,6 +51,40 @@ const InquiriesScreen = (props) => {
 
     return (
         <ScreenScrollContainer>
+            <View
+                style={{
+                    padding: 30,
+                    flex: 1,
+                    width: "100%",
+                    justifyContent: "flex-start",
+                }}
+            >
+                {inquiries.map((inquiry, index) => {
+                    return (
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+
+                                backgroundColor: colors.grayBackground,
+
+                                borderWidth: 1,
+                                borderRadius: 5,
+                                borderColor: colors.secondaryTextColor,
+
+                                paddingVertical: 10,
+                                paddingHorizontal: 20,
+                                marginBottom: 10,
+                            }}
+                            key={index}
+                        >
+                            <TextLarge>{inquiry.title}</TextLarge>
+                            <TextRegular>{inquiry.startDate}</TextRegular>
+                        </View>
+                    );
+                })}
+            </View>
             <View style={{ position: "absolute", bottom: 80, right: 30 }}>
                 <Pressable onPress={addInquiryHandler} style={pressablePressed}>
                     <FontAwesomeIcon
