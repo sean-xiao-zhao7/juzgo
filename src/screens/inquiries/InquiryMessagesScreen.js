@@ -11,12 +11,12 @@ import { addInquiryMessagesAPI } from "../../store/slices/inquirySlice";
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import CustomTextInput from "../../components/inputs/CustomTextInput";
-import TextLarge from "../../components/texts/TextLarge";
+import TextMedium from "../../components/texts/TextMedium";
+import TextRegular from "../../components/texts/TextRegular";
 
 // style
 import { colors } from "../../styles/colors";
-import { pressablePressed } from "../../styles/helpers";
-import TextRegular from "../../components/texts/TextRegular";
+import { pressablePressed, pressablePressedInput } from "../../styles/helpers";
 
 const InquiryMessagesScreen = (props) => {
     const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const InquiryMessagesScreen = (props) => {
             >
                 {messages.forEach((message, index) => {
                     return (
-                        <TextRegular key={index}>{message.message}</TextRegular>
+                        <TextMedium key={index}>{message.message}</TextMedium>
                     );
                 })}
             </View>
@@ -75,7 +75,7 @@ const InquiryMessagesScreen = (props) => {
                     alignItems: "center",
                 }}
             >
-                <TextLarge>No messages</TextLarge>
+                <TextMedium>No messages</TextMedium>
             </View>
         );
     }
@@ -83,18 +83,34 @@ const InquiryMessagesScreen = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <ScreenScrollContainer>{messagesComp}</ScreenScrollContainer>
-            <View style={{ width: "100%" }}>
+            <View
+                style={{
+                    width: "100%",
+                    flexDirection: "row",
+                    backgroundColor: colors.textinputBackground,
+                }}
+            >
                 <CustomTextInput
                     placeholder={"New message"}
                     value={newMessage}
                     onChangeText={setNewMessage}
                     style={{
                         borderWidth: 0,
-                        width: "100%",
                         fontSize: 16,
                         borderRadius: 0,
+                        width: "85%",
                     }}
                 />
+                <Pressable
+                    onPress={addMessageHandler}
+                    style={pressablePressedInput}
+                >
+                    <FontAwesomeIcon
+                        icon={faCirclePlus}
+                        size={40}
+                        color={colors.primaryColor}
+                    />
+                </Pressable>
             </View>
         </View>
     );

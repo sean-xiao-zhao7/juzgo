@@ -13,3 +13,21 @@ export const pressablePressed = ({ pressed }) => {
         };
     }
 };
+
+export const pressablePressedInput = ({ pressed }) => {
+    if (pressed) {
+        return {
+            transform: [{ scale: 0.9 }],
+            opacity: 0.5,
+            alignItems: "center",
+            margin: 10,
+            marginLeft: 0,
+        };
+    } else {
+        return {
+            alignItems: "center",
+            margin: 10,
+            marginLeft: 0,
+        };
+    }
+};

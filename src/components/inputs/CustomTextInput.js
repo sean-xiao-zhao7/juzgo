@@ -1,4 +1,5 @@
 import { StyleSheet, TextInput } from "react-native";
+import { colors } from "../../styles/colors";
 
 const CustomTextInput = (props) => {
     return (
@@ -18,10 +19,10 @@ const style = StyleSheet.create({
 
         width: 250,
 
-        backgroundColor: "rgba(0,0,0,0.05)",
+        backgroundColor: colors.textinputBackground,
 
         borderWidth: 1,
-        borderColor: "rgba(0,0,0,0.3)",
+        borderColor: colors.textinputBorder,
         borderRadius: 10,
 
         fontSize: 12,

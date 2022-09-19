@@ -11,4 +11,7 @@ export const colors = {
 
     // background colors
     grayBackground: "whitesmoke",
+    textinputBackground: "rgb(230 230 230)",
+
+    textinputBorder: "rgba(0,0,0,0.05)",
 };
