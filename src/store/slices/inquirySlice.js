@@ -22,6 +22,9 @@ const inquirySlice = createSlice({
                     });
                 }
                 state.inquiries = inquiries;
+            })
+            .addCase(addInquiryMessageAPI.fulfilled, (state, action) => {
+                console.log(action.payload);
             });
     },
 });
@@ -30,10 +33,6 @@ export const getInquiriesAPI = createAsyncThunk(
     "inquirySlice/getInquiriesAPI",
     async (payload, thunkAPI) => {
         try {
-            const state = thunkAPI.getState();
-
-            const tenantId = state.sessionSlice.tenantId;
-
             const responseInquiries = await fetch(
                 firebase_database_url + "/inquiry.json",
                 {
@@ -93,7 +92,7 @@ export const addInquiryAPI = createAsyncThunk(
     }
 );
 
-export const addInquiryMessagesAPI = createAsyncThunk(
+export const addInquiryMessageAPI = createAsyncThunk(
     "inquirySlice/addInquiryMessagesAPI",
     async ({ inquiryId, message }, thunkAPI) => {
         try {
@@ -104,7 +103,10 @@ export const addInquiryMessagesAPI = createAsyncThunk(
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ message: message }),
+                    body: JSON.stringify({
+                        message: message,
+                        date: new Date().toDateString(),
+                    }),
                 }
             );
             const result = await responseAddMessage.json();
