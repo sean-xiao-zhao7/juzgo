@@ -93,4 +93,33 @@ export const addInquiryAPI = createAsyncThunk(
     }
 );
 
+export const addInquiryMessagesAPI = createAsyncThunk(
+    "inquirySlice/addInquiryMessagesAPI",
+    async ({ inquiryId, message }, thunkAPI) => {
+        try {
+            const responseAddMessage = await fetch(
+                firebase_database_url + `/inquiry/${inquiryId}/messages.json`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ message: message }),
+                }
+            );
+            const result = await responseAddMessage.json();
+            if (result.error) {
+                throw new Error(
+                    `Error adding message for inquiry ${inquiryId}. \n` +
+                        result.error.message
+                );
+            }
+
+            return result;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+);
+
 export default inquirySlice.reducer;

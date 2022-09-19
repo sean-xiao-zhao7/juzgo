@@ -28,7 +28,7 @@ const InquiriesScreen = (props) => {
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
-            title: "Inquiries Log",
+            title: "Inquiries",
             headerRight: () => {
                 return (
                     <Pressable onPress={closeHandler}>
@@ -61,27 +61,39 @@ const InquiriesScreen = (props) => {
             >
                 {inquiries.map((inquiry, index) => {
                     return (
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-
-                                backgroundColor: colors.grayBackground,
-
-                                borderWidth: 1,
-                                borderRadius: 5,
-                                borderColor: colors.secondaryTextColor,
-
-                                paddingVertical: 10,
-                                paddingHorizontal: 20,
-                                marginBottom: 10,
-                            }}
+                        <Pressable
                             key={index}
+                            onPress={() => {
+                                props.navigation.navigate(
+                                    "InquiriesStackComp",
+                                    {
+                                        screen: "InquiryMessagesScreen",
+                                        params: { inquiry: inquiry },
+                                    }
+                                );
+                            }}
                         >
-                            <TextLarge>{inquiry.title}</TextLarge>
-                            <TextRegular>{inquiry.startDate}</TextRegular>
-                        </View>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+
+                                    backgroundColor: colors.grayBackground,
+
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    borderColor: colors.secondaryTextColor,
+
+                                    paddingVertical: 10,
+                                    paddingHorizontal: 20,
+                                    marginBottom: 10,
+                                }}
+                            >
+                                <TextLarge>{inquiry.title}</TextLarge>
+                                <TextRegular>{inquiry.startDate}</TextRegular>
+                            </View>
+                        </Pressable>
                     );
                 })}
             </View>
