@@ -103,7 +103,7 @@ const InquiryMessagesScreen = (props) => {
                     if (
                         (userType === "manager" && !message.isTenant) ||
                         (userType === "tenant" && message.isTenant) ||
-                        userType === "landlord"
+                        (userType === "landlord" && message.isTenant)
                     ) {
                         messageRow = (
                             <View
@@ -114,7 +114,12 @@ const InquiryMessagesScreen = (props) => {
                                     marginBottom: 10,
                                 }}
                             >
-                                <TextMedium>{message.message}</TextMedium>
+                                <TextMedium>
+                                    {userType === "landlord"
+                                        ? "Tenant: "
+                                        : "JUZGO"}
+                                    {message.message}
+                                </TextMedium>
                             </View>
                         );
                         return (

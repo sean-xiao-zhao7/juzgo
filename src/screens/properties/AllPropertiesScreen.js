@@ -50,7 +50,7 @@ const AllPropertiesScreen = (props) => {
         greeting += "Landlord!";
         longGreeting = "This is the home page that shows all your properties.";
     } else if (userType === "tenant") {
-        greeting += "This is the home page that shows your rental unit.";
+        greeting += "Tenant!";
         longGreeting = "This is the home page that shows all your properties.";
     } else {
         greeting += "JUZGO Manager!";
@@ -59,9 +59,19 @@ const AllPropertiesScreen = (props) => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: "white" }}>
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: "white",
+                paddingHorizontal: 10,
+                backgroundColor: "white",
+            }}
+        >
             <ScreenScrollContainer
-                style={{ justifyContent: "flex-start", flex: "auto" }}
+                style={{
+                    justifyContent: "flex-start",
+                    flex: "auto",
+                }}
             >
                 <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
                     {greeting}
