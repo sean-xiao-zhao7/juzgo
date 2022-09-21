@@ -6,31 +6,36 @@ import { faXmark, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Pressable } from "react-native";
 
 // redux
-import { addInquiryMessageAPI } from "../../store/slices/inquirySlice";
+import {
+    addInquiryMessageAPI,
+    getInquiry,
+} from "../../store/slices/inquirySlice";
 
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import CustomTextInput from "../../components/inputs/CustomTextInput";
 import TextMedium from "../../components/texts/TextMedium";
+import NormalLoader from "../../components/loading/NormalLoader";
 
 // style
 import { colors } from "../../styles/colors";
 import { pressablePressedInput } from "../../styles/helpers";
+import { useEffect } from "react";
 
 const InquiryMessagesScreen = (props) => {
     const dispatch = useDispatch();
     const [newMessage, setNewMessage] = useState("");
-    const inquiry = props.route.params.inquiry;
-    let messages = [];
-    if (inquiry.messages) {
-        for (const key in inquiry.messages) {
-            messages.push(inquiry.messages[key]);
-        }
-    }
+    const inquiryId = props.route.params.inquiryId;
+
+    const inquiry = useSelector((state) => state.inquirySlice.currentInquiry);
+
+    useEffect(() => {
+        dispatch(getInquiry(inquiryId));
+    }, [inquiryId]);
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
-            title: `Inquiry ${inquiry.title}`,
+            title: `Inquiry ${inquiry ? inquiry.title : ""}`,
             headerRight: () => {
                 return (
                     <Pressable onPress={closeHandler}>
@@ -40,6 +45,17 @@ const InquiryMessagesScreen = (props) => {
             },
         });
     }, []);
+
+    if (!inquiry) {
+        return <NormalLoader />;
+    }
+
+    let messages = [];
+    if (inquiry.messages) {
+        for (const key in inquiry.messages) {
+            messages.push(inquiry.messages[key]);
+        }
+    }
 
     const closeHandler = () => {
         props.navigation.navigate("AllPropertiesScreen");
@@ -99,7 +115,7 @@ const InquiryMessagesScreen = (props) => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: "white" }}>
             <ScreenScrollContainer>{messagesComp}</ScreenScrollContainer>
             <View
                 style={{

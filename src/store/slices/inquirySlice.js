@@ -5,9 +5,17 @@ const inquirySlice = createSlice({
     name: "inquirySlice",
     initialState: {
         inquiries: [],
+        currentInquiry: null,
         error: "",
     },
-    reducers: {},
+    reducers: {
+        getInquiry: (state, action) => {
+            const inquiry = state.inquiries.filter(
+                (inquiry) => inquiry.inquiryId === action.payload
+            );
+            state.currentInquiry = inquiry[0];
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(addInquiryAPI.fulfilled, (state, action) => {
@@ -24,7 +32,18 @@ const inquirySlice = createSlice({
                 state.inquiries = inquiries;
             })
             .addCase(addInquiryMessageAPI.fulfilled, (state, action) => {
-                console.log(action.payload);
+                const updateInquiryIndex = state.inquiries.findIndex(
+                    (inquiry) => inquiry.inquiryId === action.payload.inquiryId
+                );
+                if (!state.inquiries[updateInquiryIndex].messages) {
+                    state.inquiries[updateInquiryIndex].messages = {};
+                }
+
+                state.inquiries[updateInquiryIndex].messages[
+                    action.payload.messageId
+                ] = action.payload.messageObj;
+
+                state.currentInquiry = state.inquiries[updateInquiryIndex];
             });
     },
 });
@@ -97,6 +116,16 @@ export const addInquiryMessageAPI = createAsyncThunk(
     "inquirySlice/addInquiryMessagesAPI",
     async ({ inquiryId, message }, thunkAPI) => {
         try {
+            const state = thunkAPI.getState();
+            let isTenant = false;
+            if (state.tenantId !== "") {
+                isTenant = true;
+            }
+            const messageObj = {
+                message: message,
+                date: new Date().toDateString(),
+                isTenant: isTenant,
+            };
             const responseAddMessage = await fetch(
                 firebase_database_url + `/inquiry/${inquiryId}/messages.json`,
                 {
@@ -104,10 +133,7 @@ export const addInquiryMessageAPI = createAsyncThunk(
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        message: message,
-                        date: new Date().toDateString(),
-                    }),
+                    body: JSON.stringify(messageObj),
                 }
             );
             const result = await responseAddMessage.json();
@@ -118,11 +144,12 @@ export const addInquiryMessageAPI = createAsyncThunk(
                 );
             }
 
-            return result;
+            return { messageObj, inquiryId, messageId: result.name };
         } catch (error) {
             throw new Error(error.message);
         }
     }
 );
 
+export const getInquiry = inquirySlice.actions.getInquiry;
 export default inquirySlice.reducer;

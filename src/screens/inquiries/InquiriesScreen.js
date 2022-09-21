@@ -68,7 +68,9 @@ const InquiriesScreen = (props) => {
                                     "InquiriesStackComp",
                                     {
                                         screen: "InquiryMessagesScreen",
-                                        params: { inquiry: inquiry },
+                                        params: {
+                                            inquiryId: inquiry.inquiryId,
+                                        },
                                     }
                                 );
                             }}
