@@ -27,7 +27,9 @@ const InquiryMessagesScreen = (props) => {
     const [newMessage, setNewMessage] = useState("");
     const inquiryId = props.route.params.inquiryId;
 
+    // get inquiry if new message is added
     const inquiry = useSelector((state) => state.inquirySlice.currentInquiry);
+    const userType = useSelector((state) => state.sessionSlice.type);
 
     useEffect(() => {
         dispatch(getInquiry(inquiryId));
@@ -71,6 +73,7 @@ const InquiryMessagesScreen = (props) => {
         setNewMessage("");
     };
 
+    // set up messages section
     let messagesComp = (
         <View
             style={{
@@ -96,19 +99,65 @@ const InquiryMessagesScreen = (props) => {
                 }}
             >
                 {messages.map((message, index) => {
-                    return (
-                        <View
-                            key={index}
-                            style={{
-                                backgroundColor: colors.grayBackground,
-                                paddingHorizontal: 10,
-                                paddingVertical: 10,
-                                marginBottom: 10,
-                            }}
-                        >
-                            <TextMedium>You: {message.message}</TextMedium>
-                        </View>
-                    );
+                    let messageRow = "";
+                    if (
+                        (userType === "manager" && !message.isTenant) ||
+                        (userType === "tenant" && message.isTenant) ||
+                        userType === "landlord"
+                    ) {
+                        messageRow = (
+                            <View
+                                style={{
+                                    backgroundColor: colors.grayBackground,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    marginBottom: 10,
+                                }}
+                            >
+                                <TextMedium>{message.message}</TextMedium>
+                            </View>
+                        );
+                        return (
+                            <View
+                                key={index}
+                                style={{
+                                    width: "100%",
+                                    alignItems: "flex-end",
+                                }}
+                            >
+                                {messageRow}
+                            </View>
+                        );
+                    } else {
+                        messageRow = (
+                            <View
+                                style={{
+                                    backgroundColor: colors.grayBackground,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    marginBottom: 10,
+                                }}
+                            >
+                                <TextMedium>
+                                    {userType === "manager"
+                                        ? "Tenant"
+                                        : "JUZGO"}
+                                    : {message.message}
+                                </TextMedium>
+                            </View>
+                        );
+                        return (
+                            <View
+                                key={index}
+                                style={{
+                                    width: "100%",
+                                    alignItems: "flex-start",
+                                }}
+                            >
+                                {messageRow}
+                            </View>
+                        );
+                    }
                 })}
             </View>
         );

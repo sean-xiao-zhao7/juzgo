@@ -152,7 +152,7 @@ export const signInAction = createAsyncThunk(
                 }
             }
 
-            if (result.email in manager) {
+            if (manager.includes(result.email)) {
                 result.type = "manager";
             }
 

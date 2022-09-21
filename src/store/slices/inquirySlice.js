@@ -118,7 +118,10 @@ export const addInquiryMessageAPI = createAsyncThunk(
         try {
             const state = thunkAPI.getState();
             let isTenant = false;
-            if (state.tenantId !== "") {
+            if (
+                state.sessionSlice.tenantId &&
+                state.sessionSlice.tenantId !== ""
+            ) {
                 isTenant = true;
             }
             const messageObj = {
