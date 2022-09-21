@@ -11,6 +11,7 @@ import {
 
 // constants
 import { INVALID_LOGIN, SERVER_ERROR } from "../../constants/errors";
+import { manager } from "../../dummy-data";
 
 const sessionSlice = createSlice({
     name: "sessionSlice",
@@ -149,6 +150,10 @@ export const signInAction = createAsyncThunk(
                         break;
                     }
                 }
+            }
+
+            if (result.email in manager) {
+                result.type = "manager";
             }
 
             return result;

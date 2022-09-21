@@ -44,18 +44,30 @@ const AllPropertiesScreen = (props) => {
         dispatch(signOut());
     };
 
+    let greeting = "Welcome, ";
+    let longGreeting = "";
+    if (userType === "landlord") {
+        greeting += "Landlord!";
+        longGreeting = "This is the home page that shows all your properties.";
+    } else if (userType === "tenant") {
+        greeting += "This is the home page that shows your rental unit.";
+        longGreeting = "This is the home page that shows all your properties.";
+    } else {
+        greeting += "JUZGO Manager!";
+        longGreeting =
+            "This screen shows all properties landlords are managing. You can use the Inquiries button at the bottom to communicate with tenants.";
+    }
+
     return (
         <View style={{ flex: 1, backgroundColor: "white" }}>
             <ScreenScrollContainer
                 style={{ justifyContent: "flex-start", flex: "auto" }}
             >
                 <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
-                    Welcome, {userType === "landlord" ? "Landlord" : "Tenant"}!
+                    {greeting}
                 </TextLarge>
                 <TextRegular style={{ marginBottom: 60 }}>
-                    {userType === "landlord"
-                        ? "This is the home page that shows all your properties."
-                        : "This is the home page that shows your rental unit."}
+                    {longGreeting}
                 </TextRegular>
                 <PropertiesGrid
                     properties={properties}
