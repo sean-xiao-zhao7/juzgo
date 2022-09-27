@@ -50,9 +50,12 @@ export const verifyAccessCode = createAsyncThunk(
     "tenantSignupSlice/verifyAccessCode",
     async (accessCode, thunkAPI) => {
         try {
+            const state = thunkAPI.getState();
+            const idToken = state.sessionSlice.idToken;
+
             // 1. Pull property matching access code
             const responseProperty = await fetch(
-                firebase_database_url + "/property.json",
+                firebase_database_url + "/property.json?auth=" + idToken,
                 {
                     method: "GET",
                     headers: {
@@ -147,6 +150,7 @@ export const updateTenantDB = createAsyncThunk(
     async (emailPassword, thunkAPI) => {
         try {
             const state = thunkAPI.getState();
+            const idToken = state.sessionSlice.idToken;
 
             const responseSignup = await fetch(firebase_signup_url, {
                 method: "POST",
@@ -170,7 +174,8 @@ export const updateTenantDB = createAsyncThunk(
 
             const responseUpdateTenant = await fetch(
                 firebase_database_url +
-                    `/tenant/${state.tenantSignupSlice.tenantID}.json`,
+                    `/tenant/${state.tenantSignupSlice.tenantID}.json?auth=` +
+                    idToken,
                 {
                     method: "PATCH",
                     headers: {

@@ -65,8 +65,11 @@ export const fetchProperties = createAsyncThunk(
     "propertySlice/fetchProperties",
     async (args, thunkAPI) => {
         try {
+            const state = thunkAPI.getState();
+            const idToken = state.sessionSlice.idToken;
+
             const response = await fetch(
-                firebase_database_url + "/property.json",
+                firebase_database_url + "/property.json?auth=" + idToken,
                 {
                     method: "GET",
                     headers: {
@@ -91,6 +94,8 @@ export const updateAPI = createAsyncThunk(
         try {
             // 1. add tenant
             const state = getState();
+            const idToken = state.sessionSlice.idToken;
+
             const landlordId = state.sessionSlice.landlordId;
             let newInfo = {
                 ...state.propertySlice.newTenant,
@@ -98,7 +103,7 @@ export const updateAPI = createAsyncThunk(
                 accessCode: state.propertySlice.accessCode,
             };
             const responseTenant = await fetch(
-                firebase_database_url + "/tenant.json",
+                firebase_database_url + "/tenant.json?auth=" + idToken,
                 {
                     method: "POST",
                     headers: {
@@ -121,7 +126,7 @@ export const updateAPI = createAsyncThunk(
                 accessCode: state.propertySlice.accessCode,
             };
             const responseProperty = await fetch(
-                firebase_database_url + "/property.json",
+                firebase_database_url + "/property.json?auth=" + idToken,
                 {
                     method: "POST",
                     headers: {
@@ -148,8 +153,13 @@ export const updateJuzgoManaged = createAsyncThunk(
     "propertySlice/updateJuzgoManaged",
     async ({ firebaseId, juzgoManaged }, { getState }) => {
         try {
+            const state = getState();
+            const idToken = state.sessionSlice.idToken;
+
             const responseProperty = await fetch(
-                firebase_database_url + `/property/${firebaseId}.json`,
+                firebase_database_url +
+                    `/property/${firebaseId}.json?auth=` +
+                    idToken,
                 {
                     method: "PATCH",
                     headers: {

@@ -52,8 +52,11 @@ export const getInquiriesAPI = createAsyncThunk(
     "inquirySlice/getInquiriesAPI",
     async (payload, thunkAPI) => {
         try {
+            const state = thunkAPI.getState();
+            const idToken = state.sessionSlice.idToken;
+
             const responseInquiries = await fetch(
-                firebase_database_url + "/inquiry.json",
+                firebase_database_url + "/inquiry.json?auth=" + idToken,
                 {
                     method: "GET",
                     headers: {
@@ -89,7 +92,7 @@ export const addInquiryAPI = createAsyncThunk(
                 startDate: new Date().toDateString(),
             };
             const responseAddInquiry = await fetch(
-                firebase_database_url + "/inquiry.json",
+                firebase_database_url + "/inquiry.json?auth=" + idToken,
                 {
                     method: "POST",
                     headers: {
@@ -130,7 +133,9 @@ export const addInquiryMessageAPI = createAsyncThunk(
                 isTenant: isTenant,
             };
             const responseAddMessage = await fetch(
-                firebase_database_url + `/inquiry/${inquiryId}/messages.json`,
+                firebase_database_url +
+                    `/inquiry/${inquiryId}/messages.json?auth=` +
+                    idToken,
                 {
                     method: "POST",
                     headers: {

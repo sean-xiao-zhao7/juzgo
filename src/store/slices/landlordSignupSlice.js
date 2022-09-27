@@ -39,6 +39,9 @@ const landlordSignupSlice = createSlice({
 export const updateLandlordDB = createAsyncThunk(
     "landlordSignupSlice/updateLandlordDB",
     async (payload, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const idToken = state.sessionSlice.idToken;
+
         let newInfo;
         const info = payload.info;
         const emailPassword = payload.emailPassword;
@@ -63,7 +66,7 @@ export const updateLandlordDB = createAsyncThunk(
             // 2. add landlord
             newInfo = { ...info.personalInfo, userUID: result.localId };
             const response2 = await fetch(
-                firebase_database_url + "/landlord.json",
+                firebase_database_url + "/landlord.json?auth=" + idToken,
                 {
                     method: "POST",
                     headers: {
@@ -77,7 +80,7 @@ export const updateLandlordDB = createAsyncThunk(
             // 3. add tenant
             newInfo = { ...info.landlordTenantInfo, landlord: result2.name };
             const response3 = await fetch(
-                firebase_database_url + "/tenant.json",
+                firebase_database_url + "/tenant.json?auth=" + idToken,
                 {
                     method: "POST",
                     headers: {
@@ -95,7 +98,7 @@ export const updateLandlordDB = createAsyncThunk(
                 tenant: result3.name,
             };
             const response4 = await fetch(
-                firebase_database_url + "/property.json",
+                firebase_database_url + "/property.json?auth=" + idToken,
                 {
                     method: "POST",
                     headers: {

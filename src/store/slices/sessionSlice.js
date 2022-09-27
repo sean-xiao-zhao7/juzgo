@@ -100,12 +100,15 @@ export const signInAction = createAsyncThunk(
             }
 
             // retrieve userinfo from db to check if user is landlord or tenant
-            response = await fetch(firebase_database_url + "/landlord.json", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            response = await fetch(
+                firebase_database_url + `/landlord.json?auth=${result.idToken}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
             const landlordsResult = await response.json();
             if (landlordsResult.error) {
                 throw new Error(SERVER_ERROR);
@@ -127,12 +130,16 @@ export const signInAction = createAsyncThunk(
 
             // user is a tenant
             if (!result.type) {
-                response = await fetch(firebase_database_url + "/tenant.json", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                response = await fetch(
+                    firebase_database_url +
+                        `/tenant.json?auth=${result.idToken}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
                 const tenantResult = await response.json();
                 if (tenantResult.error) {
                     throw new Error(SERVER_ERROR);
