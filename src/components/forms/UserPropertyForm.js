@@ -21,8 +21,11 @@ const UserPropertyForm = (props) => {
     const [province, setProvince] = useState(
         props.info?.province ? props.info?.province : ""
     );
+    const [country, setCountry] = useState(
+        props.info?.country ? props.info?.country : ""
+    );
     const [authorize, checkAuthorize] = useState(
-        props.info?.firstname ? true : false
+        props.info?.unitnum ? true : false
     );
 
     return (
@@ -55,6 +58,11 @@ const UserPropertyForm = (props) => {
                     style={{ width: 120 }}
                 />
             </View>
+            <CustomTextInput
+                value={country}
+                onChangeText={setCountry}
+                placeholder={"Unit country"}
+            />
             <View style={{ width: 250 }}>
                 <View
                     style={{
@@ -97,7 +105,13 @@ const UserPropertyForm = (props) => {
                     text={props.nextStepText ? props.nextStepText : "Next Step"}
                     onPress={() => {
                         if (
-                            emptyVerify([unitnum, street, city, province]) &&
+                            emptyVerify([
+                                unitnum,
+                                street,
+                                city,
+                                province,
+                                country,
+                            ]) &&
                             authorize
                         ) {
                             props.onNext({
@@ -105,6 +119,7 @@ const UserPropertyForm = (props) => {
                                 street,
                                 city,
                                 province,
+                                country,
                             });
                         } else {
                             incompleteErrorAlert();
