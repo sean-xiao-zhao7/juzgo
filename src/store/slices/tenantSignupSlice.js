@@ -55,7 +55,7 @@ export const verifyAccessCode = createAsyncThunk(
 
             // 1. Pull property matching access code
             const responseProperty = await fetch(
-                firebase_database_url + "/property.json?auth=" + idToken,
+                firebase_database_url + "/property.json",
                 {
                     method: "GET",
                     headers: {
