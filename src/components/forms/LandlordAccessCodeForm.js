@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import * as Clipboard from "expo-clipboard";
 
 // comps
 import Button1 from "../buttons/Button1";
@@ -10,12 +11,16 @@ import { generateAccessCode } from "./helpers/accessCode";
 const LandlordAccessCodeForm = (props) => {
     const accessCode = generateAccessCode();
 
+    const copyAccessCode = async () => {
+        await Clipboard.setStringAsync(accessCode);
+    };
+
     return (
         <View style={{ alignItems: "center", paddingTop: 30 }}>
             <TextLarge>{accessCode}</TextLarge>
             <Button1
                 text="Tap to copy the code above"
-                onPress={props.onPrevious}
+                onPress={copyAccessCode}
             />
             <View
                 style={{
