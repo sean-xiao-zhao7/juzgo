@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     firebase_siginpassword_url,
     firebase_database_url,
+    manager,
 } from "../../dummy-data";
 import {
     saveSession,
@@ -11,7 +12,6 @@ import {
 
 // constants
 import { INVALID_LOGIN, SERVER_ERROR } from "../../constants/errors";
-import { manager } from "../../dummy-data";
 
 const sessionSlice = createSlice({
     name: "sessionSlice",
@@ -162,6 +162,8 @@ export const signInAction = createAsyncThunk(
 
             if (manager.includes(result.email)) {
                 result.type = "manager";
+            } else {
+                result.type = "none";
             }
 
             return result;

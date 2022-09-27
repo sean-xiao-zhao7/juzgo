@@ -23,16 +23,18 @@ import { pressablePressed } from "../../styles/helpers";
 const AllPropertiesScreen = (props) => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchProperties());
-    }, []);
-
     const { properties, userType } = useSelector((state) => {
         return {
             properties: state.propertySlice.properties,
             userType: state.sessionSlice.type,
         };
     });
+
+    useEffect(() => {
+        if (userType !== "none" && userType !== "") {
+            dispatch(fetchProperties());
+        }
+    }, []);
 
     const inquiryHandler = () => {
         props.navigation.navigate("InquiriesStackComp", {
@@ -52,12 +54,14 @@ const AllPropertiesScreen = (props) => {
     } else if (userType === "tenant") {
         greeting += "Tenant!";
         longGreeting = "This is the home page that shows all your properties.";
-    } else {
+    } else if (userType === "manager") {
         greeting += "JUZGO Manager!";
         longGreeting =
             "This screen shows all properties landlords are managing. You can use the Inquiries button at the bottom to communicate with tenants.";
+    } else if (userType === "none" || !userType) {
+        greeting += "JUZGO user!";
+        longGreeting = "You are not landlord/tenant yet.";
     }
-
     return (
         <View
             style={{
@@ -67,23 +71,39 @@ const AllPropertiesScreen = (props) => {
                 backgroundColor: "white",
             }}
         >
-            <ScreenScrollContainer
-                style={{
-                    justifyContent: "flex-start",
-                    flex: "auto",
-                }}
-            >
-                <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
-                    {greeting}
-                </TextLarge>
-                <TextRegular style={{ marginBottom: 60 }}>
-                    {longGreeting}
-                </TextRegular>
-                <PropertiesGrid
-                    properties={properties}
-                    isTenant={userType === "tenant"}
-                />
-            </ScreenScrollContainer>
+            {userType !== "none" && userType !== "" ? (
+                <ScreenScrollContainer
+                    style={{
+                        justifyContent: "flex-start",
+                        flex: "auto",
+                    }}
+                >
+                    <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
+                        {greeting}
+                    </TextLarge>
+                    <TextRegular style={{ marginBottom: 60 }}>
+                        {longGreeting}
+                    </TextRegular>
+                    <PropertiesGrid
+                        properties={properties}
+                        isTenant={userType === "tenant"}
+                    />
+                </ScreenScrollContainer>
+            ) : (
+                <ScreenScrollContainer
+                    style={{
+                        justifyContent: "flex-start",
+                        flex: "auto",
+                    }}
+                >
+                    <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
+                        {greeting}
+                    </TextLarge>
+                    <TextRegular style={{ marginBottom: 60 }}>
+                        {longGreeting}
+                    </TextRegular>
+                </ScreenScrollContainer>
+            )}
             <View
                 style={{
                     paddingVertical: 20,
