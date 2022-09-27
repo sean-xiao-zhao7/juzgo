@@ -2,6 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { firebase_database_url, firebase_signup_url } from "../../dummy-data";
 import { authenticate } from "./sessionSlice";
 
+import {
+    EMAIL_EXISTS_ERROR,
+    REGISTER_GENERAL_ERROR,
+} from "../../constants/errors";
+
 const landlordSignupSlice = createSlice({
     name: "landlordSignupSlice",
     initialState: {
@@ -9,6 +14,7 @@ const landlordSignupSlice = createSlice({
         landlordInfo: {},
         landlordPropertyInfo: {},
         landlordTenantInfo: {},
+        error: false,
     },
     reducers: {
         updateLandlordInfo: (state, action) => {
@@ -26,22 +32,31 @@ const landlordSignupSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(updateLandlordDB.fulfilled, (state, action) => {
-            if (action.payload === "error") {
-                state.complete = false;
-            } else {
-                state.complete = true;
-            }
-        });
+        builder
+            .addCase(updateLandlordDB.fulfilled, (state, action) => {
+                state.error = false;
+                if (action.payload === "error") {
+                    state.complete = false;
+                } else {
+                    state.complete = true;
+                }
+            })
+            .addCase(updateLandlordDB.rejected, (state, action) => {
+                if (
+                    action.error.message &&
+                    action.error.message.includes("EMAIL_EXISTS")
+                ) {
+                    state.error = EMAIL_EXISTS_ERROR;
+                } else {
+                    state.error = REGISTER_GENERAL_ERROR;
+                }
+            });
     },
 });
 
 export const updateLandlordDB = createAsyncThunk(
     "landlordSignupSlice/updateLandlordDB",
     async (payload, thunkAPI) => {
-        const state = thunkAPI.getState();
-        const idToken = state.sessionSlice.idToken;
-
         let newInfo;
         const info = payload.info;
         const emailPassword = payload.emailPassword;
@@ -60,8 +75,10 @@ export const updateLandlordDB = createAsyncThunk(
             });
             const result = await response1.json();
             if (result.error) {
-                throw new Error("Error signing up. \n" + result.error.message);
+                throw new Error(result.error.message);
             }
+
+            const idToken = result.idToken;
 
             // 2. add landlord
             newInfo = { ...info.personalInfo, userUID: result.localId };
@@ -107,7 +124,7 @@ export const updateLandlordDB = createAsyncThunk(
                     body: JSON.stringify(newInfo),
                 }
             );
-            const result4 = await response4.json();
+            await response4.json();
 
             // 5. update sessionSlice
             thunkAPI.dispatch(
@@ -121,8 +138,7 @@ export const updateLandlordDB = createAsyncThunk(
 
             return result;
         } catch (error) {
-            console.log(error.message);
-            return "error";
+            throw new Error(error);
         }
     }
 );

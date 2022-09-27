@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 // store
 import { updateLandlordDB } from "../../store/slices/landlordSignupSlice";
@@ -8,12 +9,14 @@ import { updateTenantDB } from "../../store/slices/tenantSignupSlice";
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import EmailPasswordForm from "../../components/forms/EmailPasswordForm";
-import { useEffect } from "react";
+
+// alerts
+import { customAlert } from "../../components/forms/helpers/alert";
 
 const SignupEmailPasswordScreen = (props) => {
     const dispatch = useDispatch();
 
-    const info = useSelector((state) => {
+    const [info, signupError] = useSelector((state) => {
         const info = { type: props.route.params.type };
         if (info.type === "landlord") {
             info.personalInfo = state.landlordSignupSlice.landlordInfo;
@@ -22,7 +25,10 @@ const SignupEmailPasswordScreen = (props) => {
             info.landlordTenantInfo =
                 state.landlordSignupSlice.landlordTenantInfo;
         }
-        return info;
+
+        const signupError = state.landlordSignupSlice.error;
+
+        return [info, signupError];
     });
 
     let completeVal;
@@ -39,13 +45,15 @@ const SignupEmailPasswordScreen = (props) => {
         if (completeVal === true) {
             props.navigation.navigate("AllPropertiesScreen");
         }
-    }, [completeVal]);
+    }, [completeVal, signupError]);
 
     const onSubmit = (emailPassword) => {
+        if (signupError) {
+            customAlert(signupError);
+        }
         if (info.type === "landlord") {
             dispatch(updateLandlordDB({ info, emailPassword }));
         } else {
-            console.log("dispatch");
             dispatch(updateTenantDB(emailPassword));
         }
     };

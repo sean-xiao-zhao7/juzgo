@@ -109,6 +109,7 @@ export const signInAction = createAsyncThunk(
                     },
                 }
             );
+
             const landlordsResult = await response.json();
             if (landlordsResult.error) {
                 throw new Error(SERVER_ERROR);
