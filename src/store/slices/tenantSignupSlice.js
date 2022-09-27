@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { firebase_database_url, firebase_signup_url } from "../../dummy-data";
+import { authenticate } from "./sessionSlice";
 
 const tenantSignupSlice = createSlice({
     name: "tenantSignupSlice",
@@ -150,7 +151,6 @@ export const updateTenantDB = createAsyncThunk(
     async (emailPassword, thunkAPI) => {
         try {
             const state = thunkAPI.getState();
-            const idToken = state.sessionSlice.idToken;
 
             const responseSignup = await fetch(firebase_signup_url, {
                 method: "POST",
@@ -169,6 +169,7 @@ export const updateTenantDB = createAsyncThunk(
                     "Error signing up. \n" + resultSignup.error.message
                 );
             }
+            const idToken = resultSignup.idToken;
 
             // add userUID to existing tenant info added by landlord
 
@@ -198,7 +199,14 @@ export const updateTenantDB = createAsyncThunk(
                 );
             }
 
-            // initiate session
+            // 5. update sessionSlice
+            thunkAPI.dispatch(
+                authenticate({
+                    ...responseSignup,
+                    type: "tenant",
+                    tenant: resultUpdateTenant.name,
+                })
+            );
         } catch (error) {
             throw new Error(error.message);
         }
