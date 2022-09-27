@@ -8,6 +8,7 @@ import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import UserInfoForm from "../../components/forms/UserInfoForm";
 import TextSmall from "../../components/texts/TextSmall";
+import Button2 from "../../components/buttons/Button2";
 
 const SignupLandlordInfoScreen = (props) => {
     const dispatch = useDispatch();
@@ -30,7 +31,13 @@ const SignupLandlordInfoScreen = (props) => {
                 Please fill out the information below.
             </TextRegular>
             <UserInfoForm onSubmit={onSubmit} info={landlordInfo} />
-            <TextSmall style={{ marginTop: 60 }}>Step 2 of 5</TextSmall>
+            <TextSmall style={{ marginVertical: 60 }}>Step 2 of 5</TextSmall>
+            <Button2
+                text="Back"
+                onPress={() => {
+                    props.navigation.goBack();
+                }}
+            />
         </ScreenContainer>
     );
 };

@@ -8,6 +8,7 @@ import { verifyAccessCode } from "../../store/slices/tenantSignupSlice.js";
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import TenantAccessCodeForm from "../../components/forms/TenantAccessCodeForm";
+import Button1 from "../../components/buttons/Button1";
 import { customAlert } from "../../components/forms/helpers/alert.js";
 
 const SignupTenantAccessCodeScreen = (props) => {
@@ -41,6 +42,12 @@ const SignupTenantAccessCodeScreen = (props) => {
                 Landlord to proceed.
             </TextRegular>
             <TenantAccessCodeForm onNext={onNext} />
+            <Button1
+                text="Back"
+                onPress={() => {
+                    props.navigation.goBack();
+                }}
+            />
         </ScreenContainer>
     );
 };
