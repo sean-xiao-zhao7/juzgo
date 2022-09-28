@@ -62,6 +62,7 @@ const AllPropertiesScreen = (props) => {
         greeting += "JUZGO user!";
         longGreeting = "You are not landlord/tenant yet.";
     }
+
     return (
         <View
             style={{

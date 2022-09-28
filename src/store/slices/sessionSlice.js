@@ -162,7 +162,7 @@ export const signInAction = createAsyncThunk(
 
             if (manager.includes(result.email)) {
                 result.type = "manager";
-            } else {
+            } else if (!result.type) {
                 result.type = "none";
             }
 
