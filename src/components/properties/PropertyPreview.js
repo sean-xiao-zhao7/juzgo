@@ -130,7 +130,7 @@ const PropertyPreview = (props) => {
                     ) : null}
                 </Pressable>
             )}
-            {props.userType === "landlord" ? (
+            {props.userType === "tenant" ? (
                 <View
                     style={{
                         alignItems: "center",

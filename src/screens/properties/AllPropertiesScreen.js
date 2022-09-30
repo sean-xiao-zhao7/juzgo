@@ -53,7 +53,8 @@ const AllPropertiesScreen = (props) => {
         longGreeting = "This is the home page that shows all your properties.";
     } else if (userType === "tenant") {
         greeting += "Tenant!";
-        longGreeting = "This is the home page that shows all your properties.";
+        longGreeting =
+            "This is the home page that show the property you manage.";
     } else if (userType === "manager") {
         greeting += "JUZGO Manager!";
         longGreeting =

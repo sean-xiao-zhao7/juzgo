@@ -19,7 +19,7 @@ const PropertiesGrid = (props) => {
 
     return (
         <View style={style.twoColumns}>
-            {isTenant ? null : (
+            {props.userType === "tenant" ? null : (
                 <GrayButton
                     text={"Add A Property"}
                     style={[style.twoColumnsChild, style.addBigButton]}
@@ -33,7 +33,7 @@ const PropertiesGrid = (props) => {
                         key={index}
                         userType={props.userType}
                         style={
-                            isTenant
+                            props.userType === "tenant"
                                 ? style.oneColumnChild
                                 : style.twoColumnsChild
                         }
