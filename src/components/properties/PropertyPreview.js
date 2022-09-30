@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { View, Modal } from "react-native";
+import { View, Modal, Pressable } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
 import Checkbox from "expo-checkbox";
+import { useNavigation } from "@react-navigation/native";
 
 // redux
 import { useDispatch } from "react-redux";
@@ -19,6 +20,7 @@ import { modalStyle } from "../../styles/modal";
 
 const PropertyPreview = (props) => {
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     const [allowManage, setAllowManage] = useState(
         props.property.juzgoManaged ? true : false
@@ -56,16 +58,30 @@ const PropertyPreview = (props) => {
                 props.style,
             ]}
         >
-            <FontAwesomeIcon
-                icon={faHouse}
-                size={80}
-                style={{ color: colors.primaryColor }}
-            />
-            <TextRegular>{props.property.street}</TextRegular>
-            <TextRegular>
-                {props.property.city}, {props.property.province}
-            </TextRegular>
-            <TextRegular>{props.property.unitnum}</TextRegular>
+            <Pressable
+                onPress={() => {
+                    navigation.navigate("EditSinglePropertyScreen", {
+                        property: props.property,
+                    });
+                }}
+                style={[
+                    {
+                        alignItems: "center",
+                    },
+                    props.style,
+                ]}
+            >
+                <FontAwesomeIcon
+                    icon={faHouse}
+                    size={80}
+                    style={{ color: colors.primaryColor }}
+                />
+                <TextRegular>{props.property.street}</TextRegular>
+                <TextRegular>
+                    {props.property.city}, {props.property.province}
+                </TextRegular>
+                <TextRegular>{props.property.unitnum}</TextRegular>
+            </Pressable>
             {props.isTenant ? (
                 <View
                     style={{

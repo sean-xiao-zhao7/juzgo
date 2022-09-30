@@ -27,6 +27,7 @@ import AllPropertiesScreen from "./src/screens/properties/AllPropertiesScreen";
 import AddSinglePropertyScreen1 from "./src/screens/properties/AddSinglePropertyScreen1";
 import AddSinglePropertyScreen2 from "./src/screens/properties/AddSinglePropertyScreen2";
 import AddSinglePropertyScreen3 from "./src/screens/properties/AddSinglePropertyScreen3";
+import EditSinglePropertyScreen from "./src/screens/properties/EditSinglePropertyScreen";
 
 // inquiries screens
 import InquiriesScreen from "./src/screens/inquiries/InquiriesScreen";
@@ -178,6 +179,11 @@ const Navigator = (props) => {
             <RootStack.Navigator>
                 {screens}
                 {AddPropertiesStack}
+                <RootStack.Screen
+                    name="EditSinglePropertyScreen"
+                    component={EditSinglePropertyScreen}
+                    options={noHeaderConfig}
+                />
                 <RootStack.Screen
                     name="InquiriesStackComp"
                     component={InquiriesStackComp}

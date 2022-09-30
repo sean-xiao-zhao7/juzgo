@@ -10,6 +10,7 @@ const propertySlice = createSlice({
         newTenant: {},
         accessCode: "",
         actionCompleted: false,
+        error: "",
     },
     reducers: {
         toggleLoading: (state, action) => {
@@ -54,9 +55,17 @@ const propertySlice = createSlice({
                     (property) =>
                         property.firebaseId === action.payload.firebaseId
                 );
-                console.log(action.payload.juzgoManaged);
                 state.properties[updateIndex].juzgoManaged =
                     action.payload.juzgoManaged;
+            })
+            .addCase(updatePropertyAPI.fulfilled, (state, action) => {
+                const updateIndex = state.properties.findIndex(
+                    (property) =>
+                        property.firebaseId === action.payload.firebaseId
+                );
+                state.properties[updateIndex].juzgoManaged =
+                    action.payload.juzgoManaged;
+                state.actionCompleted = true;
             });
     },
 });
@@ -180,6 +189,38 @@ export const updateJuzgoManaged = createAsyncThunk(
                 firebaseId,
                 juzgoManaged,
             };
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+);
+
+export const updatePropertyAPI = createAsyncThunk(
+    "propertySlice/updatePropertyAPI",
+    async ({ firebaseId, updatedPropertyInfo }, { getState }) => {
+        try {
+            const state = getState();
+            const idToken = state.sessionSlice.idToken;
+
+            const responseProperty = await fetch(
+                firebase_database_url +
+                    `/property/${firebaseId}/.json?auth=` +
+                    idToken,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(updatedPropertyInfo),
+                }
+            );
+            const resultProperty = await responseProperty.json();
+
+            if (resultProperty.error) {
+                throw new Error(resultProperty.error);
+            }
+
+            return newPropertyInfo;
         } catch (error) {
             throw new Error(error.message);
         }
