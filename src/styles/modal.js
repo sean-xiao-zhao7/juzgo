@@ -7,14 +7,14 @@ export const modalStyle = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: colors.tertiaryColor,
         borderRadius: 20,
-        borderWidth: 1,
         padding: 20,
+        paddingBottom: 10,
         width: "90%",
     },
     background: {
-        flexDirection: "row",
+        flex: 1,
         alignItems: "center",
-        marginTop: 5,
-        padding: 10,
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
     },
 });

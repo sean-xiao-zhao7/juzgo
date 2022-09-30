@@ -192,7 +192,14 @@ const PropertyPreview = (props) => {
                     </TextRegular>
                 </View>
             ) : (
-                <View style={modalStyle.background}>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 5,
+                        padding: 10,
+                    }}
+                >
                     <Checkbox
                         value={allowManage}
                         onValueChange={(value) => {
@@ -219,14 +226,7 @@ const PropertyPreview = (props) => {
                             setJuzgoManagedModalVisible(false);
                         }}
                     >
-                        <View
-                            style={{
-                                flex: 1,
-                                alignItems: "center",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0, 0, 0, 0.2)",
-                            }}
-                        >
+                        <View style={modalStyle.background}>
                             <View style={modalStyle.modal}>
                                 <TextRegular>
                                     Please confirm you would like Juzgo to
