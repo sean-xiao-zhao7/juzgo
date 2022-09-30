@@ -76,11 +76,15 @@ const PropertyPreview = (props) => {
                     size={80}
                     style={{ color: colors.primaryColor }}
                 />
-                <TextRegular>{props.property.street}</TextRegular>
-                <TextRegular>
+                <TextRegular style={{ textAlign: "center" }}>
+                    {props.property.street}
+                </TextRegular>
+                <TextRegular style={{ textAlign: "center" }}>
                     {props.property.city}, {props.property.province}
                 </TextRegular>
-                <TextRegular>{props.property.unitnum}</TextRegular>
+                <TextRegular style={{ textAlign: "center" }}>
+                    {props.property.unitnum}
+                </TextRegular>
             </Pressable>
             {props.isTenant ? (
                 <View
