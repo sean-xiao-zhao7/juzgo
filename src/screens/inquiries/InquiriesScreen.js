@@ -25,6 +25,7 @@ const InquiriesScreen = (props) => {
     }, []);
 
     const inquiries = useSelector((state) => state.inquirySlice.inquiries);
+    const userType = useSelector((state) => state.sessionSlice.type);
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -57,57 +58,69 @@ const InquiriesScreen = (props) => {
                     flex: 1,
                     width: "100%",
                     justifyContent: "flex-start",
+                    alignItems: "center",
                 }}
             >
-                {inquiries.map((inquiry, index) => {
-                    return (
-                        <Pressable
-                            key={index}
-                            onPress={() => {
-                                props.navigation.navigate(
-                                    "InquiriesStackComp",
-                                    {
-                                        screen: "InquiryMessagesScreen",
-                                        params: {
-                                            inquiryId: inquiry.inquiryId,
-                                        },
-                                    }
-                                );
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-
-                                    backgroundColor: colors.grayBackground,
-
-                                    borderWidth: 1,
-                                    borderRadius: 5,
-                                    borderColor: colors.secondaryTextColor,
-
-                                    paddingVertical: 10,
-                                    paddingHorizontal: 20,
-                                    marginBottom: 10,
+                {inquiries.length > 0 ? (
+                    inquiries.map((inquiry, index) => {
+                        return (
+                            <Pressable
+                                key={index}
+                                onPress={() => {
+                                    props.navigation.navigate(
+                                        "InquiriesStackComp",
+                                        {
+                                            screen: "InquiryMessagesScreen",
+                                            params: {
+                                                inquiryId: inquiry.inquiryId,
+                                            },
+                                        }
+                                    );
                                 }}
                             >
-                                <TextLarge>{inquiry.title}</TextLarge>
-                                <TextRegular>{inquiry.startDate}</TextRegular>
-                            </View>
-                        </Pressable>
-                    );
-                })}
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+
+                                        backgroundColor: colors.grayBackground,
+
+                                        borderWidth: 1,
+                                        borderRadius: 5,
+                                        borderColor: colors.secondaryTextColor,
+
+                                        paddingVertical: 10,
+                                        paddingHorizontal: 20,
+                                        marginBottom: 10,
+                                    }}
+                                >
+                                    <TextLarge>{inquiry.title}</TextLarge>
+                                    <TextRegular>
+                                        {inquiry.startDate}
+                                    </TextRegular>
+                                </View>
+                            </Pressable>
+                        );
+                    })
+                ) : (
+                    <TextRegular>No inquiries</TextRegular>
+                )}
             </View>
-            <View style={{ position: "absolute", bottom: 80, right: 30 }}>
-                <Pressable onPress={addInquiryHandler} style={pressablePressed}>
-                    <FontAwesomeIcon
-                        icon={faCirclePlus}
-                        size={60}
-                        color={colors.primaryColor}
-                    />
-                </Pressable>
-            </View>
+            {userType !== "landlord" ? (
+                <View style={{ position: "absolute", bottom: 80, right: 30 }}>
+                    <Pressable
+                        onPress={addInquiryHandler}
+                        style={pressablePressed}
+                    >
+                        <FontAwesomeIcon
+                            icon={faCirclePlus}
+                            size={60}
+                            color={colors.primaryColor}
+                        />
+                    </Pressable>
+                </View>
+            ) : null}
         </ScreenScrollContainer>
     );
 };
