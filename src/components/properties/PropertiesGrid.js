@@ -56,7 +56,7 @@ const style = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginHorizontal: "2%",
-        marginBottom: 20,
+        marginBottom: 0,
     },
     oneColumnChild: {
         width: "auto",
@@ -68,6 +68,8 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.secondaryTextColor,
         borderRadius: 20,
+        height: "60%",
+        alignSelf: "center",
     },
 });
 

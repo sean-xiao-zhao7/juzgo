@@ -10,6 +10,7 @@ import {
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import UserPropertyForm from "../../components/forms/UserPropertyForm";
 
 // errors
@@ -49,20 +50,22 @@ const EditSinglePropertyScreen = (props) => {
 
     return (
         <ScreenContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
+            <TextLarge style={{ marginBottom: 20 }}>
                 Property{" "}
-                <TextRegular
-                    style={{ textDecoration: "underline", fontWeight: "bold" }}
-                >
+                <TextRegular style={{ fontWeight: "bold" }}>
                     Edit Page
                 </TextRegular>
-            </TextRegular>
-            <View style={{ width: 250, marginBottom: 30, textAlign: "center" }}>
-                <TextRegular>{property.street}</TextRegular>
-                <TextRegular>
+            </TextLarge>
+            <View style={{ width: 250, marginBottom: 30 }}>
+                <TextRegular style={{ textAlign: "center" }}>
+                    {property.street}
+                </TextRegular>
+                <TextRegular style={{ textAlign: "center" }}>
                     {property.city}, {property.province}
                 </TextRegular>
-                <TextRegular>{property.unitnum}</TextRegular>
+                <TextRegular style={{ textAlign: "center" }}>
+                    {property.unitnum}
+                </TextRegular>
             </View>
 
             <UserPropertyForm

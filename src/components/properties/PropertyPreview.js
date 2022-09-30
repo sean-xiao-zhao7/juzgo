@@ -58,34 +58,60 @@ const PropertyPreview = (props) => {
                 props.style,
             ]}
         >
-            <Pressable
-                onPress={() => {
-                    navigation.navigate("EditSinglePropertyScreen", {
-                        property: props.property,
-                    });
-                }}
-                style={[
-                    {
-                        alignItems: "center",
-                    },
-                    props.style,
-                ]}
-            >
-                <FontAwesomeIcon
-                    icon={faHouse}
-                    size={80}
-                    style={{ color: colors.primaryColor }}
-                />
-                <TextRegular style={{ textAlign: "center" }}>
-                    {props.property.street}
-                </TextRegular>
-                <TextRegular style={{ textAlign: "center" }}>
-                    {props.property.city}, {props.property.province}
-                </TextRegular>
-                <TextRegular style={{ textAlign: "center" }}>
-                    {props.property.unitnum}
-                </TextRegular>
-            </Pressable>
+            {props.isTenant ? (
+                <View
+                    style={[
+                        {
+                            alignItems: "center",
+                        },
+                        props.style,
+                    ]}
+                >
+                    <FontAwesomeIcon
+                        icon={faHouse}
+                        size={80}
+                        style={{ color: colors.primaryColor }}
+                    />
+                    <TextRegular style={{ textAlign: "center" }}>
+                        {props.property.street}
+                    </TextRegular>
+                    <TextRegular style={{ textAlign: "center" }}>
+                        {props.property.city}, {props.property.province}
+                    </TextRegular>
+                    <TextRegular style={{ textAlign: "center" }}>
+                        {props.property.unitnum}
+                    </TextRegular>
+                </View>
+            ) : (
+                <Pressable
+                    onPress={() => {
+                        navigation.navigate("EditSinglePropertyScreen", {
+                            property: props.property,
+                        });
+                    }}
+                    style={[
+                        {
+                            alignItems: "center",
+                        },
+                        props.style,
+                    ]}
+                >
+                    <FontAwesomeIcon
+                        icon={faHouse}
+                        size={80}
+                        style={{ color: colors.primaryColor }}
+                    />
+                    <TextRegular style={{ textAlign: "center" }}>
+                        {props.property.street}
+                    </TextRegular>
+                    <TextRegular style={{ textAlign: "center" }}>
+                        {props.property.city}, {props.property.province}
+                    </TextRegular>
+                    <TextRegular style={{ textAlign: "center" }}>
+                        {props.property.unitnum}
+                    </TextRegular>
+                </Pressable>
+            )}
             {props.isTenant ? (
                 <View
                     style={{
