@@ -31,6 +31,10 @@ const InquiryMessagesScreen = (props) => {
     const inquiry = useSelector((state) => state.inquirySlice.currentInquiry);
     const userType = useSelector((state) => state.sessionSlice.type);
 
+    const closeHandler = () => {
+        props.navigation.navigate("AllPropertiesScreen");
+    };
+
     useEffect(() => {
         dispatch(getInquiry(inquiryId));
     }, [inquiryId]);
@@ -58,10 +62,6 @@ const InquiryMessagesScreen = (props) => {
             messages.push(inquiry.messages[key]);
         }
     }
-
-    const closeHandler = () => {
-        props.navigation.navigate("AllPropertiesScreen");
-    };
 
     const addMessageHandler = () => {
         dispatch(
@@ -115,9 +115,9 @@ const InquiryMessagesScreen = (props) => {
                                 }}
                             >
                                 <TextMedium>
-                                    {userType === "landlord"
+                                    {userType !== "manager"
                                         ? "Tenant: "
-                                        : "JUZGO"}
+                                        : "JUZGO: "}
                                     {message.message}
                                 </TextMedium>
                             </View>
@@ -145,8 +145,8 @@ const InquiryMessagesScreen = (props) => {
                             >
                                 <TextMedium>
                                     {userType === "manager"
-                                        ? "Tenant"
-                                        : "JUZGO"}
+                                        ? "Tenant: "
+                                        : "JUZGO: "}
                                     : {message.message}
                                 </TextMedium>
                             </View>
