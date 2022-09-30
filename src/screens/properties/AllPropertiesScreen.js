@@ -79,7 +79,13 @@ const AllPropertiesScreen = (props) => {
                         flex: "auto",
                     }}
                 >
-                    <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
+                    <TextLarge
+                        style={{
+                            marginTop: 100,
+                            marginBottom: 20,
+                            fontWeight: "bold",
+                        }}
+                    >
                         {greeting}
                     </TextLarge>
                     <TextRegular style={{ marginBottom: 60 }}>
@@ -87,7 +93,7 @@ const AllPropertiesScreen = (props) => {
                     </TextRegular>
                     <PropertiesGrid
                         properties={properties}
-                        isTenant={userType === "tenant"}
+                        userType={userType}
                     />
                 </ScreenScrollContainer>
             ) : (

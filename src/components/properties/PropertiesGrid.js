@@ -12,7 +12,6 @@ let isTenant;
 
 const PropertiesGrid = (props) => {
     const navigation = useNavigation();
-    isTenant = props.isTenant;
 
     const addProperty = () => {
         navigation.navigate("AddPropertiesStack");
@@ -32,7 +31,7 @@ const PropertiesGrid = (props) => {
                     <PropertyPreview
                         property={property}
                         key={index}
-                        isTenant={isTenant}
+                        userType={props.userType}
                         style={
                             isTenant
                                 ? style.oneColumnChild

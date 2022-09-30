@@ -33,10 +33,18 @@ const propertySlice = createSlice({
         builder
             .addCase(fetchProperties.fulfilled, (state, action) => {
                 const properties = [];
-                for (const propertyKey in action.payload) {
+                for (const propertyKey in action.payload.result) {
                     const property = {
-                        ...action.payload[propertyKey],
+                        ...action.payload.result[propertyKey],
                         firebaseId: propertyKey,
+                        landlordInfo:
+                            action.payload.resultLandlord[
+                                action.payload.result[propertyKey].landlord
+                            ],
+                        tenantInfo:
+                            action.payload.resultTenant[
+                                action.payload.result[propertyKey].tenant
+                            ],
                     };
                     properties.push(property);
                 }
@@ -89,7 +97,38 @@ export const fetchProperties = createAsyncThunk(
             if (result.error) {
                 throw new Error(result.error.message);
             }
-            return result;
+
+            // get landlord names
+            const responseLandlord = await fetch(
+                firebase_database_url + "/landlord.json?auth=" + idToken,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const resultLandlord = await responseLandlord.json();
+            if (resultLandlord.error) {
+                throw new Error(resultLandlord.error.message);
+            }
+
+            // get tenant names
+            const responseTenant = await fetch(
+                firebase_database_url + "/tenant.json?auth=" + idToken,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const resultTenant = await responseTenant.json();
+            if (resultTenant.error) {
+                throw new Error(resultTenant.error.message);
+            }
+
+            return { result, resultLandlord, resultTenant };
         } catch (error) {
             throw new Error(error.message);
         }

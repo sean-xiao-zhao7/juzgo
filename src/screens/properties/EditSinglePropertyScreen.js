@@ -66,6 +66,18 @@ const EditSinglePropertyScreen = (props) => {
                 <TextRegular style={{ textAlign: "center" }}>
                     {property.unitnum}
                 </TextRegular>
+                <TextRegular style={{ textAlign: "center" }}>
+                    Tenant:{" "}
+                    {property.tenantInfo.firstname +
+                        " " +
+                        property.tenantInfo.lastname}
+                </TextRegular>
+                <TextRegular style={{ textAlign: "center" }}>
+                    Owner:{" "}
+                    {property.landlordInfo.firstname +
+                        " " +
+                        property.landlordInfo.lastname}
+                </TextRegular>
             </View>
 
             <UserPropertyForm

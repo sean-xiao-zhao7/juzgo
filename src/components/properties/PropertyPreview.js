@@ -58,13 +58,12 @@ const PropertyPreview = (props) => {
                 props.style,
             ]}
         >
-            {props.isTenant ? (
+            {props.userType === "tenant" ? (
                 <View
                     style={[
                         {
                             alignItems: "center",
                         },
-                        props.style,
                     ]}
                 >
                     <FontAwesomeIcon
@@ -80,6 +79,12 @@ const PropertyPreview = (props) => {
                     </TextRegular>
                     <TextRegular style={{ textAlign: "center" }}>
                         {props.property.unitnum}
+                    </TextRegular>
+                    <TextRegular style={{ textAlign: "center" }}>
+                        Owner:{" "}
+                        {props.property.landlordInfo.firstname +
+                            " " +
+                            props.property.landlordInfo.lastname}
                     </TextRegular>
                 </View>
             ) : (
@@ -93,7 +98,6 @@ const PropertyPreview = (props) => {
                         {
                             alignItems: "center",
                         },
-                        props.style,
                     ]}
                 >
                     <FontAwesomeIcon
@@ -110,9 +114,23 @@ const PropertyPreview = (props) => {
                     <TextRegular style={{ textAlign: "center" }}>
                         {props.property.unitnum}
                     </TextRegular>
+                    <TextRegular style={{ textAlign: "center" }}>
+                        Tenant:{" "}
+                        {props.property.tenantInfo.firstname +
+                            " " +
+                            props.property.tenantInfo.lastname}
+                    </TextRegular>
+                    {props.userType === "manager" ? (
+                        <TextRegular style={{ textAlign: "center" }}>
+                            Owner:{" "}
+                            {props.property.landlordInfo.firstname +
+                                " " +
+                                props.property.landlordInfo.lastname}
+                        </TextRegular>
+                    ) : null}
                 </Pressable>
             )}
-            {props.isTenant ? (
+            {props.userType === "landlord" ? (
                 <View
                     style={{
                         alignItems: "center",
