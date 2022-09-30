@@ -73,7 +73,7 @@ const EditSinglePropertyScreen = (props) => {
                         property.tenantInfo.lastname}
                 </TextRegular>
                 <TextRegular style={{ textAlign: "center" }}>
-                    Owner:{" "}
+                    Landlord:{" "}
                     {property.landlordInfo.firstname +
                         " " +
                         property.landlordInfo.lastname}

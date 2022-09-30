@@ -81,7 +81,7 @@ const PropertyPreview = (props) => {
                         {props.property.unitnum}
                     </TextRegular>
                     <TextRegular style={{ textAlign: "center" }}>
-                        Owner:{" "}
+                        Landlord:{" "}
                         {props.property.landlordInfo.firstname +
                             " " +
                             props.property.landlordInfo.lastname}
@@ -122,7 +122,7 @@ const PropertyPreview = (props) => {
                     </TextRegular>
                     {props.userType === "manager" ? (
                         <TextRegular style={{ textAlign: "center" }}>
-                            Owner:{" "}
+                            Landlord:{" "}
                             {props.property.landlordInfo.firstname +
                                 " " +
                                 props.property.landlordInfo.lastname}

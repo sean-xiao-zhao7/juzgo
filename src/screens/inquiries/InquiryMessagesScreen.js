@@ -171,35 +171,37 @@ const InquiryMessagesScreen = (props) => {
     return (
         <View style={{ flex: 1, backgroundColor: "white" }}>
             <ScreenScrollContainer>{messagesComp}</ScreenScrollContainer>
-            <View
-                style={{
-                    width: "100%",
-                    flexDirection: "row",
-                    backgroundColor: colors.textinputBackground,
-                }}
-            >
-                <CustomTextInput
-                    placeholder={"New message"}
-                    value={newMessage}
-                    onChangeText={setNewMessage}
+            {userType !== "landlord" ? (
+                <View
                     style={{
-                        borderWidth: 0,
-                        fontSize: 16,
-                        borderRadius: 0,
-                        width: "85%",
+                        width: "100%",
+                        flexDirection: "row",
+                        backgroundColor: colors.textinputBackground,
                     }}
-                />
-                <Pressable
-                    onPress={addMessageHandler}
-                    style={pressablePressedInput}
                 >
-                    <FontAwesomeIcon
-                        icon={faCirclePlus}
-                        size={40}
-                        color={colors.primaryColor}
+                    <CustomTextInput
+                        placeholder={"New message"}
+                        value={newMessage}
+                        onChangeText={setNewMessage}
+                        style={{
+                            borderWidth: 0,
+                            fontSize: 16,
+                            borderRadius: 0,
+                            width: "85%",
+                        }}
                     />
-                </Pressable>
-            </View>
+                    <Pressable
+                        onPress={addMessageHandler}
+                        style={pressablePressedInput}
+                    >
+                        <FontAwesomeIcon
+                            icon={faCirclePlus}
+                            size={40}
+                            color={colors.primaryColor}
+                        />
+                    </Pressable>
+                </View>
+            ) : null}
         </View>
     );
 };
