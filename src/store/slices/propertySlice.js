@@ -63,8 +63,7 @@ const propertySlice = createSlice({
                     (property) =>
                         property.firebaseId === action.payload.firebaseId
                 );
-                state.properties[updateIndex].juzgoManaged =
-                    action.payload.juzgoManaged;
+                state.properties[updateIndex] = action.payload;
                 state.actionCompleted = true;
             });
     },
@@ -220,7 +219,7 @@ export const updatePropertyAPI = createAsyncThunk(
                 throw new Error(resultProperty.error);
             }
 
-            return newPropertyInfo;
+            return { ...updatedPropertyInfo, firebaseId };
         } catch (error) {
             throw new Error(error.message);
         }

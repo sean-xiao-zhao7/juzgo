@@ -14,6 +14,7 @@ import UserPropertyForm from "../../components/forms/UserPropertyForm";
 
 // errors
 import { customAlert } from "../../components/forms/helpers/alert.js";
+import { useEffect } from "react";
 
 const EditSinglePropertyScreen = (props) => {
     const dispatch = useDispatch();
@@ -23,12 +24,14 @@ const EditSinglePropertyScreen = (props) => {
         return [state.propertySlice.error, state.propertySlice.actionCompleted];
     });
 
-    if (updateError) {
-        customAlert("Error updating property.");
-    } else if (actionCompleted) {
-        props.navigation.navigate("AllPropertiesScreen");
-        dispatch(unsetActionCompleted());
-    }
+    useEffect(() => {
+        if (updateError) {
+            customAlert("Error updating property.");
+        } else if (actionCompleted) {
+            props.navigation.navigate("AllPropertiesScreen");
+            dispatch(unsetActionCompleted());
+        }
+    }, [updateError, actionCompleted]);
 
     const onNext = (updatedPropertyInfo) => {
         dispatch(
@@ -69,7 +72,7 @@ const EditSinglePropertyScreen = (props) => {
                 }}
                 onNext={onNext}
                 nextStepText={"Update"}
-                previousStepText={"Cancel"}
+                previousStepText={"Back"}
             />
         </ScreenContainer>
     );
