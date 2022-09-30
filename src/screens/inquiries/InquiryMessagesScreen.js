@@ -37,7 +37,7 @@ const InquiryMessagesScreen = (props) => {
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
-            title: `Inquiry ${inquiry ? inquiry.title : ""}`,
+            title: `${inquiry ? inquiry.title : ""}`,
             headerRight: () => {
                 return (
                     <Pressable onPress={closeHandler}>

@@ -83,6 +83,8 @@ export const addInquiryAPI = createAsyncThunk(
     async ({ title, description }, thunkAPI) => {
         try {
             const state = thunkAPI.getState();
+            const idToken = state.sessionSlice.idToken;
+
             const newInquiry = {
                 title: title,
                 description: description,

@@ -11,7 +11,7 @@ import { getInquiriesAPI } from "../../store/slices/inquirySlice";
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
-import TextLarge from "../../components/texts/TextLarge";
+import TextMedium from "../../components/texts/TextMedium";
 
 // style
 import { colors } from "../../styles/colors";
@@ -54,11 +54,11 @@ const InquiriesScreen = (props) => {
         <ScreenScrollContainer>
             <View
                 style={{
-                    padding: 30,
+                    padding: 10,
                     flex: 1,
                     width: "100%",
                     justifyContent: "flex-start",
-                    alignItems: "center",
+                    alignItems: inquiries.length > 0 ? "stretch" : "center",
                 }}
             >
                 {inquiries.length > 0 ? (
@@ -84,21 +84,20 @@ const InquiriesScreen = (props) => {
                                         justifyContent: "space-between",
                                         alignItems: "center",
 
-                                        backgroundColor: colors.grayBackground,
-
-                                        borderWidth: 1,
+                                        backgroundColor: colors.primaryColor,
                                         borderRadius: 5,
-                                        borderColor: colors.secondaryTextColor,
 
-                                        paddingVertical: 10,
+                                        paddingVertical: 20,
                                         paddingHorizontal: 20,
                                         marginBottom: 10,
                                     }}
                                 >
-                                    <TextLarge>{inquiry.title}</TextLarge>
-                                    <TextRegular>
+                                    <TextMedium style={{ color: "white" }}>
+                                        {inquiry.title}
+                                    </TextMedium>
+                                    <TextMedium style={{ color: "white" }}>
                                         {inquiry.startDate}
-                                    </TextRegular>
+                                    </TextMedium>
                                 </View>
                             </Pressable>
                         );
