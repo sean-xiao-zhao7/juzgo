@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import * as Clipboard from "expo-clipboard";
 
 // store
 import {
@@ -8,10 +9,11 @@ import {
 } from "../../store/slices/propertySlice.js";
 
 // comps
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import TextLarge from "../../components/texts/TextLarge";
 import UserPropertyForm from "../../components/forms/UserPropertyForm";
+import Button1 from "../../components/buttons/Button1";
 
 // errors
 import { customAlert } from "../../components/forms/helpers/alert.js";
@@ -50,36 +52,56 @@ const EditSinglePropertyScreen = (props) => {
         );
     };
 
+    const copyAccessCode = async () => {
+        await Clipboard.setStringAsync(property.accessCode);
+    };
+
     return (
-        <ScreenContainer>
+        <ScreenScrollContainer>
             <TextLarge style={{ marginBottom: 20 }}>
                 Property{" "}
                 <TextRegular style={{ fontWeight: "bold" }}>
-                    Edit Page
+                    Info Page
                 </TextRegular>
             </TextLarge>
-            <View style={{ width: 250, marginBottom: 30 }}>
-                <TextRegular style={{ textAlign: "center" }}>
-                    {property.street}
+            <View
+                style={{
+                    marginBottom: 10,
+                }}
+            >
+                <TextRegular style={{ fontWeight: "bold" }}>
+                    Address:
                 </TextRegular>
-                <TextRegular style={{ textAlign: "center" }}>
+                <TextRegular>{property.street}</TextRegular>
+                <TextRegular>
                     {property.city}, {property.province}
                 </TextRegular>
-                <TextRegular style={{ textAlign: "center" }}>
+                <TextRegular style={{ marginBottom: 10 }}>
                     {property.unitnum}
                 </TextRegular>
-                <TextRegular style={{ textAlign: "center" }}>
-                    Tenant:{" "}
+                <TextRegular style={{ fontWeight: "bold" }}>
+                    Tenant:
+                </TextRegular>
+                <TextRegular style={{ marginBottom: 10 }}>
                     {property.tenantInfo.firstname +
                         " " +
                         property.tenantInfo.lastname}
                 </TextRegular>
-                <TextRegular style={{ textAlign: "center" }}>
-                    Landlord:{" "}
+                <TextRegular style={{ fontWeight: "bold" }}>
+                    Landlord:
+                </TextRegular>
+                <TextRegular>
                     {property.landlordInfo.firstname +
                         " " +
                         property.landlordInfo.lastname}
                 </TextRegular>
+                <View style={{ alignItems: "center", marginTop: 20 }}>
+                    <TextLarge>{property.accessCode}</TextLarge>
+                    <Button1
+                        text="Tap to copy the code above"
+                        onPress={copyAccessCode}
+                    />
+                </View>
             </View>
 
             <UserPropertyForm
@@ -91,7 +113,7 @@ const EditSinglePropertyScreen = (props) => {
                 nextStepText={"Update"}
                 previousStepText={"Back"}
             />
-        </ScreenContainer>
+        </ScreenScrollContainer>
     );
 };
 
