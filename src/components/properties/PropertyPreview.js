@@ -116,9 +116,11 @@ const PropertyPreview = (props) => {
                     </TextRegular>
                     <TextRegular style={{ textAlign: "center" }}>
                         Tenant:{" "}
-                        {props.property.tenantInfo.firstname +
-                            " " +
-                            props.property.tenantInfo.lastname}
+                        {props.property.tenantInfo.firstname
+                            ? props.property.tenantInfo.firstname +
+                              " " +
+                              props.property.tenantInfo.lastname
+                            : "None"}
                     </TextRegular>
                     {props.userType === "manager" ? (
                         <TextRegular style={{ textAlign: "center" }}>

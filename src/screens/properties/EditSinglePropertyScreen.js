@@ -44,6 +44,8 @@ const EditSinglePropertyScreen = (props) => {
                     tenant: property.tenant,
                 },
                 firebaseId: property.firebaseId,
+                landlordInfo: property.landlordInfo,
+                tenantInfo: property.tenantInfo,
             })
         );
     };

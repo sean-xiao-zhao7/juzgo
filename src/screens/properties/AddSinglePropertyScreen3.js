@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // redux
 import {
     addAccessCode,
-    updateAPI,
+    addPropertyAPI,
     toggleLoading,
     unsetActionCompleted,
 } from "../../store/slices/propertySlice";
@@ -33,7 +33,7 @@ const AddSinglePropertyScreen3 = (props) => {
     const onNext = (accessCode) => {
         dispatch(toggleLoading());
         dispatch(addAccessCode({ accessCode }));
-        dispatch(updateAPI());
+        dispatch(addPropertyAPI());
     };
 
     if (loading) {

@@ -59,7 +59,7 @@ const propertySlice = createSlice({
                 }
                 state.properties = properties;
             })
-            .addCase(updateAPI.fulfilled, (state, action) => {
+            .addCase(addPropertyAPI.fulfilled, (state, action) => {
                 state.loading = false;
                 state.actionCompleted = true;
                 state.properties.push(action.payload);
@@ -157,7 +157,7 @@ export const fetchProperties = createAsyncThunk(
     }
 );
 
-export const updateAPI = createAsyncThunk(
+export const addPropertyAPI = createAsyncThunk(
     "propertySlice/updateAPI",
     async (arg, { getState }) => {
         try {
@@ -210,7 +210,11 @@ export const updateAPI = createAsyncThunk(
                 throw new Error(resultProperty.error);
             }
 
-            return newInfo;
+            return {
+                ...newInfo,
+                tenantInfo: state.propertySlice.newTenant,
+                landlordInfo: state.sessionSlice.userInfo,
+            };
         } catch (error) {
             console.log(error.message);
             return error;
@@ -257,7 +261,10 @@ export const updateJuzgoManaged = createAsyncThunk(
 
 export const updatePropertyAPI = createAsyncThunk(
     "propertySlice/updatePropertyAPI",
-    async ({ firebaseId, updatedPropertyInfo }, { getState }) => {
+    async (
+        { firebaseId, updatedPropertyInfo, landlordInfo, tenantInfo },
+        { getState }
+    ) => {
         try {
             const state = getState();
             const idToken = state.sessionSlice.idToken;
@@ -280,7 +287,12 @@ export const updatePropertyAPI = createAsyncThunk(
                 throw new Error(resultProperty.error);
             }
 
-            return { ...updatedPropertyInfo, firebaseId };
+            return {
+                ...updatedPropertyInfo,
+                firebaseId,
+                landlordInfo,
+                tenantInfo,
+            };
         } catch (error) {
             throw new Error(error.message);
         }
