@@ -34,17 +34,26 @@ const propertySlice = createSlice({
             .addCase(fetchProperties.fulfilled, (state, action) => {
                 const properties = [];
                 for (const propertyKey in action.payload.result) {
+                    const propertyInfo = action.payload.result[propertyKey];
+                    const landlordId = action.payload.landlordId;
+                    const tenantId = action.payload.tenantId;
+
+                    // is landlord
+                    if (landlordId && propertyInfo.landlord !== landlordId) {
+                        continue; // not my property
+                    } else if (tenantId && propertyInfo.tenantId !== tenantId) {
+                        continue;
+                    }
+
                     const property = {
-                        ...action.payload.result[propertyKey],
+                        ...propertyInfo,
                         firebaseId: propertyKey,
                         landlordInfo:
                             action.payload.resultLandlord[
-                                action.payload.result[propertyKey].landlord
+                                propertyInfo.landlord
                             ],
                         tenantInfo:
-                            action.payload.resultTenant[
-                                action.payload.result[propertyKey].tenant
-                            ],
+                            action.payload.resultTenant[propertyInfo.tenant],
                     };
                     properties.push(property);
                 }
@@ -83,6 +92,13 @@ export const fetchProperties = createAsyncThunk(
         try {
             const state = thunkAPI.getState();
             const idToken = state.sessionSlice.idToken;
+            const type = state.sessionSlice.type;
+            let landlordId, tenantId;
+            if (type === "landlord") {
+                landlordId = state.sessionSlice.landlordId;
+            } else if (type === "tenant") {
+                tenantId = state.sessionSlice.tenantId;
+            }
 
             const response = await fetch(
                 firebase_database_url + "/property.json?auth=" + idToken,
@@ -128,7 +144,13 @@ export const fetchProperties = createAsyncThunk(
                 throw new Error(resultTenant.error.message);
             }
 
-            return { result, resultLandlord, resultTenant };
+            return {
+                result,
+                resultLandlord,
+                resultTenant,
+                tenantId,
+                landlordId,
+            };
         } catch (error) {
             throw new Error(error.message);
         }

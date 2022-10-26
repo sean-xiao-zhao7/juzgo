@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { updateAccessCode } from "../../store/slices/landlordSignupSlice";
 
 // comps
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import LandlordAccessCodeForm from "../../components/forms/LandlordAccessCodeForm";
 import TextSmall from "../../components/texts/TextSmall";
@@ -20,7 +20,7 @@ const SignupLandlordTenantAccessCodeScreen = (props) => {
     };
 
     return (
-        <ScreenContainer>
+        <ScreenScrollContainer>
             <TextRegular style={{ marginBottom: 20 }}>
                 Welcome, Landlord!
             </TextRegular>
@@ -44,7 +44,7 @@ const SignupLandlordTenantAccessCodeScreen = (props) => {
                 onNext={onNext}
             />
             <TextSmall style={{ marginTop: 30 }}>Step 5 of 5</TextSmall>
-        </ScreenContainer>
+        </ScreenScrollContainer>
     );
 };
 

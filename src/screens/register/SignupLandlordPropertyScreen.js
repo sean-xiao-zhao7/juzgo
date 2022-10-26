@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateLandlordPropertyInfo } from "../../store/slices/landlordSignupSlice.js";
 
 // comps
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import UserPropertyForm from "../../components/forms/UserPropertyForm";
 import TextSmall from "../../components/texts/TextSmall";
@@ -22,7 +22,7 @@ const SignupLandlordPropertyScreen = (props) => {
     };
 
     return (
-        <ScreenContainer>
+        <ScreenScrollContainer>
             <TextRegular style={{ marginBottom: 20 }}>
                 Welcome, Landlord!
             </TextRegular>
@@ -42,7 +42,7 @@ const SignupLandlordPropertyScreen = (props) => {
                 onNext={onNext}
             />
             <TextSmall style={{ marginTop: 60 }}>Step 3 of 5</TextSmall>
-        </ScreenContainer>
+        </ScreenScrollContainer>
     );
 };
 

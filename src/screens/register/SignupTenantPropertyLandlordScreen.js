@@ -7,7 +7,7 @@ import {
 } from "../../store/slices/tenantSignupSlice.js";
 
 // comps
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import PropertyAndLandlordForm from "../../components/forms/PropertyAndLandlordForm";
 
@@ -33,7 +33,7 @@ const SignupTenantPropertyLandlordScreen = (props) => {
     };
 
     return (
-        <ScreenContainer>
+        <ScreenScrollContainer>
             <TextRegular style={{ marginBottom: 20 }}>
                 Property and Tenant{" "}
                 <TextRegular
@@ -53,7 +53,7 @@ const SignupTenantPropertyLandlordScreen = (props) => {
                 accessCode={accessCode}
                 onNext={onNext}
             />
-        </ScreenContainer>
+        </ScreenScrollContainer>
     );
 };
 

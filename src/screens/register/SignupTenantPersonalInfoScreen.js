@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTenantInfo } from "../../store/slices/tenantSignupSlice.js";
 
 // comps
-import ScreenContainer from "../../components/containers/ScreenContainer";
+import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import UserInfoForm from "../../components/forms/UserInfoForm";
 
@@ -23,7 +23,7 @@ const SignupTenantPersonalInfoScreen = (props) => {
     };
 
     return (
-        <ScreenContainer>
+        <ScreenScrollContainer>
             <TextRegular style={{ marginBottom: 20 }}>
                 Welcome, Tenant!
             </TextRegular>
@@ -33,7 +33,7 @@ const SignupTenantPersonalInfoScreen = (props) => {
                 proceeding.
             </TextRegular>
             <UserInfoForm info={tenantInfo} onSubmit={onSubmit} />
-        </ScreenContainer>
+        </ScreenScrollContainer>
     );
 };
 
