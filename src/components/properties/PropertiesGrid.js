@@ -8,8 +8,6 @@ import GrayButton from "../../components/buttons/GrayButton";
 // style
 import { colors } from "../../styles/colors";
 
-let isTenant;
-
 const PropertiesGrid = (props) => {
     const navigation = useNavigation();
 
@@ -22,7 +20,7 @@ const PropertiesGrid = (props) => {
             {props.userType === "tenant" ? null : (
                 <GrayButton
                     text={"Add A Property"}
-                    style={[style.twoColumnsChild, style.addBigButton]}
+                    style={[style.twoColumnsChild]}
                     onPress={addProperty}
                 />
             )}
@@ -47,15 +45,14 @@ const PropertiesGrid = (props) => {
 const style = StyleSheet.create({
     twoColumns: {
         flexDirection: "row",
-        justifyContent: "flex-start",
         flexWrap: "wrap",
     },
     twoColumnsChild: {
-        width: "46%",
+        width: "48%",
         alignItems: "center",
         justifyContent: "center",
-        marginHorizontal: "2%",
-        marginBottom: 0,
+        marginHorizontal: "1%",
+        marginBottom: "5%",
     },
     oneColumnChild: {
         width: "auto",

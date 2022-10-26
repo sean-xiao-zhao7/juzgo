@@ -74,22 +74,17 @@ const AllPropertiesScreen = (props) => {
             }}
         >
             {userType !== "none" && userType !== "" ? (
-                <ScreenScrollContainer
-                    style={{
-                        justifyContent: "flex-start",
-                        flex: "auto",
-                    }}
-                >
+                <ScreenScrollContainer style={{ flex: "auto" }}>
                     <TextLarge
                         style={{
-                            marginTop: 100,
+                            marginTop: 80,
                             marginBottom: 20,
                             fontWeight: "bold",
                         }}
                     >
                         {greeting}
                     </TextLarge>
-                    <TextRegular style={{ marginBottom: 60 }}>
+                    <TextRegular style={{ marginBottom: 20 }}>
                         {longGreeting}
                     </TextRegular>
                     <PropertiesGrid
@@ -114,7 +109,8 @@ const AllPropertiesScreen = (props) => {
             )}
             <View
                 style={{
-                    paddingVertical: 20,
+                    paddingVertical: 10,
+                    paddingBottom: 15,
                     paddingHorizontal: 10,
                     justifyContent: "space-between",
                     backgroundColor: "white",

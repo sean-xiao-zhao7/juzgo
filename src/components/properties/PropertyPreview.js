@@ -102,7 +102,7 @@ const PropertyPreview = (props) => {
                 >
                     <FontAwesomeIcon
                         icon={faHouse}
-                        size={80}
+                        size={60}
                         style={{ color: colors.primaryColor }}
                     />
                     <TextRegular style={{ textAlign: "center" }}>
