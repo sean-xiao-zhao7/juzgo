@@ -6,6 +6,7 @@ import { updateInfo } from "../../store/slices/landlordSignupSlice.js";
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import UserInfoForm from "../../components/forms/UserInfoForm";
 import TextSmall from "../../components/texts/TextSmall";
 import Button2 from "../../components/buttons/Button2";
@@ -24,10 +25,10 @@ const SignupLandlordInfoScreen = (props) => {
 
     return (
         <ScreenScrollContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
+            <TextLarge style={{ marginBottom: 20, marginTop: 50 }}>
                 Welcome, Landlord!
-            </TextRegular>
-            <TextRegular style={{ marginBottom: 60 }}>
+            </TextLarge>
+            <TextRegular style={{ marginBottom: 40 }}>
                 Please fill out the information below.
             </TextRegular>
             <UserInfoForm onSubmit={onSubmit} info={landlordInfo} />
