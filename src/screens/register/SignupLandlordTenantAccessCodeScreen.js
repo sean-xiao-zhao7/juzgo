@@ -6,6 +6,7 @@ import { updateAccessCode } from "../../store/slices/landlordSignupSlice";
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import LandlordAccessCodeForm from "../../components/forms/LandlordAccessCodeForm";
 import TextSmall from "../../components/texts/TextSmall";
 
@@ -21,20 +22,20 @@ const SignupLandlordTenantAccessCodeScreen = (props) => {
 
     return (
         <ScreenScrollContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Welcome, Landlord!
-            </TextRegular>
-            <TextRegular
-                style={{ width: 250, marginBottom: 30, textAlign: "center" }}
-            >
+            <TextLarge style={{ marginBottom: 20, marginTop: 70 }}>
+                Tenant Access Code
+            </TextLarge>
+            <TextRegular style={{ width: 250, marginBottom: 10 }}>
                 Please{" "}
                 <TextRegular style={{ fontWeight: "bold" }}>
                     give the unique TENANT ACCESS CODE below to your current or
                     future tenant to sign up with Juzgo.
                 </TextRegular>
-                This code is necessary to link your tenant profile to the
-                property. This allows Juzgo and your tenant to communicate
-                directly while you are away.
+                <TextRegular>
+                    This code is necessary to link your tenant profile to the
+                    property. This allows Juzgo and your tenant to communicate
+                    directly while you are away.
+                </TextRegular>
             </TextRegular>
 
             <LandlordAccessCodeForm

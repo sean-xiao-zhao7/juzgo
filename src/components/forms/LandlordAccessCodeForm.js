@@ -8,6 +8,9 @@ import TextLarge from "../texts/TextLarge";
 // helpers
 import { generateAccessCode } from "./helpers/accessCode";
 
+// style
+import { colors } from "../../styles/colors";
+
 const LandlordAccessCodeForm = (props) => {
     const accessCode = generateAccessCode();
 
@@ -17,16 +20,22 @@ const LandlordAccessCodeForm = (props) => {
 
     return (
         <View style={{ alignItems: "center", paddingTop: 30 }}>
-            <TextLarge>{accessCode}</TextLarge>
+            <TextLarge style={{ fontWeight: "bold", marginBottom: 20 }}>
+                {accessCode}
+            </TextLarge>
             <Button1
-                text="Tap to copy the code above"
+                text="TAP HERE TO COPY THE CODE ABOVE"
                 onPress={copyAccessCode}
+                style={{
+                    backgroundColor: colors.lightOrange,
+                }}
+                textStyle={{ fontWeight: "bold" }}
             />
             <View
                 style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    paddingTop: 40,
+                    paddingTop: 20,
                 }}
             >
                 <Button1
@@ -35,7 +44,7 @@ const LandlordAccessCodeForm = (props) => {
                     style={{ width: 120, marginRight: 10 }}
                 />
                 <Button1
-                    text="Submit"
+                    text="Next"
                     onPress={() => props.onNext(accessCode)}
                     style={{ width: 120 }}
                 />

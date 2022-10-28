@@ -6,6 +6,7 @@ import { updateLandlordPropertyInfo } from "../../store/slices/landlordSignupSli
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import UserPropertyForm from "../../components/forms/UserPropertyForm";
 import TextSmall from "../../components/texts/TextSmall";
 
@@ -23,12 +24,10 @@ const SignupLandlordPropertyScreen = (props) => {
 
     return (
         <ScreenScrollContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Welcome, Landlord!
-            </TextRegular>
-            <TextRegular
-                style={{ width: 250, marginBottom: 30, textAlign: "center" }}
-            >
+            <TextLarge style={{ marginBottom: 20, marginTop: 70 }}>
+                Property Info
+            </TextLarge>
+            <TextRegular style={{ width: 250, marginBottom: 30 }}>
                 Please fill out the information below for the property unit that
                 you like Juzgo to help you manage. Each form is designated for
                 one unit. You can register for more units later.

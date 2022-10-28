@@ -20,3 +20,10 @@ export const emailPasswordVerify = (email, password) => {
 
     return emailValid && passwordValid;
 };
+
+export const passwordNotMatching = (password, passwordAgain) => {
+    if (password !== passwordAgain) {
+        return false;
+    }
+    return true;
+};

@@ -13,7 +13,9 @@ const Button1 = (props) => {
             }
             disabled={props.disabled}
         >
-            <TextRegular>{props.text}</TextRegular>
+            <TextRegular style={[{ textAlign: "center" }, props.textStyle]}>
+                {props.text}
+            </TextRegular>
         </Pressable>
     );
 };

@@ -3,6 +3,7 @@ export const colors = {
     primaryColor: "orange",
     secondaryColor: "white",
     tertiaryColor: "#fff3cc",
+    lightOrange: "#ffd600",
 
     // text colors
     primaryTextColor: "black",

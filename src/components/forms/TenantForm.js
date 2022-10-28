@@ -83,12 +83,12 @@ const TenantForm = (props) => {
                 }}
             >
                 <Button1
-                    text="Previous Step"
+                    text="Previous"
                     onPress={props.onPrevious}
                     style={{ width: 80, height: 70, marginRight: 5 }}
                 />
                 <Button1
-                    text="Next Step"
+                    text="Next"
                     onPress={() => {
                         if (
                             emptyVerify([firstname, lastname, email, phone]) &&
@@ -106,11 +106,11 @@ const TenantForm = (props) => {
                     }}
                     style={{ width: 80, height: 70, marginRight: 5 }}
                 />
-                <Button1
+                {/* <Button1
                     text="Skip"
                     onPress={props.onSkip}
                     style={{ width: 80, height: 70 }}
-                />
+                /> */}
             </View>
         </View>
     );

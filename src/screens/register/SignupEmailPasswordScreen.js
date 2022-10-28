@@ -8,6 +8,7 @@ import { updateTenantDB } from "../../store/slices/tenantSignupSlice";
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import EmailPasswordForm from "../../components/forms/EmailPasswordForm";
 
 // alerts
@@ -32,13 +33,17 @@ const SignupEmailPasswordScreen = (props) => {
     });
 
     let completeVal;
-    const email = useSelector((state) => state.sessionSlice.email);
+    let email = useSelector((state) => state.sessionSlice.email);
     if (info.type === "landlord") {
         completeVal = useSelector(
             (state) => state.landlordSignupSlice.complete
         );
     } else {
         completeVal = useSelector((state) => state.tenantSignupSlice.complete);
+    }
+
+    if (!email) {
+        email = info.personalInfo.email;
     }
 
     useEffect(() => {
@@ -60,11 +65,12 @@ const SignupEmailPasswordScreen = (props) => {
 
     return (
         <ScreenContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Thanks for signing up!
-            </TextRegular>
-            <TextRegular style={{ marginBottom: 60 }}>
-                Please enter your new username and password for login.
+            <TextLarge style={{ marginBottom: 20, marginTop: 70 }}>
+                New Account Login Info
+            </TextLarge>
+            <TextRegular style={{ marginBottom: 20, width: 300 }}>
+                Thanks for signing up! This is the last step. Please provide a
+                new username and password for login.
             </TextRegular>
             <EmailPasswordForm onSubmit={onSubmit} email={email} />
         </ScreenContainer>

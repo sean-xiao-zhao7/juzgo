@@ -15,5 +15,6 @@ export const screenContainerStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: colors.secondaryColor,
+        paddingVertical: 30,
     },
 });

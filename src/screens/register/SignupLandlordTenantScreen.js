@@ -6,6 +6,7 @@ import { updateLandlordTenantInfo } from "../../store/slices/landlordSignupSlice
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import TenantForm from "../../components/forms/TenantForm";
 import TextSmall from "../../components/texts/TextSmall";
 
@@ -23,12 +24,10 @@ const SignupLandlordTenantScreen = (props) => {
 
     return (
         <ScreenScrollContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Welcome, Landlord!
-            </TextRegular>
-            <TextRegular
-                style={{ width: 250, marginBottom: 30, textAlign: "center" }}
-            >
+            <TextLarge style={{ marginBottom: 20, marginTop: 50 }}>
+                Tenant Info
+            </TextLarge>
+            <TextRegular style={{ width: 250, marginBottom: 30 }}>
                 Please fill out the information below for the{" "}
                 <TextRegular style={{ fontWeight: "bold" }}>tenant</TextRegular>{" "}
                 in the unit of the property you just filled out.
