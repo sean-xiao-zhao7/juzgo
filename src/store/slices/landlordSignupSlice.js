@@ -131,8 +131,8 @@ export const updateLandlordDB = createAsyncThunk(
                 authenticate({
                     ...result,
                     type: info.type,
-                    landlord: result2.name,
-                    tenant: result3.name,
+                    landlordId: result2.name,
+                    tenantId: result3.name,
                 })
             );
 
