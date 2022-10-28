@@ -20,7 +20,7 @@ const PropertiesGrid = (props) => {
             {props.userType === "tenant" ? null : (
                 <GrayButton
                     text={"Add A Property"}
-                    style={[style.twoColumnsChild]}
+                    style={[style.twoColumnsChild, { height: "70%" }]}
                     onPress={addProperty}
                 />
             )}
@@ -46,6 +46,7 @@ const style = StyleSheet.create({
     twoColumns: {
         flexDirection: "row",
         flexWrap: "wrap",
+        alignItems: "center",
     },
     twoColumnsChild: {
         width: "48%",
