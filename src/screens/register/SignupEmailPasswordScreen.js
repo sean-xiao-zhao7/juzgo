@@ -65,7 +65,7 @@ const SignupEmailPasswordScreen = (props) => {
 
     return (
         <ScreenContainer>
-            <TextLarge style={{ marginBottom: 20, marginTop: 70 }}>
+            <TextLarge style={{ marginBottom: 20 }}>
                 New Account Login Info
             </TextLarge>
             <TextRegular style={{ marginBottom: 20, width: 300 }}>

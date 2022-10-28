@@ -24,7 +24,7 @@ const LandlordAccessCodeForm = (props) => {
                 {accessCode}
             </TextLarge>
             <Button1
-                text="TAP HERE TO COPY THE CODE ABOVE"
+                text="TAP HERE TO COPY THE CODE"
                 onPress={copyAccessCode}
                 style={{
                     backgroundColor: colors.lightOrange,
