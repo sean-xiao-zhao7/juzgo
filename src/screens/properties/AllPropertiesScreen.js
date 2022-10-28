@@ -74,7 +74,7 @@ const AllPropertiesScreen = (props) => {
             }}
         >
             {userType !== "none" && userType !== "" ? (
-                <ScreenScrollContainer style={{ flex: "auto" }}>
+                <ScreenScrollContainer>
                     <TextLarge
                         style={{
                             marginTop: 80,
@@ -96,7 +96,6 @@ const AllPropertiesScreen = (props) => {
                 <ScreenScrollContainer
                     style={{
                         justifyContent: "flex-start",
-                        flex: "auto",
                     }}
                 >
                     <TextLarge style={{ marginTop: 100, marginBottom: 20 }}>
