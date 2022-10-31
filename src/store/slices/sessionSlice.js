@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     firebase_siginpassword_url,
     firebase_database_url,
+    firebase_refresh_url,
     manager,
 } from "../../dummy-data";
 import {
@@ -51,6 +52,7 @@ const sessionSlice = createSlice({
                     state.error = action.payload.error;
                 } else {
                     state.idToken = action.payload.idToken;
+                    state.refreshToken = action.payload.refreshToken;
                     state.type = action.payload.type;
                     state.email = action.payload.email;
                     state.landlordId = action.payload.landlordId;
@@ -176,7 +178,29 @@ export const signInAction = createAsyncThunk(
 export const autoSignInAction = createAsyncThunk(
     "sessionSlice/autoSignInAction",
     async () => {
-        return retrieveSession();
+        let storedSessionState = await retrieveSession();
+        try {
+            let response = await fetch(firebase_refresh_url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    grant_type: "refresh_token",
+                    refresh_token: storedSessionState.refreshToken,
+                }),
+            });
+
+            let result = await response.json();
+            if (result.error) {
+                throw new Error(INVALID_LOGIN);
+            }
+
+            storedSessionState.idToken = result.id_token;
+            return storedSessionState;
+        } catch (error) {
+            throw new Error(error.message);
+        }
     }
 );
 
