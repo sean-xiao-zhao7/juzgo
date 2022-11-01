@@ -24,6 +24,9 @@ const tenantSignupSlice = createSlice({
         updateTenantInfo: (state, action) => {
             state.tenantInfo = action.payload.tenantInfo;
         },
+        unsetAccessCode: (state, action) => {
+            state.accessCode = "";
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -216,3 +219,4 @@ export default tenantSignupSlice.reducer;
 export const updatePropertyInfo = tenantSignupSlice.actions.updatePropertyInfo;
 export const updateLandlordInfo = tenantSignupSlice.actions.updateLandlordInfo;
 export const updateTenantInfo = tenantSignupSlice.actions.updateTenantInfo;
+export const unsetAccessCode = tenantSignupSlice.actions.unsetAccessCode;

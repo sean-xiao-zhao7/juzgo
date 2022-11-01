@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     updatePropertyInfo,
     updateLandlordInfo,
+    unsetAccessCode,
 } from "../../store/slices/tenantSignupSlice.js";
 
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
 import PropertyAndLandlordForm from "../../components/forms/PropertyAndLandlordForm";
+import Button1 from "../../components/buttons/Button1";
 
 const SignupTenantPropertyLandlordScreen = (props) => {
     const dispatch = useDispatch();
@@ -52,6 +54,13 @@ const SignupTenantPropertyLandlordScreen = (props) => {
                 landlordInfo={landlordInfo}
                 accessCode={accessCode}
                 onNext={onNext}
+            />
+            <Button1
+                text="Cancel"
+                onPress={() => {
+                    dispatch(unsetAccessCode());
+                    props.navigation.navigate("LoginScreen");
+                }}
             />
         </ScreenScrollContainer>
     );
