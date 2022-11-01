@@ -51,6 +51,8 @@ export const verifyAccessCode = createAsyncThunk(
     "tenantSignupSlice/verifyAccessCode",
     async (accessCode, thunkAPI) => {
         try {
+            accessCode = accessCode.trim();
+
             // 1. Pull property matching access code
             const responseProperty = await fetch(
                 firebase_database_url + "/property.json",
