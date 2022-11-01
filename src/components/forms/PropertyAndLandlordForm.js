@@ -37,45 +37,55 @@ const PropertyAndLandlordForm = (props) => {
     );
 
     return (
-        <View style={{ alignItems: "center" }}>
+        <View
+            style={{
+                alignItems: "center",
+                width: "100%",
+                paddingHorizontal: 20,
+            }}
+        >
             <View
                 style={{
                     flexDirection: "row",
+                    width: "100%",
                 }}
             >
                 <CustomTextInput
                     placeholder={"Unit #"}
-                    style={{ width: 90, marginRight: 10 }}
+                    style={{ width: "30%", marginRight: 10 }}
                     value={unitnum}
                     onChangeText={setUnitNum}
                 />
                 <CustomTextInput
                     placeholder={"Unit Street Number"}
-                    style={{ width: 300 }}
+                    style={{ flex: 1 }}
                     value={street}
                     onChangeText={setStreet}
                 />
             </View>
-            <CustomTextInput
-                placeholder={"Unit City/Town"}
-                style={{ width: 400 }}
-                value={city}
-                onChangeText={setCity}
-            />
+            <View style={{ width: "100%" }}>
+                <CustomTextInput
+                    placeholder={"Unit City/Town"}
+                    value={city}
+                    onChangeText={setCity}
+                    style={{ width: "100%" }}
+                />
+            </View>
             <View
                 style={{
                     flexDirection: "row",
+                    width: "100%",
                 }}
             >
                 <CustomTextInput
                     placeholder={"Province/State"}
-                    style={{ width: 195, marginRight: 10 }}
+                    style={{ flex: 1, marginRight: 10 }}
                     value={province}
                     onChangeText={setProvince}
                 />
                 <CustomTextInput
                     placeholder={"Unit Country"}
-                    style={{ width: 195 }}
+                    style={{ flex: 1 }}
                     value={country}
                     onChangeText={setCountry}
                 />
@@ -83,17 +93,18 @@ const PropertyAndLandlordForm = (props) => {
             <View
                 style={{
                     flexDirection: "row",
+                    width: "100%",
                 }}
             >
                 <CustomTextInput
                     placeholder={"Landlord First Name"}
-                    style={{ width: 195, marginRight: 10 }}
+                    style={{ flex: 1, marginRight: 10 }}
                     value={firstname}
                     onChangeText={setFirstname}
                 />
                 <CustomTextInput
                     placeholder={"Landlord Last Name"}
-                    style={{ width: 195 }}
+                    style={{ flex: 1 }}
                     value={lastname}
                     onChangeText={setLastname}
                 />
@@ -101,17 +112,18 @@ const PropertyAndLandlordForm = (props) => {
             <View
                 style={{
                     flexDirection: "row",
+                    width: "100%",
                 }}
             >
                 <CustomTextInput
                     placeholder={"Landlord Email"}
-                    style={{ width: 195, marginRight: 10 }}
+                    style={{ flex: 1, marginRight: 10 }}
                     value={email}
                     onChangeText={setEmail}
                 />
                 <CustomTextInput
                     placeholder={"Landlord Phone Number"}
-                    style={{ width: 195 }}
+                    style={{ flex: 1 }}
                     value={phone}
                     onChangeText={setPhone}
                 />
