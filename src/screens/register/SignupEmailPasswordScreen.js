@@ -19,15 +19,18 @@ const SignupEmailPasswordScreen = (props) => {
 
     const [info, signupError] = useSelector((state) => {
         const info = { type: props.route.params.type };
+        let signupError;
         if (info.type === "landlord") {
             info.personalInfo = state.landlordSignupSlice.landlordInfo;
             info.landlordPropertyInfo =
                 state.landlordSignupSlice.landlordPropertyInfo;
             info.landlordTenantInfo =
                 state.landlordSignupSlice.landlordTenantInfo;
+            signupError = state.landlordSignupSlice.error;
+        } else if (info.type === "tenant") {
+            info.personalInfo = state.tenantSignupSlice.tenantInfo;
+            signupError = state.tenantSignupSlice.error;
         }
-
-        const signupError = state.landlordSignupSlice.error;
 
         return [info, signupError];
     });
@@ -65,12 +68,9 @@ const SignupEmailPasswordScreen = (props) => {
 
     return (
         <ScreenContainer>
-            <TextLarge style={{ marginBottom: 20 }}>
-                New Account Login Info
-            </TextLarge>
+            <TextLarge style={{ marginBottom: 20 }}>New Account Info</TextLarge>
             <TextRegular style={{ marginBottom: 20, width: 300 }}>
-                Thanks for signing up! This is the last step. Please provide a
-                new username and password for login.
+                Please provide the username/email and password for login.
             </TextRegular>
             <EmailPasswordForm onSubmit={onSubmit} email={email} />
         </ScreenContainer>

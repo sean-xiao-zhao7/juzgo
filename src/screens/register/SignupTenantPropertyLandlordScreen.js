@@ -10,6 +10,7 @@ import {
 // comps
 import ScreenScrollContainer from "../../components/containers/ScreenScrollContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import PropertyAndLandlordForm from "../../components/forms/PropertyAndLandlordForm";
 import Button1 from "../../components/buttons/Button1";
 
@@ -36,14 +37,14 @@ const SignupTenantPropertyLandlordScreen = (props) => {
 
     return (
         <ScreenScrollContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Property and Tenant{" "}
-                <TextRegular
+            <TextLarge style={{ marginBottom: 20, marginTop: 50 }}>
+                Property / Landlord{" "}
+                <TextLarge
                     style={{ fontWeight: "bold", textDecoration: "underline" }}
                 >
                     Info
-                </TextRegular>
-            </TextRegular>
+                </TextLarge>
+            </TextLarge>
             <TextRegular style={{ marginBottom: 30, width: 300 }}>
                 Please confirm all information below are correct. If there is
                 anything incorrect, please advise the Landlord to change before

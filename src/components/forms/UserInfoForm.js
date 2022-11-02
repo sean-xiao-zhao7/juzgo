@@ -30,34 +30,43 @@ const UserInfoForm = (props) => {
     );
 
     return (
-        <View style={{ alignItems: "center" }}>
+        <View
+            style={{
+                alignItems: "center",
+                width: "100%",
+                paddingHorizontal: 20,
+            }}
+        >
             <View
                 style={{
                     flexDirection: "row",
+                    width: "80%",
                 }}
             >
                 <CustomTextInput
                     placeholder={"First Name"}
-                    style={{ width: 120, marginRight: 10 }}
+                    style={{ width: "50%", marginRight: 10 }}
                     onChangeText={setFirstname}
                     value={firstname}
                 />
                 <CustomTextInput
                     placeholder={"Last Name"}
-                    style={{ width: 120 }}
                     onChangeText={setLastname}
                     value={lastname}
+                    style={{ flex: 1 }}
                 />
             </View>
             <CustomTextInput
                 placeholder={"Email"}
                 onChangeText={setEmail}
                 value={email}
+                style={{ width: "80%" }}
             />
             <CustomTextInput
                 placeholder={"Phone Number"}
                 onChangeText={setPhone}
                 value={phone}
+                style={{ width: "80%" }}
             />
             <View style={{ width: 250 }}>
                 <View
@@ -136,6 +145,7 @@ const UserInfoForm = (props) => {
                     }
                 }}
             />
+            <Button1 text="Previous Step" onPress={props.onPrevious} />
         </View>
     );
 };

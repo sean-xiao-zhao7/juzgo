@@ -12,7 +12,11 @@ import {
 } from "../helper/session";
 
 // constants
-import { INVALID_LOGIN, SERVER_ERROR } from "../../constants/errors";
+import {
+    INVALID_LOGIN,
+    SERVER_ERROR,
+    EMAIL_NOT_FOUND,
+} from "../../constants/errors";
 
 const sessionSlice = createSlice({
     name: "sessionSlice",
@@ -62,6 +66,9 @@ const sessionSlice = createSlice({
                     saveSession(state);
                 }
             })
+            .addCase(signInAction.rejected, (state, action) => {
+                state.error = action.error;
+            })
             .addCase(autoSignInAction.fulfilled, (state, action) => {
                 if (action.payload) {
                     if (action.payload.error) {
@@ -98,6 +105,9 @@ export const signInAction = createAsyncThunk(
 
             let result = await response.json();
             if (result.error) {
+                if (result.error.message === "EMAIL_NOT_FOUND") {
+                    throw new Error(EMAIL_NOT_FOUND);
+                }
                 throw new Error(INVALID_LOGIN);
             }
 
