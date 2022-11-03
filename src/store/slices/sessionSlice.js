@@ -36,6 +36,7 @@ const sessionSlice = createSlice({
             state.type = action.payload.type;
             state.email = action.payload.email;
             state.landlordId = action.payload.landlordId;
+            state.tenantId = action.payload.tenant;
             state.userUID = action.payload.userUID;
             state.userInfo = action.payload.userInfo;
         },

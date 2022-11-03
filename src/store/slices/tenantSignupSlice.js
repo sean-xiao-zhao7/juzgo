@@ -37,6 +37,9 @@ const tenantSignupSlice = createSlice({
                     state.complete = true;
                 }
             })
+            .addCase(updateTenantDB.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
             .addCase(verifyAccessCode.fulfilled, (state, action) => {
                 state.accessCode = action.payload.accessCode;
                 state.propertyInfo = action.payload.propertyInfo;
@@ -167,9 +170,15 @@ export const updateTenantDB = createAsyncThunk(
             });
             const resultSignup = await responseSignup.json();
             if (resultSignup.error) {
-                throw new Error(
-                    "Error signing up. \n" + resultSignup.error.message
-                );
+                if (resultSignup.error.message.includes("EMAIL_EXISTS")) {
+                    throw new Error(
+                        "An account with this email already exists in JUZGO. Please choose another email."
+                    );
+                } else {
+                    throw new Error(
+                        "Error signing up. \n" + resultSignup.error.message
+                    );
+                }
             }
             const idToken = resultSignup.idToken;
 
@@ -206,7 +215,9 @@ export const updateTenantDB = createAsyncThunk(
                 authenticate({
                     ...resultSignup,
                     type: "tenant",
-                    tenant: resultUpdateTenant.name,
+                    tenant: state.tenantSignupSlice.tenantID,
+                    userInfo: state.tenantSignupSlice.tenantInfo,
+                    userUID: resultUpdateTenant.userUID,
                 })
             );
         } catch (error) {
