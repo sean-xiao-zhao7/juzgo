@@ -72,6 +72,9 @@ const SignupEmailPasswordScreen = (props) => {
             <TextRegular style={{ marginBottom: 20, width: 300 }}>
                 Please provide the username/email and password for login.
             </TextRegular>
+            <TextRegular style={{ marginBottom: 20, width: 300 }}>
+                Password should be at least 6 characters.
+            </TextRegular>
             <EmailPasswordForm onSubmit={onSubmit} email={email} />
         </ScreenContainer>
     );

@@ -33,15 +33,16 @@ const propertySlice = createSlice({
         builder
             .addCase(fetchProperties.fulfilled, (state, action) => {
                 const properties = [];
+                const landlordId = action.payload.landlordId;
+                const tenantId = action.payload.tenantId;
+
                 for (const propertyKey in action.payload.result) {
                     const propertyInfo = action.payload.result[propertyKey];
-                    const landlordId = action.payload.landlordId;
-                    const tenantId = action.payload.tenantId;
 
                     // is landlord
                     if (landlordId && propertyInfo.landlord !== landlordId) {
                         continue; // not my property
-                    } else if (tenantId && propertyInfo.tenantId !== tenantId) {
+                    } else if (tenantId && propertyInfo.tenant !== tenantId) {
                         continue;
                     }
 

@@ -204,7 +204,7 @@ export const updateTenantDB = createAsyncThunk(
             // 5. update sessionSlice
             thunkAPI.dispatch(
                 authenticate({
-                    ...responseSignup,
+                    ...resultSignup,
                     type: "tenant",
                     tenant: resultUpdateTenant.name,
                 })
