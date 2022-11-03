@@ -15,7 +15,7 @@ import TextMedium from "../../components/texts/TextMedium";
 
 // style
 import { colors } from "../../styles/colors";
-import { pressablePressed } from "../../styles/helpers";
+import { pressablePressedNoMargin } from "../../styles/helpers";
 
 const InquiriesScreen = (props) => {
     const dispatch = useDispatch();
@@ -107,10 +107,15 @@ const InquiriesScreen = (props) => {
                 )}
             </View>
             {userType !== "landlord" ? (
-                <View style={{ position: "absolute", bottom: 80, right: 30 }}>
+                <View
+                    style={{
+                        marginTop: 50,
+                        alignItems: "center",
+                    }}
+                >
                     <Pressable
                         onPress={addInquiryHandler}
-                        style={pressablePressed}
+                        style={pressablePressedNoMargin}
                     >
                         <FontAwesomeIcon
                             icon={faCirclePlus}

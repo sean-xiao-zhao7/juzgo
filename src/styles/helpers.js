@@ -14,6 +14,20 @@ export const pressablePressed = ({ pressed }) => {
     }
 };
 
+export const pressablePressedNoMargin = ({ pressed }) => {
+    if (pressed) {
+        return {
+            transform: [{ scale: 0.9 }],
+            opacity: 0.5,
+            alignItems: "center",
+        };
+    } else {
+        return {
+            alignItems: "center",
+        };
+    }
+};
+
 export const pressablePressedInput = ({ pressed }) => {
     if (pressed) {
         return {
