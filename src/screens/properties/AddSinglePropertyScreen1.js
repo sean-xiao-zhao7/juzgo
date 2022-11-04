@@ -9,6 +9,7 @@ import {
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import UserPropertyForm from "../../components/forms/UserPropertyForm";
 import NormalLoader from "../../components/loading/NormalLoader.js";
 
@@ -36,9 +37,9 @@ const AddPropertyScreen1 = (props) => {
 
     return (
         <ScreenContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Welcome, Landlord!
-            </TextRegular>
+            <TextLarge style={{ marginBottom: 20 }}>
+                New Property Info
+            </TextLarge>
             <TextRegular
                 style={{ width: 250, marginBottom: 30, textAlign: "center" }}
             >

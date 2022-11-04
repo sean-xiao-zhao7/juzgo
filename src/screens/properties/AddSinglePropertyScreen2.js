@@ -6,6 +6,7 @@ import { addNewTenant } from "../../store/slices/propertySlice.js";
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import TenantForm from "../../components/forms/TenantForm";
 
 const AddSinglePropertyScreen2 = (props) => {
@@ -20,9 +21,9 @@ const AddSinglePropertyScreen2 = (props) => {
 
     return (
         <ScreenContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Welcome, Landlord!
-            </TextRegular>
+            <TextLarge style={{ marginBottom: 20 }}>
+                Tenant info for new property
+            </TextLarge>
             <TextRegular
                 style={{ width: 250, marginBottom: 30, textAlign: "center" }}
             >

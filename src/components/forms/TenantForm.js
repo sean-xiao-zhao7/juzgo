@@ -85,7 +85,7 @@ const TenantForm = (props) => {
                 <Button1
                     text="Previous"
                     onPress={props.onPrevious}
-                    style={{ width: 80, height: 70, marginRight: 5 }}
+                    style={{ width: 120, marginRight: 10 }}
                 />
                 <Button1
                     text="Next"
@@ -104,7 +104,7 @@ const TenantForm = (props) => {
                             incompleteErrorAlert();
                         }
                     }}
-                    style={{ width: 80, height: 70, marginRight: 5 }}
+                    style={{ width: 120 }}
                 />
                 {/* <Button1
                     text="Skip"

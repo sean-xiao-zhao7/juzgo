@@ -11,6 +11,7 @@ import {
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
 import TextRegular from "../../components/texts/TextRegular";
+import TextLarge from "../../components/texts/TextLarge";
 import LandlordAccessCodeForm from "../../components/forms/LandlordAccessCodeForm";
 import { ActivityIndicator } from "react-native";
 import { useEffect } from "react";
@@ -42,11 +43,11 @@ const AddSinglePropertyScreen3 = (props) => {
 
     return (
         <ScreenContainer>
-            <TextRegular style={{ marginBottom: 20 }}>
-                Welcome, Landlord!
-            </TextRegular>
+            <TextLarge style={{ marginBottom: 30 }}>
+                Access Code for new Tenant
+            </TextLarge>
             <TextRegular
-                style={{ width: 250, marginBottom: 30, textAlign: "center" }}
+                style={{ width: 250, marginBottom: 10, textAlign: "left" }}
             >
                 Please{" "}
                 <TextRegular style={{ fontWeight: "bold" }}>
