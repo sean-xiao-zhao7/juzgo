@@ -20,7 +20,7 @@ const PropertiesGrid = (props) => {
             {props.userType === "tenant" ? null : (
                 <GrayButton
                     text={"Add A Property"}
-                    style={[style.twoColumnsChild, { height: "70%" }]}
+                    style={[style.twoColumnsChild, { height: 150 }]}
                     onPress={addProperty}
                 />
             )}
