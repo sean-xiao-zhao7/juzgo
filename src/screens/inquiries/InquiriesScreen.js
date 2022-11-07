@@ -54,7 +54,8 @@ const InquiriesScreen = (props) => {
         <ScreenScrollContainer>
             <View
                 style={{
-                    padding: 10,
+                    paddingHorizontal: 10,
+                    paddingVertical: 0,
                     flex: 1,
                     width: "100%",
                     justifyContent: "flex-start",
@@ -77,6 +78,12 @@ const InquiriesScreen = (props) => {
                                         }
                                     );
                                 }}
+                                style={{
+                                    marginBottom: 20,
+                                    borderRadius: 5,
+                                    backgroundColor: colors.primaryColor,
+                                    paddingHorizontal: 20,
+                                }}
                             >
                                 <View
                                     style={{
@@ -84,12 +91,7 @@ const InquiriesScreen = (props) => {
                                         justifyContent: "space-between",
                                         alignItems: "center",
 
-                                        backgroundColor: colors.primaryColor,
-                                        borderRadius: 5,
-
                                         paddingVertical: 20,
-                                        paddingHorizontal: 20,
-                                        marginBottom: 10,
                                     }}
                                 >
                                     <TextMedium style={{ color: "white" }}>
@@ -97,6 +99,21 @@ const InquiriesScreen = (props) => {
                                     </TextMedium>
                                     <TextMedium style={{ color: "white" }}>
                                         {inquiry.startDate}
+                                    </TextMedium>
+                                </View>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+
+                                        paddingVertical: 20,
+                                    }}
+                                >
+                                    <TextMedium style={{ color: "white" }}>
+                                        {inquiry.property.street},{" "}
+                                        {inquiry.property.city},{" "}
+                                        {inquiry.property.country}
                                     </TextMedium>
                                 </View>
                             </Pressable>
