@@ -59,7 +59,12 @@ const PropertyPreview = (props) => {
             ]}
         >
             {props.userType === "tenant" ? (
-                <View
+                <Pressable
+                    onPress={() => {
+                        navigation.navigate("EditSinglePropertyScreen", {
+                            property: props.property,
+                        });
+                    }}
                     style={[
                         {
                             alignItems: "center",
@@ -86,7 +91,7 @@ const PropertyPreview = (props) => {
                             " " +
                             props.property.landlordInfo.lastname}
                     </TextRegular>
-                </View>
+                </Pressable>
             ) : (
                 <Pressable
                     onPress={() => {
