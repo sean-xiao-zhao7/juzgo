@@ -63,29 +63,31 @@ const UserPropertyForm = (props) => {
                 onChangeText={setCountry}
                 placeholder={"Unit country"}
             />
-            <View style={{ width: 250 }}>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginBottom: 20,
-                    }}
-                >
-                    <Checkbox
-                        value={authorize}
-                        onValueChange={checkAuthorize}
-                    />
-                    <TextSmall
+            {props.showDisclaimer ? (
+                <View style={{ width: 250 }}>
+                    <View
                         style={{
-                            color: colors.secondaryTextColor,
-                            marginLeft: 10,
+                            flexDirection: "row",
+                            alignItems: "center",
+                            marginBottom: 20,
                         }}
                     >
-                        I certify that I either own or have legal authorization
-                        to make decisions on this unit.
-                    </TextSmall>
+                        <Checkbox
+                            value={authorize}
+                            onValueChange={checkAuthorize}
+                        />
+                        <TextSmall
+                            style={{
+                                color: colors.secondaryTextColor,
+                                marginLeft: 10,
+                            }}
+                        >
+                            I certify that I either own or have legal
+                            authorization to make decisions on this unit.
+                        </TextSmall>
+                    </View>
                 </View>
-            </View>
+            ) : null}
             <View
                 style={{
                     flexDirection: "row",
@@ -101,32 +103,38 @@ const UserPropertyForm = (props) => {
                     onPress={props.onPrevious}
                     style={{ width: 120, marginRight: 10 }}
                 />
-                <Button1
-                    text={props.nextStepText ? props.nextStepText : "Next Step"}
-                    onPress={() => {
-                        if (
-                            emptyVerify([
-                                unitnum,
-                                street,
-                                city,
-                                province,
-                                country,
-                            ]) &&
-                            authorize
-                        ) {
-                            props.onNext({
-                                unitnum,
-                                street,
-                                city,
-                                province,
-                                country,
-                            });
-                        } else {
-                            incompleteErrorAlert();
+                {props.onNext ? (
+                    <Button1
+                        text={
+                            props.nextStepText
+                                ? props.nextStepText
+                                : "Next Step"
                         }
-                    }}
-                    style={{ width: 120 }}
-                />
+                        onPress={() => {
+                            if (
+                                emptyVerify([
+                                    unitnum,
+                                    street,
+                                    city,
+                                    province,
+                                    country,
+                                ]) &&
+                                authorize
+                            ) {
+                                props.onNext({
+                                    unitnum,
+                                    street,
+                                    city,
+                                    province,
+                                    country,
+                                });
+                            } else {
+                                incompleteErrorAlert();
+                            }
+                        }}
+                        style={{ width: 120 }}
+                    />
+                ) : null}
             </View>
         </View>
     );

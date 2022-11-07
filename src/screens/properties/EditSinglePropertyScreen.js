@@ -23,8 +23,12 @@ const EditSinglePropertyScreen = (props) => {
     const dispatch = useDispatch();
     const property = props.route.params.property;
 
-    const [updateError, actionCompleted] = useSelector((state) => {
-        return [state.propertySlice.error, state.propertySlice.actionCompleted];
+    const [updateError, actionCompleted, userType] = useSelector((state) => {
+        return [
+            state.propertySlice.error,
+            state.propertySlice.actionCompleted,
+            state.sessionSlice.type,
+        ];
     });
 
     useEffect(() => {
@@ -58,7 +62,7 @@ const EditSinglePropertyScreen = (props) => {
 
     return (
         <ScreenScrollContainer>
-            <TextLarge style={{ marginBottom: 20 }}>
+            <TextLarge style={{ marginVertical: 30 }}>
                 Property{" "}
                 <TextRegular style={{ fontWeight: "bold" }}>
                     Info Page
@@ -90,17 +94,17 @@ const EditSinglePropertyScreen = (props) => {
                 <TextRegular style={{ fontWeight: "bold" }}>
                     Landlord:
                 </TextRegular>
-                <TextRegular>
+                <TextRegular style={{ marginBottom: 10 }}>
                     {property.landlordInfo.firstname +
                         " " +
                         property.landlordInfo.lastname}
                 </TextRegular>
-                <View style={{ alignItems: "center", marginTop: 20 }}>
+                <TextRegular style={{ fontWeight: "bold" }}>
+                    Access code:
+                </TextRegular>
+                <View style={{ alignItems: "center", marginTop: 10 }}>
                     <TextLarge>{property.accessCode}</TextLarge>
-                    <Button1
-                        text="Tap to copy the code above"
-                        onPress={copyAccessCode}
-                    />
+                    <Button1 text="Tap to copy" onPress={copyAccessCode} />
                 </View>
             </View>
 
@@ -109,9 +113,10 @@ const EditSinglePropertyScreen = (props) => {
                 onPrevious={() => {
                     props.navigation.goBack();
                 }}
-                onNext={onNext}
+                onNext={userType === "tenant" ? null : onNext}
                 nextStepText={"Update"}
-                previousStepText={"Back"}
+                previousStepText={"Back to Home"}
+                showDisclaimer={userType === "tenant" ? null : "yes"}
             />
         </ScreenScrollContainer>
     );
