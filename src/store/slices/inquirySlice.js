@@ -90,6 +90,7 @@ export const addInquiryAPI = createAsyncThunk(
                 description: description,
                 tenantId: state.sessionSlice.tenantId,
                 landlordId: state.propertySlice.properties[0].landlord,
+                property: state.propertySlice.properties[0],
                 messages: [],
                 startDate: new Date().toDateString(),
             };
