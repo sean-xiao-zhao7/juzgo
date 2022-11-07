@@ -26,6 +26,7 @@ const InquiryMessagesScreen = (props) => {
     const dispatch = useDispatch();
     const [newMessage, setNewMessage] = useState("");
     const inquiryId = props.route.params.inquiryId;
+    const inquiryInfo = props.route.params.inquiryInfo;
 
     // get inquiry if new message is added
     const inquiry = useSelector((state) => state.inquirySlice.currentInquiry);
@@ -73,17 +74,38 @@ const InquiryMessagesScreen = (props) => {
         setNewMessage("");
     };
 
+    const goToPropertyScreen = () => {
+        props.navigation.popToTop();
+        props.navigation.goBack();
+        props.navigation.navigate("EditSinglePropertyScreen", {
+            property: inquiryInfo.property,
+        });
+    };
+
     // set up messages section
     let messagesComp = (
         <View
             style={{
-                padding: 30,
                 flex: 1,
                 width: "100%",
                 justifyContent: "center",
                 alignItems: "center",
             }}
         >
+            <Pressable
+                style={{
+                    marginBottom: 20,
+                    borderRadius: 5,
+                    backgroundColor: colors.primaryColor,
+                    padding: 20,
+                }}
+                onPress={goToPropertyScreen}
+            >
+                <TextMedium style={{ color: "white" }}>
+                    Property: {inquiryInfo.property.street},{" "}
+                    {inquiryInfo.property.city}, {inquiryInfo.property.country}
+                </TextMedium>
+            </Pressable>
             <TextMedium>No messages</TextMedium>
         </View>
     );
@@ -92,13 +114,28 @@ const InquiryMessagesScreen = (props) => {
             <View
                 style={{
                     paddingHorizontal: 20,
-                    paddingVertical: 0,
                     flex: 1,
                     width: "100%",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
                 }}
             >
+                <Pressable
+                    style={{
+                        marginBottom: 20,
+                        borderRadius: 5,
+                        backgroundColor: colors.primaryColor,
+                        padding: 20,
+                    }}
+                    onPress={goToPropertyScreen}
+                >
+                    <TextMedium style={{ color: "white" }}>
+                        Property:
+                        {inquiryInfo.property.street},{" "}
+                        {inquiryInfo.property.city},{" "}
+                        {inquiryInfo.property.country}
+                    </TextMedium>
+                </Pressable>
                 {messages.map((message, index) => {
                     let messageRow = "";
                     if (
