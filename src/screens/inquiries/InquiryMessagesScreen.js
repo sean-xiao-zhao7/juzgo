@@ -91,7 +91,8 @@ const InquiryMessagesScreen = (props) => {
         messagesComp = (
             <View
                 style={{
-                    padding: 20,
+                    paddingHorizontal: 20,
+                    paddingVertical: 0,
                     flex: 1,
                     width: "100%",
                     justifyContent: "flex-start",
@@ -116,7 +117,10 @@ const InquiryMessagesScreen = (props) => {
                             >
                                 <TextMedium>
                                     {userType !== "manager"
-                                        ? "Tenant: "
+                                        ? userType === "tenant" &&
+                                          message.isTenant
+                                            ? "Me: "
+                                            : "Tenant: "
                                         : "JUZGO: "}
                                     {message.message}
                                 </TextMedium>
@@ -176,7 +180,7 @@ const InquiryMessagesScreen = (props) => {
                     style={{
                         width: "100%",
                         flexDirection: "row",
-                        backgroundColor: colors.textinputBackground,
+                        backgroundColor: colors.grayBackground,
                     }}
                 >
                     <CustomTextInput
