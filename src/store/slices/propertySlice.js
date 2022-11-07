@@ -11,6 +11,7 @@ const propertySlice = createSlice({
         accessCode: "",
         actionCompleted: false,
         error: "",
+        currentProperty: null,
     },
     reducers: {
         toggleLoading: (state, action) => {
@@ -83,6 +84,9 @@ const propertySlice = createSlice({
                 );
                 state.properties[updateIndex] = action.payload;
                 state.actionCompleted = true;
+            })
+            .addCase(getPropertyByLandlordIdAPI.fulfilled, (state, action) => {
+                state.currentProperty = action.payload.currentProperty;
             });
     },
 });
@@ -294,6 +298,37 @@ export const updatePropertyAPI = createAsyncThunk(
                 landlordInfo,
                 tenantInfo,
             };
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+);
+
+export const getPropertyByLandlordIdAPI = createAsyncThunk(
+    "propertySlice/getPropertyByLandlordIdAPI",
+    async ({ landlordId }, { getState }) => {
+        try {
+            const state = getState();
+            const idToken = state.sessionSlice.idToken;
+
+            // 1. get all properties
+            const responseAllProperties = await fetch(
+                firebase_database_url + "/property.json?auth=" + idToken,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const resultAllProperties = await responseAllProperties.json();
+            if (resultAllProperties.error) {
+                throw new Error(resultAllProperties.error.message);
+            }
+
+            console.log(responseAllProperties);
+
+            return null;
         } catch (error) {
             throw new Error(error.message);
         }
