@@ -54,6 +54,7 @@ const AddPropertyScreen1 = (props) => {
                 onNext={onNext}
                 previousStepText={"Go back"}
                 nextStepText={"Add Tenant"}
+                showDisclaimer={true}
             />
         </ScreenContainer>
     );
