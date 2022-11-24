@@ -31,14 +31,14 @@ const SignupLandlordInfoScreen = (props) => {
             <TextRegular style={{ marginBottom: 40 }}>
                 Please fill out the information below.
             </TextRegular>
-            <UserInfoForm onSubmit={onSubmit} info={landlordInfo} />
-            <TextSmall style={{ marginVertical: 60 }}>Step 2 of 5</TextSmall>
-            <Button2
-                text="Back"
-                onPress={() => {
+            <UserInfoForm
+                onSubmit={onSubmit}
+                info={landlordInfo}
+                onPrevious={() => {
                     props.navigation.goBack();
                 }}
             />
+            <TextSmall style={{ marginVertical: 60 }}>Step 2 of 5</TextSmall>
         </ScreenScrollContainer>
     );
 };
