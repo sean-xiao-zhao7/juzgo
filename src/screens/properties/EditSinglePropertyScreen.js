@@ -91,6 +91,16 @@ const EditSinglePropertyScreen = (props) => {
                         " " +
                         property.tenantInfo.lastname}
                 </TextRegular>
+                {/* {userType === "tenant" ? null : (
+                    <Button1
+                        text="Edit tenant"
+                        onPress={() => {
+                            props.navigation.navigate(
+                                "EditTenantPersonalInfoScreen"
+                            );
+                        }}
+                    />
+                )} */}
                 <TextRegular style={{ fontWeight: "bold" }}>
                     Landlord:
                 </TextRegular>

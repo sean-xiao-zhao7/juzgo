@@ -48,6 +48,7 @@ const sessionSlice = createSlice({
             state.landlordId = "";
             state.userUID = "";
             state.userInfo = {};
+            state.error = "";
         },
     },
     extraReducers: (builder) => {

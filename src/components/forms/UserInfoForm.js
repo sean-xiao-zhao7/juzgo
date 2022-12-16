@@ -121,7 +121,7 @@ const UserInfoForm = (props) => {
                 </View>
             </View>
             <Button1
-                text="Next Step"
+                text={props.nextStepText ? props.nextStepText : "Next Step"}
                 onPress={() => {
                     if (
                         emptyVerify([
@@ -145,7 +145,7 @@ const UserInfoForm = (props) => {
                     }
                 }}
             />
-            <Button1 text="Previous Step" onPress={props.onPrevious} />
+            <Button1 text="Back" onPress={props.onPrevious} />
         </View>
     );
 };

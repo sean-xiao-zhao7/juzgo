@@ -34,6 +34,9 @@ import InquiriesScreen from "./src/screens/inquiries/InquiriesScreen";
 import AddInquiryScreen from "./src/screens/inquiries/AddInquiryScreen";
 import InquiryMessagesScreen from "./src/screens/inquiries/InquiryMessagesScreen";
 
+// user screens
+import EditTenantPersonalInfoScreen from "./src/screens/user/EditTenantPersonalInfoScreen";
+
 // navigation configs
 import { noHeaderConfig, modalConfig } from "./src/navigation-configs/configs";
 
@@ -182,6 +185,11 @@ const Navigator = (props) => {
                 <RootStack.Screen
                     name="EditSinglePropertyScreen"
                     component={EditSinglePropertyScreen}
+                    options={noHeaderConfig}
+                />
+                <RootStack.Screen
+                    name="EditTenantPersonalInfoScreen"
+                    component={EditTenantPersonalInfoScreen}
                     options={noHeaderConfig}
                 />
                 <RootStack.Screen
