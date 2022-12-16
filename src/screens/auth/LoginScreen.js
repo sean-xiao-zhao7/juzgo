@@ -35,6 +35,8 @@ const LoginScreen = (props) => {
     useEffect(() => {
         if (idToken !== "") {
             props.navigation.navigate("AllPropertiesScreen");
+        } else if (error) {
+            customAlert(error);
         }
     }, [idToken, error]);
 

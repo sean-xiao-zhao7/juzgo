@@ -68,7 +68,7 @@ const sessionSlice = createSlice({
                 }
             })
             .addCase(signInAction.rejected, (state, action) => {
-                state.error = action.error;
+                state.error = action.error.message;
             })
             .addCase(autoSignInAction.fulfilled, (state, action) => {
                 if (action.payload) {
