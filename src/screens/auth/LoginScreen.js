@@ -19,10 +19,7 @@ import {
     emptyVerify,
     emailPasswordVerify,
 } from "../../components/forms/helpers/verifyForm";
-import {
-    customAlert,
-    serverErrorAlert,
-} from "../../components/forms/helpers/alert";
+import { customAlert } from "../../components/forms/helpers/alert";
 
 const LoginScreen = (props) => {
     const dispatch = useDispatch();

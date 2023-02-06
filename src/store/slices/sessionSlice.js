@@ -4,7 +4,7 @@ import {
     firebase_database_url,
     firebase_refresh_url,
     manager,
-} from "../../dummy-data";
+} from "../../links";
 import {
     saveSession,
     retrieveSession,
@@ -91,7 +91,7 @@ const sessionSlice = createSlice({
 
 export const signInAction = createAsyncThunk(
     "sessionSlice/signInAction",
-    async ({ email, password }, thunkAPI) => {
+    async ({ email, password }) => {
         try {
             let response = await fetch(firebase_siginpassword_url, {
                 method: "POST",
@@ -209,6 +209,7 @@ export const autoSignInAction = createAsyncThunk(
             }
 
             storedSessionState.idToken = result.id_token;
+            storedSessionState.error = "";
             return storedSessionState;
         } catch (error) {
             throw new Error(error.message);
