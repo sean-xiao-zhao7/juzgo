@@ -23,11 +23,18 @@ const inquirySlice = createSlice({
             })
             .addCase(getInquiriesAPI.fulfilled, (state, action) => {
                 const inquiries = [];
-                for (let key in action.payload) {
-                    inquiries.push({
-                        ...action.payload[key],
-                        inquiryId: key,
-                    });
+                for (let key in action.payload.inquiries) {
+                    if (
+                        action.payload.inquiries[key].landlordId ===
+                            action.payload.landlordId ||
+                        action.payload.inquiries[key].tenantId ===
+                            action.payload.tenantId
+                    ) {
+                        inquiries.push({
+                            ...action.payload.inquiries[key],
+                            inquiryId: key,
+                        });
+                    }
                 }
                 state.inquiries = inquiries;
             })
@@ -54,6 +61,8 @@ export const getInquiriesAPI = createAsyncThunk(
         try {
             const state = thunkAPI.getState();
             const idToken = state.sessionSlice.idToken;
+            const tenantId = state.sessionSlice.tenantId;
+            const landlordId = state.sessionSlice.landlordId;
 
             const responseInquiries = await fetch(
                 firebase_database_url + "/inquiry.json?auth=" + idToken,
@@ -71,7 +80,11 @@ export const getInquiriesAPI = createAsyncThunk(
                 );
             }
 
-            return result;
+            return {
+                inquiries: result,
+                tenantId: tenantId,
+                landlordId: landlordId,
+            };
         } catch (error) {
             throw new Error(error.message);
         }
