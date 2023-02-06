@@ -39,6 +39,7 @@ const SignupLandlordPropertyScreen = (props) => {
                     props.navigation.navigate("SignupLandlordInfoScreen");
                 }}
                 onNext={onNext}
+                showDisclaimer={true}
             />
             <TextSmall style={{ marginTop: 60 }}>Step 3 of 5</TextSmall>
         </ScreenScrollContainer>
