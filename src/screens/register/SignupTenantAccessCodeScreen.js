@@ -39,7 +39,7 @@ const SignupTenantAccessCodeScreen = (props) => {
             </TextRegular>
             <TextRegular style={{ marginBottom: 100, width: 300 }}>
                 Please enter the unique TENANT ACCESS CODE provided by your
-                Landlord to proceed.
+                Landlord to proceed. The code can contain dashes or no dashes.
             </TextRegular>
             <TenantAccessCodeForm onNext={onNext} />
             <Button1
