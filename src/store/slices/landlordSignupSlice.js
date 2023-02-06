@@ -39,6 +39,10 @@ const landlordSignupSlice = createSlice({
                     state.complete = false;
                 } else {
                     state.complete = true;
+                    state.landlordInfo = {};
+                    state.landlordPropertyInfo = {};
+                    state.landlordTenantInfo = {};
+                    state.error = false;
                 }
             })
             .addCase(updateLandlordDB.rejected, (state, action) => {
@@ -138,6 +142,7 @@ export const updateLandlordDB = createAsyncThunk(
 
             return result;
         } catch (error) {
+            console.log(error);
             throw new Error(error);
         }
     }

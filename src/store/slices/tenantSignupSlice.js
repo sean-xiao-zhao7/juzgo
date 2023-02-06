@@ -35,6 +35,13 @@ const tenantSignupSlice = createSlice({
                     state.complete = false;
                 } else {
                     state.complete = true;
+                    state.accessCode = "";
+                    state.propertyInfo = {};
+                    state.landlordInfo = {};
+                    state.tenantInfo = {};
+                    state.loading = false;
+                    state.error = "";
+                    state.tenantID = "";
                 }
             })
             .addCase(updateTenantDB.rejected, (state, action) => {
