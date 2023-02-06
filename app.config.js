@@ -3,7 +3,7 @@ export default () => ({
         name: "Juzgo",
         slug: "juzgo",
         owner: "jpxjpxjpx",
-        version: "2.0.1",
+        version: "2.1.0",
         orientation: "portrait",
         icon: "./assets/icon.png",
         userInterfaceStyle: "light",
