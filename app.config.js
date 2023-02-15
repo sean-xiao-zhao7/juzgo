@@ -3,12 +3,12 @@ export default () => ({
         name: "Juzgo",
         slug: "juzgo",
         owner: "jpxjpxjpx",
-        version: "2.1.0",
+        version: "3.0.1",
         orientation: "portrait",
-        icon: "./assets/icon.png",
+        icon: "./assets/juzgo_icon.png",
         userInterfaceStyle: "light",
         splash: {
-            image: "./assets/splash.png",
+            image: "./assets/juzgo_icon.png",
             resizeMode: "contain",
             backgroundColor: "#ffffff",
         },
@@ -23,13 +23,14 @@ export default () => ({
         },
         android: {
             adaptiveIcon: {
-                foregroundImage: "./assets/adaptive-icon.png",
+                foregroundImage: "./assets/juzgo_icon.png",
                 backgroundColor: "#FFFFFF",
             },
             package: "com.jpxjpxjpx.juzgo",
+            versionCode: 4,
         },
         web: {
-            favicon: "./assets/favicon.png",
+            favicon: "./assets/favicon.ico",
         },
         extra: {
             eas: {
