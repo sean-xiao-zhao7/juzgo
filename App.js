@@ -12,6 +12,7 @@ import { autoSignInAction } from "./src/store/slices/sessionSlice";
 // screens
 // auth
 import LoginScreen from "./src/screens/auth/LoginScreen";
+import PasswordResetScreen from "./src/screens/auth/PasswordResetScreen";
 import SignUpChoiceScreen from "./src/screens/register/SignupChoiceScreen";
 import SignupLandlordInfoScreen from "./src/screens/register/SignupLandlordInfoScreen";
 import SignupLandlordPropertyScreen from "./src/screens/register/SignupLandlordPropertyScreen";
@@ -51,6 +52,11 @@ const AuthStackComp = () => {
             <AuthStack.Screen
                 name="LoginScreen"
                 component={LoginScreen}
+                options={noHeaderConfig}
+            />
+            <AuthStack.Screen
+                name="PasswordResetScreen"
+                component={PasswordResetScreen}
                 options={noHeaderConfig}
             />
             <AuthStack.Screen

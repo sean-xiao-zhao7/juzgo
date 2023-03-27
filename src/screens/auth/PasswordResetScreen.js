@@ -21,7 +21,7 @@ import {
 } from "../../components/forms/helpers/verifyForm";
 import { customAlert } from "../../components/forms/helpers/alert";
 
-const LoginScreen = (props) => {
+const PasswordResetScreen = (props) => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -50,21 +50,14 @@ const LoginScreen = (props) => {
 
     return (
         <ScreenContainer>
-            <HeadingLarge>JUZGO</HeadingLarge>
-            <TextRegular>Unleash Your Freedom</TextRegular>
+            <TextRegular>Reset password</TextRegular>
             <View style={{ marginTop: 60 }}>
                 <CustomTextInput
                     placeholder={"Email"}
                     value={email}
                     onChangeText={setEmail}
                 />
-                <CustomTextInput
-                    placeholder={"Password"}
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={true}
-                />
-                <Button1 text="Log in" onPress={signInHandler} />
+                <Button1 text="Send reset email" onPress={signInHandler} />
                 <View style={{ alignItems: "center", marginTop: 15 }}>
                     <TextSmall>
                         Don't have an account?{" "}
@@ -78,12 +71,12 @@ const LoginScreen = (props) => {
                 </View>
                 <View style={{ alignItems: "center", marginTop: 15 }}>
                     <TextSmall>
-                        Forgot password?{" "}
+                        Already have an account?{" "}
                         <Link
-                            to={{ screen: "PasswordResetScreen" }}
+                            to={{ screen: "LoginScreen" }}
                             style={{ color: "blue" }}
                         >
-                            Reset it.
+                            Log in instead.
                         </Link>
                     </TextSmall>
                 </View>
@@ -92,4 +85,4 @@ const LoginScreen = (props) => {
     );
 };
 
-export default LoginScreen;
+export default PasswordResetScreen;
