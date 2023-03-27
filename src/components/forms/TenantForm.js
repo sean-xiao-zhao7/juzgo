@@ -101,7 +101,24 @@ const TenantForm = (props) => {
                                 phone,
                             });
                         } else {
-                            incompleteErrorAlert();
+                            const emptyFields = {};
+                            if (!firstname) {
+                                emptyFields["First name"] = "Cannot be empty";
+                            }
+                            if (!lastname) {
+                                emptyFields["Last name"] = "Cannot be empty";
+                            }
+                            if (!email) {
+                                emptyFields["Email"] = "Cannot be empty";
+                            }
+                            if (!phone) {
+                                emptyFields["Phone"] = "Cannot be empty";
+                            }
+                            if (!agree) {
+                                emptyFields["Agree"] =
+                                    "Must agree to tenant sign up.";
+                            }
+                            incompleteErrorAlert(emptyFields);
                         }
                     }}
                     style={{ width: 120 }}
