@@ -1,9 +1,19 @@
 import { Alert } from "react-native";
 
-export const incompleteErrorAlert = () => {
-    Alert.alert("Incomplete info", "Please complete all info.", [
-        { text: "OK", onPress: () => {} },
-    ]);
+export const incompleteErrorAlert = (fields = {}) => {
+    if (fields === {}) {
+        Alert.alert("Incomplete info", "Please complete all info.", [
+            { text: "OK", onPress: () => {} },
+        ]);
+    } else {
+        let fieldsInfo = "";
+        for (const key in fields) {
+            fieldsInfo += `${key} - ${fields[key]}\n`;
+        }
+        Alert.alert("Incomplete info", fieldsInfo, [
+            { text: "OK", onPress: () => {} },
+        ]);
+    }
 };
 
 export const serverErrorAlert = () => {

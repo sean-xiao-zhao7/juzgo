@@ -1,4 +1,4 @@
-let AA = process.env.a;
+let AA = "AIzaSyDYPTNGMwc3I2TaUagcs1AZY-FMlmjlJR8"; //process.env.a;
 
 export const firebase_database_url =
     "https://juzgo-deac8-default-rtdb.firebaseio.com/";

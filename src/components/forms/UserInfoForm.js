@@ -141,7 +141,26 @@ const UserInfoForm = (props) => {
                             phone,
                         });
                     } else {
-                        incompleteErrorAlert();
+                        const emptyFields = {};
+                        if (!email) {
+                            emptyFields["Email"] = "Cannot be empty";
+                        }
+                        if (!firstname) {
+                            emptyFields["First name"] = "Cannot be empty";
+                        }
+                        if (!lastname) {
+                            emptyFields["Last name"] = "Cannot be empty";
+                        }
+                        if (!phone) {
+                            emptyFields["Phone"] = "Cannot be empty";
+                        }
+                        if (!terms) {
+                            emptyFields["Terms"] = "Must be agreed to.";
+                        }
+                        if (!authorize) {
+                            emptyFields["Authorize"] = "Must authorize Juzgo.";
+                        }
+                        incompleteErrorAlert(emptyFields);
                     }
                 }}
             />
