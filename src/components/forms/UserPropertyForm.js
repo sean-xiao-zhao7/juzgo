@@ -129,7 +129,24 @@ const UserPropertyForm = (props) => {
                                     country,
                                 });
                             } else {
-                                incompleteErrorAlert();
+                                const emptyFields = {};
+                                if (!unitnum) {
+                                    emptyFields["Unit num"] = "Cannot be empty";
+                                }
+                                if (!street) {
+                                    emptyFields["Street"] = "Cannot be empty";
+                                }
+                                if (!city) {
+                                    emptyFields["City"] = "Cannot be empty";
+                                }
+                                if (!country) {
+                                    emptyFields["Country"] = "Cannot be empty";
+                                }
+                                if (!authorize) {
+                                    emptyFields["Certify"] =
+                                        "Must certify ownership.";
+                                }
+                                incompleteErrorAlert(emptyFields);
                             }
                         }}
                         style={{ width: 120 }}
