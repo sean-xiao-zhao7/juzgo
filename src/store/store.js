@@ -4,6 +4,7 @@ import tenantSignupSlice from "./slices/tenantSignupSlice";
 import sessionSlice from "./slices/sessionSlice";
 import propertySlice from "./slices/propertySlice";
 import inquirySlice from "./slices/inquirySlice";
+import authSlice from "./slices/authSlice";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         sessionSlice,
         propertySlice,
         inquirySlice,
+        authSlice,
     },
 });
 
