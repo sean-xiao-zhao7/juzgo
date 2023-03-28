@@ -1,5 +1,3 @@
-let AA = "AIzaSyDYPTNGMwc3I2TaUagcs1AZY-FMlmjlJR8"; //process.env.a;
-
 export const firebase_database_url =
     "https://juzgo-deac8-default-rtdb.firebaseio.com/";
 export const firebase_signup_url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${AA}`;
