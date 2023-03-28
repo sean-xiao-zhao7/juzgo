@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 // redux
-import { initiateResetPasswordAction } from "../../store/slices/authSlice";
+import {
+    initiateResetPasswordAction,
+    initiateResetPassword,
+} from "../../store/slices/authSlice";
 
 // comps
 import ScreenContainer from "../../components/containers/ScreenContainer";
@@ -22,12 +25,15 @@ const PasswordResetScreen = (props) => {
     const [email, setEmail] = useState("");
 
     const error = useSelector((state) => state.authSlice.error);
+    const resetEmailSent = useSelector(
+        (state) => state.authSlice.resetEmailSent
+    );
 
     useEffect(() => {
         if (error) {
             customAlert(error);
         }
-    }, [error]);
+    }, [resetEmailSent, error]);
 
     const resetHandler = () => {
         if (emptyVerify([email])) {
@@ -37,8 +43,33 @@ const PasswordResetScreen = (props) => {
         }
     };
 
-    return (
-        <ScreenContainer>
+    let afterResetSucess = null;
+    if (resetEmailSent) {
+        afterResetSucess = (
+            <View
+                style={{
+                    alignItems: "center",
+                }}
+            >
+                <TextRegular>Password reset email sent to {email}.</TextRegular>
+                <Button1
+                    text="Go to Login"
+                    onPress={() => {
+                        dispatch(initiateResetPassword({ email }));
+                        props.navigation.navigate("LoginScreen");
+                    }}
+                    style={{ marginTop: 15 }}
+                />
+            </View>
+        );
+    }
+
+    let resetPasswordForm = (
+        <View
+            style={{
+                alignItems: "center",
+            }}
+        >
             <TextRegular>Reset password</TextRegular>
             <View style={{ marginTop: 60 }}>
                 <CustomTextInput
@@ -70,6 +101,16 @@ const PasswordResetScreen = (props) => {
                     </TextSmall>
                 </View>
             </View>
+        </View>
+    );
+    if (resetEmailSent) {
+        resetPasswordForm = null;
+    }
+
+    return (
+        <ScreenContainer>
+            {afterResetSucess}
+            {resetPasswordForm}
         </ScreenContainer>
     );
 };

@@ -1,4 +1,8 @@
+// firebase
+import { initializeApp } from "firebase/app";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { firebaseConfig } from "../../firebaseConfig";
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
@@ -8,13 +12,17 @@ const authSlice = createSlice({
         error: null,
     },
     reducers: {
-        initiateResetPassword: (state, action) => {},
+        initiateResetPassword: (state, action) => {
+            state.resetEmailSent = false;
+            state.error = null;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(
             initiateResetPasswordAction.fulfilled,
             (state, action) => {
                 state.resetEmailSent = true;
+                state.error = null;
             }
         );
     },
@@ -23,17 +31,19 @@ const authSlice = createSlice({
 export const initiateResetPasswordAction = createAsyncThunk(
     "authSlice/initiateResetPasswordAction",
     async ({ email }) => {
-        const auth = getAuth();
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                // Password reset email sent!
-                // ..
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-            });
+        try {
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            sendPasswordResetEmail(auth, email)
+                .then(() => {})
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(error);
+                });
+        } catch (error) {
+            console.log(error);
+        }
     }
 );
 
