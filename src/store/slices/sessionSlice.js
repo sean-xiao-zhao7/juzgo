@@ -4,7 +4,7 @@ import {
     firebase_database_url,
     firebase_refresh_url,
     manager,
-} from "../../links";
+} from "./links";
 import {
     saveSession,
     retrieveSession,

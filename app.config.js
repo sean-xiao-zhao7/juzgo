@@ -3,7 +3,7 @@ export default () => ({
         name: "Juzgo",
         slug: "juzgo",
         owner: "jpxjpxjpx",
-        version: "3.0.1",
+        version: "3.1.0",
         orientation: "portrait",
         icon: "./assets/juzgo_icon.png",
         userInterfaceStyle: "light",
@@ -27,7 +27,7 @@ export default () => ({
                 backgroundColor: "#FFFFFF",
             },
             package: "com.jpxjpxjpx.juzgo",
-            versionCode: 4,
+            versionCode: 5,
         },
         web: {
             favicon: "./assets/favicon.ico",

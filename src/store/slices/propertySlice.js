@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { firebase_database_url } from "../../links";
+import { firebase_database_url } from "./links";
 
 const propertySlice = createSlice({
     name: "propertySlice",
