@@ -91,6 +91,9 @@ const EditSinglePropertyScreen = (props) => {
                         " " +
                         property.tenantInfo.lastname}
                 </TextRegular>
+                <TextRegular style={{ marginBottom: 10 }}>
+                    {property.tenantInfo.email}
+                </TextRegular>
                 {/* {userType === "tenant" ? null : (
                     <Button1
                         text="Edit tenant"
